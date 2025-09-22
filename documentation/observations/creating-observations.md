@@ -14,9 +14,7 @@ to-do: add image
 
 2. Click the "Create an observation" button in the top right corner to initiate the observation creation workflow. 
 
-3. Using the "Search for" dropdown, select a category for which you want to build the observation. Define one or more criteria for observation using the Criterion and Group options.
- 
-Suppose you want to create an observation for Accounts that last logged in before a certain date. To do so, you would choose the 'Account' category from the dropdown, set the criterion to 'last connected before,' and enter a date (for example, 'before 09/30/2025').
+3. Using the "Search for" dropdown, select a category for which you want to build the observation. Define one or more criteria for observation using the Criterion and Group options. Suppose you want to create an observation for Accounts that last logged in before a certain date. To do so, you would choose the 'Account' category from the dropdown, set the criterion to 'last connected before,' and enter a date (for example, 'before 09/30/2025').
 
 to-do: add image 
 
