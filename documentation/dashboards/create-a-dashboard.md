@@ -18,7 +18,7 @@ Dashboards can be used for a variety of purposes. In Identity Observability, you
  
 Refer to the steps outlined [here](add link for creating new dashboards) to learn how to create new Dashboards.  
  
-Sharing your Dashboards 
+## Sharing your Dashboards 
 
 You can share your dashboard by either [publishing it](add link) or [exporting it]() to share manually. 
 
