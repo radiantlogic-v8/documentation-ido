@@ -22,31 +22,31 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 ## Installation 
 
-  <section>
+<section>
   
-    > [Installation](installation/installation-steps)  
-    > Learn how to install the SaaS version of Identity Observability using the Environment Operations Center.
+  > [Installation](installation/installation-steps)  
+  > Learn how to install the SaaS version of Identity Observability using the Environment Operations Center.
 
-  </section>
+</section>
 
-  ## Monitor and remediate security risks
+## Monitor and remediate security risks
 
-  <section>
+<section>
 
-    > [Observations](secure-data-connector/configure-sdc-service)  
-    > Learn how to enable existing observations as well as create new observations to gain real-time identity insights.
+  > [Observations](secure-data-connector/configure-sdc-service)  
+  > Learn how to enable existing observations as well as create new observations to gain real-time identity insights.
 
-    > [Controls](admin/admin-overview)
-    > Learn how to enable existing controls as well as create new controls to identify potential   security risks and compliance violations.
+  > [Controls](admin/admin-overview)
+  > Learn how to enable existing controls as well as create new controls to identify potential   security risks and compliance violations.
 
-    > [Remediation](controls/remediation)
-    > Learn how to address and remediate issues (control defects) detected by enabled controls.
+  > [Remediation](controls/remediation)
+  > Learn how to address and remediate issues (control defects) detected by enabled controls.
 
-    > [Explore](explore/overview)  
-    > Learn how to easily explore your organization's identity data. 
+  > [Explore](explore/overview)  
+  > Learn how to easily explore your organization's identity data. 
 
-    > [Query Builder](query-builder/overview)  
-    > Learn how to build and manage custom queries to get data relevant to your needs.
+  > [Query Builder](query-builder/overview)  
+  > Learn how to build and manage custom queries to get data relevant to your needs.
 
 </section>
 
@@ -64,7 +64,7 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 <section>
 
-  > [Release Notes](maintenance/release-notes/release-notes)  
+  > [Release Notes](maintenance/release-notes)  
   > Release notes contain important information about new features, improvements and bug fixes for RadiantOne Identity Observability.
 
 </section>
