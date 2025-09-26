@@ -24,27 +24,27 @@ You can enable or disable any of these default controls. You can also create you
 
 1. Click the Control menu item on the left navigation.  This will open the Control management interface. 
  
-   ![Image of control in the navigation menu](/Media/controls-menu.png "Image showing where Control is located in the navigation")
+   ![Image of control in the navigation menu](Media/controls-menu.png "Image showing where Control is located in the navigation")
 
 2. Click on the "Create control" button to open the control creation interface.
 
 3. Select a category for which you want to build the control. Define one or more criteria for the control. Suppose you want to create a control for Accounts that last logged in before a certain date. To do so, select the “Account” category from the dropdown and set the criteria to a certain date such as “before 10/20/2025.”
 
-   ![Image of control creation page](/Media/create-control-2.png "Image showing the initial control creation step")
+   ![Image of control creation page](Media/create-control-2.png "Image showing the initial control creation step")
 
 
 4. Click “Apply” to review and then click “Next” to proceed through the remaining steps. 
  
 5. On the Name, Description & Status tab, provide a suitable name and description for the control. Choose the relevant control family from Authentication, Identity Lifecycle, Privilege and Access, or Identity Hygiene. 
 
-   ![Image of Name & Description tab](/Media/create-control-2.png "Image showing Name & Description tab")
+   ![Image of Name & Description tab](Media/create-control-2.png "Image showing Name & Description tab")
 
 
 Then, choose whether you want the control to be active immediately or saved in a deactivated state for future use.  
 
 6. On the Risk Assessment page, select a risk level that you think is appropriate for this control, provide description for this risk and include clear actionable steps for remediating this risk.
 
-   ![Image of Risk assessment](/Media/create-control-4.png "Image showing risk assignment")
+   ![Image of Risk assessment](Media/create-control-4.png "Image showing risk assignment")
 
  
 8. On the Breakdown configuration tab, you can add additional filters or criteria for your control by clicking the Configuration Breakdown option and selecting the configurations that you would like to add. This step is optional. Click “Skip for now” to skip this step.  
