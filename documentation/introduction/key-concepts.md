@@ -2,17 +2,9 @@
 
 This document describes the key concepts related to **Identity Observability.  
 
-## Data Model of Identity Observability  
+## Data Model of Identity Observability    
 
-The data model serves as the foundation for comprehensive identity visibility, organizing all identity-related entities and their relationships within a unified framework.  
-
-Data from different backend systems are mapped to this data model and updated in real time.  
-
-Here is a simplified schema of the Identity Observability data model:  
-
-<to-add: A diagram of data model>  
-
-This model is agnostic, which allows Identity Observability to ingest any type of data from multiple heterogeneous systems about identities, accounts, and access. It enables real-time observation in a centralized location through dashboards, custom queries, observations, and controls.  
+The data model of Identity Observability is agnostic, which allows it to ingest any type of data from multiple systems related to identities, accounts, and access. It enables real-time observation in a centralized location through dashboards, custom queries, observations, and controls.  
 
 ### Objects (Accounts, Identities, Departments, and More)  
 
@@ -77,7 +69,7 @@ Observations are based on rules that define what needs to be monitored in real t
 
 ### Built-in Observation List  
 
-The platform includes pre-configured observations that automatically track critical identity events:  
+The platform includes pre-configured observations that automatically track critical identity events such as:  
 
 #### Authentication and Access Observations  
 
@@ -200,8 +192,6 @@ The platform provides comprehensive pre-configured controls covering key domains
 - Privileged & Access Controls  
 - Hygiene Controls  
 
-<to-add: An image of built in control list>  
-
 
 ## Risk Scoring to Prioritize Items  
 
@@ -228,34 +218,24 @@ Risk scoring considers both **likelihood** and **impact**:
 - *Normalization*: Scores normalized for comparability  
 - *Continuous Updates*: Adjust dynamically with new data  
 
-Relationships are aggregated as follows:  
-
-<to-add: An image of relationships>  
-
-**Examples:**  
+Here are two examples of how relationships are aggregated:
 - A group’s score includes risks from its member accounts and sub-groups.  
 - A department’s score includes risks from its member identities and their accounts.  
 
 
 ## Identity Observability User Roles  
 
-The platform implements **role-based access control (RBAC)** with the **visibility cone principle**—users only access identity data and controls relevant to their role and clearance.  
+The platform implements **role-based access control (RBAC)** with the **visibility cone principle** so that users only access identity data and controls relevant to their role.  
 
 ### Role Definitions  
 
 - **Technical Administrator (Tech Admin)**  
   - Full configuration and system management  
-  - Complete visibility across IDO  
+  - Complete visibility across Identity Observability 
   - Can modify controls, observations, risk scoring, and user roles  
 
-- **Functional Administrator (Functional Admin)**  
-  - Business-focused administration  
-  - Manages identity governance workflows  
-  - Oversees compliance and reporting  
-
 - **Auditor**  
-  - Read-only dashboards and compliance reports  
-  - Can export documentation and attestations  
+  - Read-only access to dashboards
   - No configuration rights  
 
 - **Line Manager**  
