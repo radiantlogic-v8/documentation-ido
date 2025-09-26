@@ -8,14 +8,11 @@ Using this interface, you can drill down into various organizational components.
 
 To open the Explore page, login to the Identity Observability portal and click the Explore option in the left navigation panel. 
  
- <to-do>: add image
- 
+  ![Image of explore in the navigation menu](/Media/explore-menu.png "Image showing where Explore is located in the navigation")
 
 Once you’re in the page, you can explore available data in the following ways: 
 
- 
-
-  <to-do>: add image
+  ![Image of data exploration options](/Media/explore-options.png "Image showing data exploration options")
 
 * Organization: See the whole organization’s structure. 
 
@@ -27,19 +24,18 @@ Once you’re in the page, you can explore available data in the following ways:
 
 ### Filters and views  
 
-You can also use the search bar to find a particular identity or resource. 
-
-Layouts: 
+Use the search bar to find a particular identity or resource. You can also view data in different layouts by switching between these icons. 
  
+ ![Image showing layout icons](/Media/layout-icons.png "Image showing layout icons") 
  
-<to-do>: to add 
- 
-### Example Usage  
+### Example scenarios 
 
-Department Analysis: Quickly narrow down to a department to view its people and resources. 
+Here are some examples of how you can utilize the Explore feature. 
 
-Identity Lookup: Find details about a specific user or identity by name or attribute. 
+* Department Analysis: Quickly narrow down to a department to view its people and resources. 
 
-Resource Discovery: Identify and analyze resources associated with departments or users. 
+* Identity Lookup: Find details about a specific user or identity by name or attribute. 
 
-Organizational Mapping: Understand how departments, users, and resources are interrelated through graphical views. 
+* Resource Discovery: Identify and analyze resources associated with departments or users. 
+
+* Organizational Mapping: Understand how departments, users, and resources are interrelated through graphical views. 
