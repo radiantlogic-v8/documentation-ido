@@ -8,11 +8,11 @@ Using this interface, you can drill down into various organizational components.
 
 To open the Explore page, login to the Identity Observability portal and click the Explore option in the left navigation panel. 
  
-  ![Image of explore in the navigation menu](/Media/explore-menu.png "Image showing where Explore is located in the navigation")
+  ![Image of explore in the navigation menu](Media/explore-menu.png "Image showing where Explore is located in the navigation")
 
 Once you’re in the page, you can explore available data in the following ways: 
 
-  ![Image of data exploration options](/Media/explore-options.png "Image showing data exploration options")
+  ![Image of data exploration options](Media/explore-options.png "Image showing data exploration options")
 
 * Organization: See the whole organization’s structure. 
 
@@ -26,7 +26,7 @@ Once you’re in the page, you can explore available data in the following ways:
 
 Use the search bar to find a particular identity or resource. You can also view data in different layouts by switching between these icons. 
  
- ![Image showing layout icons](/Media/layout-icons.png "Image showing layout icons") 
+ ![Image showing layout icons](Media/layout-icons.png "Image showing layout icons") 
  
 ### Example scenarios 
 
