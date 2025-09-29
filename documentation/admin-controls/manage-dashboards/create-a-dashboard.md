@@ -1,8 +1,24 @@
-# Create a new Dashboard 
+---
+title: Create a Dashboard
+description: Create a Dashboard
+---
 
-The Dashboard Management Page provides a centralized interface for creating, configuring, and managing dashboards. Users with Technical and functional administrator privileges have full access to all dashboard operations, including dashboard creation, editing, deletion, export, and import.  
+# Overview  
  
-This document describes the steps to create a new dashboard and provides instructions for managing existing dashboards, including configuration, duplication, deletion, and import and export operations available on the Dashboard Management Page. 
+Dashboards are customizable interfaces that visually organize key data into interactive components such as charts, tables, and gauges to help users quickly assess metrics and make decisions.    
+
+This document provides an overview of Dashboards in Identity Observability and shows how you can create new dashboards.  
+ 
+ 
+## User roles and access 
+
+* Line Managers, Repository Owners, Resource Owners, and Auditors: Users assigned to these roles have view-only access to the dashboard. 
+* Technical Administrators: Users with this role can create, view, and manage dashboards. 
+
+## Usage  
+
+Dashboards can be used for a variety of purposes. In Identity Observability, you can see existing dashboards of Controls and Observations. If you need additional components or alternative ways to present your data beyond what is provided by default, technical administrators can use the Manage Dashboards setting to create and customize dashboards to better align with business requirements.
+
 
 ## Steps for Dashboard creation  
 
@@ -83,13 +99,3 @@ Use the Export menu to either export all dashboards or export only selected dash
 ### Import 
 
 Click the Import button to load dashboards from a previously exported file. 
-
-Import behavior: 
-
-Imported dashboards are added to the environment; no dashboards are deleted. 
-
-If an imported dashboard already exists (identified by internal ID), it will be replaced. 
-
-If the original creator cannot be matched, ownership defaults to the importing administrator. 
-
- 

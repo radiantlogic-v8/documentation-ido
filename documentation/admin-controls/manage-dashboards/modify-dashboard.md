@@ -1,3 +1,8 @@
+---
+title: Modify a Dashboard
+description: Modify a Dashboard
+---
+
 # Modify Your Dashboard 
 
 This document is intended for technical and functional administrators who have access to create and modify dashboards. It outlines steps to update existing dashboards. 
@@ -20,29 +25,24 @@ You can personalize your dashboard by planning its layout, adding components, an
 
 1. Access the Dashboard 
 
-Log into Identity Observability. 
+a. Log into Identity Observability. 
+b. From the left navigation menu, select Admin > Manage Dashboards. 
+c. Navigate to the dashboard of your choice. 
+d. Click the pencil icon next to the dashboard name to enter edit mode. This opens the Dashboard Design Toolbar, where you can begin customizing. 
 
-From the left navigation menu, select Dashboards. 
-
-Navigate to the dashboard of your choice. 
-
-Click the pencil icon next to the dashboard name to enter edit mode. This opens the Dashboard Design Toolbar, where you can begin customizing. 
-
- 
 
 2. Plan Your Dashboard 
 
 Before you start adding elements, consider your design strategy: 
 
-How many components will you need? 
+* How many components will you need? 
 
-What types of components (tables, charts, gauges) best represent your data? 
+* What types of components (tables, charts, gauges) best represent your data? 
 
-Which layout scheme (simple vs. complex) supports your goals? 
+* Which layout scheme (simple vs. complex) supports your goals? 
 
 A thoughtful plan ensures that the layout and visuals work well together. 
 
- 
 
 3. Configure the Layout 
 
@@ -69,7 +69,7 @@ d. Click Finish to apply the layout.
 
 4. Add components 
 
-Click on the pencil icon next to the dashboard name to view all available components. 
+a. Click on the pencil icon next to the dashboard name to view all available components. 
 
  These include: 
 
@@ -80,16 +80,9 @@ Layout Schemes: Grid-based column/row options
 Design Settings: Titles, descriptions, categories 
 
 Display Options: Grid overlays, widget positioning 
-
  
 
- 
-<to-add>: table 
- 
- 
- 
-
-Click on any of these icons in the Dashboard Design Toolbar to add components. A configuration wizard will guide you through each setup. 
+b. Click on any of these icons in the Dashboard Design Toolbar to add components. A configuration wizard will guide you through each setup. 
 
  
 

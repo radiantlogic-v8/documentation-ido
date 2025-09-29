@@ -1,3 +1,8 @@
+---
+title: Getting Started
+description: Getting Started
+---
+
 # Getting Started 
  
  Once you login to your Identity Observability account, you will see a a landing page that serves as the primary entry point with immediate visibility into the security posture of the organization using dashboards and control defect summaries. 

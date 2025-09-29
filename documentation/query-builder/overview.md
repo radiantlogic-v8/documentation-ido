@@ -1,3 +1,8 @@
+---
+title: Query Builder
+description: Build queries to fetch specific data 
+---
+
 # Query Builder  
  
 Query Builder allows users to construct, run, and manage custom queries within the platform to extract and analyze data relevant to the users. 

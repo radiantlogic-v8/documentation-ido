@@ -1,3 +1,8 @@
+---
+title: Explore
+description: Explore existing data 
+---
+
 # Explore 
 
 The Explore page serves as a data visualization tool to navigate, understand, and analyze different parts of your organization’s identity and resource structure.  
