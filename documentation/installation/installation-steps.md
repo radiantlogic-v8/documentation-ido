@@ -8,8 +8,7 @@ description: Installation steps
 To access Identity Observability in your environment, you will need to install it in the Environment Operations Center. This guide provides details on how to install an Identity Observability application and log into your account.
 
 ## Prerequisites
-* Ensure you have necessary permissions, as only Tenant Administrators or Environment Administrators can add, update, or delete applications in the
-Environment Operations Center.
+* Ensure you have necessary permissions, as only Tenant Administrators or Environment Administrators can add, update, or delete applications in the Environment Operations Center.
 
 ## Install Identity Observability
 

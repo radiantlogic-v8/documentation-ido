@@ -3,9 +3,9 @@ title: Key Concepts
 description: Key Concepts of Identity Observability  
 ---
 
-# Key Concepts of Identity Observability  
+# Key Concepts
 
-This document describes the key concepts related to **Identity Observability.  
+This document describes the key concepts related to **Identity Observability**.  
 
 ## Data Model of Identity Observability    
 

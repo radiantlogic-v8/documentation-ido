@@ -53,7 +53,7 @@ If you are a line manager, you can access data and features related to the teams
 ![Example image of line manager's landing page](Media/lp-lm.png "Example showing landing page of a line manager")
 
 
-### Available features:
+### Available features
 
 You can see security posture overview of your team with control defects, risk scores, and family breakdowns. You can monitor Identity Lifecycle of your team such as identities of new employees, movers, employees who have left, and terminated employees with active accounts.
 
@@ -76,11 +76,11 @@ If you are a resource owner, you can access resources you manage (applications, 
 ![Example image of resource manager's landing page](Media/lp-resowner.png "Example showing landing page of a resource manager")
 
 
-### Available features:
+### Available features
 
 You can monitor control families and defects tied to the resources you own.
 
-### Available actions:
+### Available actions
 
 You can drill into resource-level detail pages. You can also investigate and remediate issues related to your resources.
 
@@ -93,7 +93,7 @@ If you are a repository owner, you can access repositories you manage (HR system
 
 You can monitor control family specific to repository-level issues.
 
-### Available actions:
+### Available actions
 
 You can investigate repository issues and remediate defects where permitted.
 
