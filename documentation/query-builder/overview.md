@@ -12,11 +12,11 @@ Query Builder allows users to construct, run, and manage custom queries within t
 
 To open Query Builder, login to the Identity Observability portal and click the Query Builder option in the left navigation panel.  
 
-    ![Image of Query Builder nav menul](Media/qb-nav.png "Image showing Query Builder nav menu")
+   ![Image of Query Builder nav menul](Media/qb-nav.png "Image showing Query Builder nav menu")
 
  Query builder screen will be displayed. You can create your query by selecting different options shown in the dropdown.  
  
-    ![Image of Query Builder options](Media/qb-1.png "Image showing Query Builder options")
+   ![Image of Query Builder options](Media/qb-1.png "Image showing Query Builder options")
 
  
 ### Example usage  
