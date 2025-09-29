@@ -33,13 +33,13 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 <section>
 
-  > [Observations](secure-data-connector/configure-sdc-service)  
+  > [Observations](observations/creating-observations)  
   > Learn how to enable existing observations as well as create new observations to gain real-time identity insights.
 
-  > [Controls](admin/admin-overview)
+  > [Controls](controls/creating-controls)
   > Learn how to enable existing controls as well as create new controls to identify potential   security risks and compliance violations.
 
-  > [Remediation](controls/remediation)
+  > [Remediation](remediation/overview)
   > Learn how to address and remediate issues (control defects) detected by enabled controls.
 
   > [Explore](explore/overview)  
@@ -64,7 +64,7 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 <section>
 
-  > [Release Notes](maintenance/release-notes)  
+  > [Release Notes](maintenance/release-notes/release-notes)  
   > Release notes contain important information about new features, improvements and bug fixes for RadiantOne Identity Observability.
 
 </section>
