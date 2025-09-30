@@ -29,6 +29,12 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 </section>
 
+<section>
+  
+  > [Getting Started](installation/getting-started)  
+  > After installing and logging into Identity Observability, explore the landing page to get a high-level view of your company’s identity and security posture.
+</section>
+
 ## Monitor and remediate security risks
 
 <section>
