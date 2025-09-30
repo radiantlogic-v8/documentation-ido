@@ -17,15 +17,15 @@ It provides details such as the action taken, who performed the action, the affe
   ![Image showing navigation to audit trail](Media/audittrail-menu.png "Image showing navigation to audit trail")
 
  
-2. Non admins users can view this page by navigating to a control from the Controls page and clicking the “View Audit Trail” link in the top left corner. 
+2. Non admins users and technical administrators can view this page by navigating to a control from the Controls page and clicking the “View Audit Trail” link in the top left corner. 
 
   ![Image showing navigation to audit trail](Media/audit-trail-controls.png "Image showing navigation to audit trail from Controls page")
 
 This lists the audit trail related to remediation of a specific control.
 
 
-3. Non admin users can also view the Audit Trail by:
-    * Clicking on an object from the Controls list. Example:
+3. Non admin users and technical administrators can also view the Audit Trail by:
+    * Clicking on an object to open its detail page. Example:
 
      ![Image showing a clickable object](Media/objname.png "Image showing a clickable object")
     
