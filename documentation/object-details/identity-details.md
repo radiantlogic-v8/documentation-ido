@@ -3,7 +3,7 @@ title: Identity Details
 description: Navigating and Understanding Identity Details
 ---
 
-An identity represents a person who works with (employee) or collaborates within (contractor) the company. Selecting an identity object link from any Identity Observability interface (such as Observations or Controls) opens a detailed page about that identity. The details include information about the identity, their access rights, and associated risks. An example of the page is included below:  
+An identity represents a person (an employee or a collaborator) within the company. Selecting an identity object link from any Identity Observability interface (such as Observations or Controls) opens a detailed page about that identity. The details include information about the identity, their access rights, and associated risks. An example of the page is included below:  
 
  ![Image showing identity detail page](Media/identity-detail.png "Image showing identity detail page")
 
