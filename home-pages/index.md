@@ -48,6 +48,10 @@ Identity Observability delivers a real-time view of identities, attributes, and 
   > [Query Builder](query-builder/overview)  
   > Learn how to build and manage custom queries to get data relevant to your needs.
 
+  > [Object Details](object-details/overview)  
+  > Learn how to view and understand attributes related to data objects available in Identity Observability.
+
+
 </section>
 
 ## Admin controls
