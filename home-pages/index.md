@@ -55,7 +55,7 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 <section>
 
   > [Custom Dashboards](admin-controls/manage-dashboards/create-a-dashboard)  
-  > Learn about improvements and bug fixes for Environment Operations Center. 
+  > Learn how to create your own custom dashboards to visualize data in your preferred format. 
 
 </section>
 

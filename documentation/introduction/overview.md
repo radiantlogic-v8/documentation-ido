@@ -39,11 +39,11 @@ This model is agnostic, which allows Identity Observability to ingest any type o
 
 Identity Observability not only helps detect issues, it also enables organizations to act on them using the remediation feature. Actions can be:  
 
-Automated Remediation Suggestions: Remediation action suggestions are displayed when discrepancies are detected.  
+* Automated Remediation Suggestions: Remediation action suggestions are displayed when discrepancies are detected.  
 
-Delegated Fixes: Updates and corrections can be handled directly by business data owners or managers.  
+* Delegated Fixes: Updates and corrections can be handled directly by business data owners or managers.  
 
-Ops-driven Response: Security operations teams leveraging observability insights and alerts to resolve incidents quickly. 
+* Ops-driven Response: Security operations teams leveraging observability insights and alerts to resolve incidents quickly. 
 
 Identity Observability empowers security teams and managers to monitor, analyze, and intervene on identity-driven risks. By delivering authoritative insights and enabling timely action, it transforms identity data into a trustworthy asset that strengthens enterprise resilience. 
  
