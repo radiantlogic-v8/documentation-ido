@@ -47,21 +47,21 @@ Then, choose whether you want the control to be active immediately or saved in a
    ![Image of Risk assessment](Media/create-control-4.png "Image showing risk assignment")
 
  
-8. On the Breakdown configuration tab, you can add additional filters or criteria for your control by clicking the Configuration Breakdown option and selecting the configurations that you would like to add. This step is optional. Click “Skip for now” to skip this step.  
+7. On the Breakdown configuration tab, you can add additional filters or criteria for your control by clicking the Configuration Breakdown option and selecting the configurations that you would like to add. This step is optional. Click “Skip for now” to skip this step.  
  
-9. On the Alert Configuration Tab, activate and configure alerting as needed by:
+8. On the Alert Configuration Tab, activate and configure alerting as needed by:
 
-* Specifying the triggering events, such as when a new item is detected, when an item is removed from the list, or both.
+   * Specifying the triggering events, such as when a new item is detected, when an item is removed from the list, or both.
 
-* Setting grouping parameters, for example grouping notifications every 30 minutes, 1 hour, 4 hours, or daily.
+   * Setting grouping parameters, for example grouping notifications every 30 minutes, 1 hour, 4 hours, or daily.
 
-* Activating protection to prevent too many notifications from being sent in a short period of time.
+   * Activating protection to prevent too many notifications from being sent in a short period of time.
 
-* Selecting the delivery channel, such as email, Slack, Teams, or webhook, and configuring the recipients for notifications.
+   * Selecting the delivery channel, such as email, Slack, Teams, or webhook, and configuring the recipients for notifications.
+
+> Note that the delivery channels and settings for the alerts need to be configured by an technical administrator via the "Admin > Settings" page. 
  
-
 9. On the Setting Visible Attributes tab, select the attributes that you want to hide or display in the Controls table by clicking on the “eye” icon next to the attribute name. If you do not see a desired attribute in the displayed list, click Advanced settings to add additional attribute(s).  Click Next after selecting the attributes. 
  
-
 10. After making all the desired changes, select “Submit”. To view the control you just created, navigate to Controls > My Controls and click the control name. If the Control isn't already activated, you can activate it from the My Controls page. 
  

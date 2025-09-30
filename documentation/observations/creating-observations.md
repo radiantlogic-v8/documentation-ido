@@ -31,7 +31,17 @@ You have the flexibility to enable existing Observations or create new observati
 
 6. On the Breakdown configuration tab, you can add additional filters or criteria for your observation by clicking the Configuration Breakdown option and selecting the configurations that you would like to add. This step is optional. Click “Skip for now” to skip this step.
 
-7. If you would like to set up alerts for your observation, enable the alert configuration option and set the appropriate settings for your alert. 
+7. On the Alert Configuration Tab, activate and configure alerting as needed by:
+
+  * Specifying the triggering events, such as when a new item is detected, when an item is removed from the list, or both.
+
+  * Setting grouping parameters, for example grouping notifications every 30 minutes, 1 hour, 4 hours, or daily.
+
+  * Activating protection to prevent too many notifications from being sent in a short period of time.
+
+  * Selecting the delivery channel, such as email, Slack, Teams, or webhook, and configuring the recipients for notifications.
+
+> Note that the delivery channels and settings for the alerts need to be configured by an technical administrator via the "Admin > Settings" page.  
 
 8. On the Setting Visible Attributes tab, select the attributes that you want to display or hide in the Observation table by clicking on the “eye” icon next to the attribute name. If you do not see a desired attribute in the displayed list, click Advanced settings to add additional attribute(s).  Click "Next" after selecting the attributes.
 

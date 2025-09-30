@@ -78,20 +78,20 @@ If you are a resource owner, you can access resources you manage (applications, 
 
 ### Available features
 
-You can monitor control families and defects tied to the resources you own.
+You can monitor control families and defects tied to the resources they own, including both the resource itself and all its associated permissions. By reviewing the resource-level detail pages, such as the main resource detail page and all related permission detail pages, you gain visibility into how the resource and its permissions are being used.
 
 ### Available actions
 
-You can drill into resource-level detail pages. You can also investigate and remediate issues related to your resources.
+You can drill into resource-level detail pages. You can also investigate and remediate issues related to your resources and associated permissions.
 
 
 ## Repository Owner
 
-If you are a repository owner, you can access repositories you manage (HR systems, AD domains, Entra ID, etc.).
+If you are a repository owner, you can access repositories you manage (HR systems, AD domains, Entra ID, etc.). 
 
 ### Available features
 
-You can monitor control family specific to repository-level issues.
+You can monitor control families and defects tied to the repositories you own, as well as the groups and accounts associated with those repositories. 
 
 ### Available actions
 
