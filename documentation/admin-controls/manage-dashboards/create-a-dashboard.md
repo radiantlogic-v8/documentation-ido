@@ -19,6 +19,11 @@ This document provides an overview of Custom dashboards in Identity Observabilit
 
 Custom dashboards can be used for a variety of purposes. Specifically, if you need additional components or alternative ways to present your data beyond what is provided by default in Identity Observability, you (technical administrators) can use the Manage Dashboards setting to create custom dashboards to better align with business requirements.
 
+Here is an example of what a custom dashboard looks like: 
+
+   ![Example of a custom dashboard](Media/example-cdashboard.png "Image showing example of a custom dashboard")
+
+
 
 ## Steps for Dashboard creation  
 
@@ -52,7 +57,7 @@ The main interface presents a table of all dashboards available in the current e
 * Category
 * Priority: Display order within the category.
 * Status: Sharing status (Private or Shared).
-* Recipients: Sharing target, if applicable.
+* Shared with: Shows if the dashboard is being shared with someone.
 * Description 
 
 Dashboards can be sorted by clicking on any column header. Use the filter box above the list to narrow results by matching titles or descriptions (e.g., entering "stats" will display dashboards containing that term). 
@@ -75,13 +80,13 @@ All dashboard actions are available to administrators, based on the current sele
 
 * Create: Launch the creation of a new dashboard. 
 
-* Instantiate: Generate a new dashboard from a selected template. Enabled only if one template is selected. 
+* Instantiate: Generate a new dashboard from an existing dashboard with template. Enabled only if a template was selected during the creation of the dashboard. 
 
 * Configure: Modify dashboard properties such as title, category, and sharing options. Does not allow content editing. Enabled only when exactly one dashboard is selected. 
 
 * Assign: Reassign the selected dashboard(s) to another user. 
 
-* View: Open the dashboard in view/edit mode. Enabled only when exactly one dashboard is selected. 
+* View: Open the dashboard in view/edit mode. Enabled only when you have selected one dashboard to view or edit. 
 
 * Duplicate: Create a copy of the selected dashboard. Enabled only when exactly one dashboard is selected. 
 
