@@ -6,5 +6,7 @@ description: Admin controls
 - [Manage Dashboards](#)
   - [Create a custom dashboard](create-a-dashboard.md)
   - [Modify a dashboard](modify-dashboard.md)
-- [Settings](settings.md)
+- [Settings](#)
+  - [Configure Alerts](alert-configurations.md)
+
 
