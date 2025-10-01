@@ -1,9 +1,9 @@
 ---
-title: Modify a Dashboard
-description: Modify a Dashboard
+title: Modify a Custom Dashboard
+description: Modify a Custom Dashboard
 ---
 
-# Modify Your Dashboard 
+# Overview
 
 This document is intended for technical administrators who have access to create and modify dashboards. It outlines steps to update existing dashboards. 
 
