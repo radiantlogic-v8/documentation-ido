@@ -66,11 +66,4 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 </section>
 
 
-## Maintenance 
 
-<section>
-
-  > [Release Notes](maintenance/release-notes/release-notes)  
-  > Release notes contain important information about new features, improvements and bug fixes for RadiantOne Identity Observability.
-
-</section>
