@@ -29,7 +29,9 @@ Before using alerts, you (technical administrator) must configure templates that
     
    **Other delivery channels:**
    
-    For Slack, Microsoft and Webhook notifications, you will need to provide a configuration file. This file should be in JSON format.  
+    For Slack, Microsoft and Webhook notifications, you will need to provide a configuration file. This file should be in JSON format. 
+
+   > The examples below use generic values for demonstration purposes. Be sure to collaborate with your IT team to confirm the correct values and verify that the intended recipients are included in the specified channels.
     
    Here is an example of a Slack configuration file:  
    
