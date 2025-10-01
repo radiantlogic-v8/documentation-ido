@@ -5,7 +5,7 @@ description: Modify a Dashboard
 
 # Modify Your Dashboard 
 
-This document is intended for technical and functional administrators who have access to create and modify dashboards. It outlines steps to update existing dashboards. 
+This document is intended for technical administrators who have access to create and modify dashboards. It outlines steps to update existing dashboards. 
 
 ## Available elements 
 
@@ -27,9 +27,23 @@ You can personalize your dashboard by planning its layout, adding components, an
 
 a. Log into Identity Observability. 
 b. From the left navigation menu, select Admin > Manage Dashboards. 
-c. Navigate to the dashboard of your choice. 
+c. Select a dashboard of your choice and click View. 
 d. Click the pencil icon next to the dashboard name to enter edit mode. This opens the Dashboard Design Toolbar, where you can begin customizing. 
 
+
+The table below describes the purpose of the toolbar's buttons:
+
+|||
+|-|-|
+|![Icon](./images/table_24.png "Icon") | Inserts a table component at the end of the dashboard <tr></tr> |
+|![Icon](./images/gauge_24.png "Icon") | Inserts a gauge component at the end of the dashboard <tr></tr>  |
+|![Icon](./images/vbarchart_24.png "Icon")| Inserts a vertical bar chart component at the end of the dashboard <tr></tr>  |
+|![Icon](./images/hbarchart_24.png "Icon")| Inserts a horizontal bar chart component at the end of the dashboard <tr></tr>  |
+|![Icon](./images/donutchart_24.png "Icon")| Inserts a doughnut chart component at the end of the dashboard <tr></tr>  |
+|![Icon](./images/piechart_24.png "Icon")| Inserts a pie chart component at the end of the dashboard <tr></tr>  |
+|![Icon](./images/configure_24.png "Icon")| Allows to configure the dashboard properties (title, layout scheme, publication options) <tr></tr>  |
+| **Save** | Saves the dashboard changes to the database. If the dashboard is published, this will make the changes available to the dashboard audience <tr></tr> |
+|  **Discard** | Discards all the changes since the last save. <tr></tr> |
 
 2. Plan Your Dashboard 
 
@@ -84,7 +98,6 @@ Display Options: Grid overlays, widget positioning
 
 b. Click on any of these icons in the Dashboard Design Toolbar to add components. A configuration wizard will guide you through each setup. 
 
- 
 
 5. Finalize component placement 
 

@@ -45,4 +45,4 @@ You have the flexibility to enable existing Observations or create new observati
 
 8. On the Setting Visible Attributes tab, select the attributes that you want to display or hide in the Observation table by clicking on the “eye” icon next to the attribute name. If you do not see a desired attribute in the displayed list, click Advanced settings to add additional attribute(s).  Click "Next" after selecting the attributes.
 
-9. After making all desired changes, select “Submit”. To view the observation you just created, navigate to Observations > My Observation and click on the observation name. If the Observation isn't already activated, you can activate it from the My Controls page. 
+9. After making all desired changes, select “Submit”. To view the observation you just created, navigate to Observations > My Observations and click on the observation name. If the Observation isn't already activated, you can activate it from the My Observations page. 

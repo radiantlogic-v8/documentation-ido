@@ -1,23 +1,23 @@
 ---
-title: Create a Dashboard
-description: Create a Dashboard
+title: Create a Custom Dashboard
+description: Create a Custom Dashboard
 ---
 
 # Overview  
  
-Dashboards are customizable interfaces that visually organize key data into interactive components such as charts, tables, and gauges to help users quickly assess metrics and make decisions.    
+Custom dashboards are editable interfaces that visually organize key data into interactive components such as charts, tables, and gauges to help users quickly assess metrics and make decisions.    
 
-This document provides an overview of Dashboards in Identity Observability and shows how you can create new dashboards.  
+This document provides an overview of Custom dashboards in Identity Observability and shows how you can create new dashboards.  
  
  
 ## User roles and access 
 
-* Line Managers, Repository Owners, Resource Owners, and Auditors: Users assigned to these roles have view-only access to the dashboard. 
-* Technical Administrators: Users with this role can create, view, and manage dashboards. 
+* Line Managers, Repository Owners, Resource Owners, and Auditors: Users assigned to these roles have view-only access to permitted custom dashboards. 
+* Technical Administrators: Users with this role can create, view, manage and share custom dashboards. 
 
 ## Usage  
 
-Dashboards can be used for a variety of purposes. In Identity Observability, you can see existing dashboards of Controls and Observations. If you need additional components or alternative ways to present your data beyond what is provided by default, technical administrators can use the Manage Dashboards setting to create and customize dashboards to better align with business requirements.
+Custom dashboards can be used for a variety of purposes. Specifically, if you need additional components or alternative ways to present your data beyond what is provided by default in Identity Observability, you (technical administrators) can use the Manage Dashboards setting to create custom dashboards to better align with business requirements.
 
 
 ## Steps for Dashboard creation  
@@ -40,7 +40,8 @@ Dashboards can only be created from the Dashboard Management Page. To create a n
 
 Once created, use the View button to open and begin editing the dashboard content. 
 
- 
+   ![Image of dashboard creation form](Media/create-dashboard.png "Image showing dashboard creation form")
+
 ## Dashboard List 
 
 The main interface presents a table of all dashboards available in the current environment. The following information is displayed for each entry: 
@@ -99,3 +100,7 @@ Use the Export menu to either export all dashboards or export only selected dash
 ### Import 
 
 Click the Import button to load dashboards from a previously exported file. 
+
+## Next step
+
+Read the [modify dashboard](./modify-dashboard.md) guide to see how you can edit and finalize your custom dashboard.  

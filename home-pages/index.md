@@ -35,7 +35,7 @@ Identity Observability delivers a real-time view of identities, attributes, and 
   > After installing and logging into Identity Observability, explore the landing page to get a high-level view of your company’s identity and security posture.
 </section>
 
-## Monitor and remediate security risks
+## Monitor identity data and remediate security risks
 
 <section>
 
@@ -49,7 +49,7 @@ Identity Observability delivers a real-time view of identities, attributes, and 
   > Learn how to address and remediate issues (control defects) detected by enabled controls.
 
   > [Explore](explore/overview)  
-  > Learn how to easily explore your organization's identity data. 
+  > Learn how to easily explore your organization's identity data.
 
   > [Query Builder](query-builder/overview)  
   > Learn how to build and manage custom queries to get data relevant to your needs.
