@@ -100,12 +100,12 @@ Administrators can export dashboards to a local file or import dashboards into t
 
 ### Export 
 
-Use the Export menu to either export all dashboards or export only selected dashboards. 
+Use the Export menu to either export all dashboards or export only selected dashboards. This exports the dashboard file in .data format. 
 
 ### Import 
 
 Click the Import button to load dashboards from a previously exported file. 
 
-## Next step
+## Next Step
 
 Read the [modify dashboard](./modify-dashboard.md) guide to see how you can edit and finalize your custom dashboard.  

@@ -29,7 +29,7 @@ Once you’re in the page, you can explore available data in the following ways:
 
 ### Filters and views  
 
-Use the search bar to find a particular identity or resource. You can also view data in different layouts (Cloud layout, org layout or 3D view) by switching between the dsiplayed icons. 
+Use the search bar to find a particular identity or resource. You can also view data in different layouts (Cloud layout, org layout or 3D view) by switching between the dsiplayed icons. Note that the 3D view is not recommended for large data sets. 
 
 When you search for an identity or an resource, you can find different interactive components in the displayed result. 
 

@@ -18,6 +18,7 @@ To open Query Builder, login to the Identity Observability portal and click the 
  
    ![Image of Query Builder options](Media/qb-1.png "Image showing Query Builder options")
 
+You can create more advanced queries by linking conditions with AND/OR and grouping them when necessary.
  
 ### Example usage  
 Suppose you want to find identities that have been removed between August 1, 2025, and September 1, 2025.  

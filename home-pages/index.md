@@ -26,10 +26,6 @@ Identity Observability delivers a real-time view of identities, attributes, and 
   
   > [Installation](installation/installation-steps)  
   > Learn how to install the SaaS version of Identity Observability using the Environment Operations Center.
-
-</section>
-
-<section>
   
   > [Getting Started](installation/getting-started)  
   > After installing and logging into Identity Observability, explore the landing page to get a high-level view of your company’s identity and security posture.
