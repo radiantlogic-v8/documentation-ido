@@ -15,7 +15,7 @@ Clicking on the ‘360 Access’ button opens a data visualization interface whe
 
  ![Image showing the explore page](Media/explore-page.png "Image showing the explore page")
 
-# Key Identity Attributes
+## Key Identity Attributes
 
 The first section of the identity detail page includes the following attributes related to the identity.
 
