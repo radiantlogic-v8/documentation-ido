@@ -35,13 +35,13 @@ The table below describes the purpose of the toolbar's buttons:
 
 |||
 |-|-|
-|![Icon](./images/table_24.png "Icon") | Inserts a table component at the end of the dashboard <tr></tr> |
-|![Icon](./images/gauge_24.png "Icon") | Inserts a gauge component at the end of the dashboard <tr></tr>  |
-|![Icon](./images/vbarchart_24.png "Icon")| Inserts a vertical bar chart component at the end of the dashboard <tr></tr>  |
-|![Icon](./images/hbarchart_24.png "Icon")| Inserts a horizontal bar chart component at the end of the dashboard <tr></tr>  |
-|![Icon](./images/donutchart_24.png "Icon")| Inserts a doughnut chart component at the end of the dashboard <tr></tr>  |
-|![Icon](./images/piechart_24.png "Icon")| Inserts a pie chart component at the end of the dashboard <tr></tr>  |
-|![Icon](./images/configure_24.png "Icon")| Allows to configure the dashboard properties (title, layout scheme, publication options) <tr></tr>  |
+|![Icon](Media/table_24.png "Icon") | Inserts a table component at the end of the dashboard <tr></tr> |
+|![Icon](Media/gauge_24.png "Icon") | Inserts a gauge component at the end of the dashboard <tr></tr>  |
+|![Icon](Media/vbarchart_24.png "Icon")| Inserts a vertical bar chart component at the end of the dashboard <tr></tr>  |
+|![Icon](Media/hbarchart_24.png "Icon")| Inserts a horizontal bar chart component at the end of the dashboard <tr></tr>  |
+|![Icon](Media/donutchart_24.png "Icon")| Inserts a doughnut chart component at the end of the dashboard <tr></tr>  |
+|![Icon](Media/piechart_24.png "Icon")| Inserts a pie chart component at the end of the dashboard <tr></tr>  |
+|![Icon](Media/configure_24.png "Icon")| Allows to configure the dashboard properties (title, layout scheme, publication options) <tr></tr>  |
 | **Save** | Saves the dashboard changes to the database. If the dashboard is published, this will make the changes available to the dashboard audience <tr></tr> |
 |  **Discard** | Discards all the changes since the last save. <tr></tr> |
 
