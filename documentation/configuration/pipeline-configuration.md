@@ -4,14 +4,7 @@
 
 The declarative Graph Pipelines Configuration is used to define the structure and behavior of the entire data ingestion process from the connectors to the graph.
 
-```mermaid
-graph LR
-  D[Identity Data Management Connectors] --> Q[Event Store];
-  Q --> T[Transformation];
-  T --> M[Mapping]
-  M --> R[Relationships]
-  R --> G[Graph];
-```
+![Pipeline configuration process](./media/pipeline-configuration-process.png)
 
 It sets the data binding strategy to adopt between the sources and the graph data model. This declarative strategy defines the data normalization and dictates how the pipelines engine configures its execution plan.
 
