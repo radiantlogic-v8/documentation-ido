@@ -76,7 +76,7 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 <section>
   
-  > [Javadocs](javadoc/index)
+  > [Javadocs](javadoc/overview-summary)
   > The documentation applicable for using the available functions in the pipeline configuration.
   
 </section>
