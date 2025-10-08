@@ -34,7 +34,7 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 <section>
   
-  > [Configuration](configuration/startup-guide.md)  
+  > [Configuration](configuration/startup-guide)  
   > Learn how to configure pipeline yaml configuration files in Identity Observability.
 
 </section>
@@ -70,4 +70,13 @@ Identity Observability delivers a real-time view of identities, attributes, and 
   > [Custom Dashboards](admin-controls/manage-dashboards/create-a-dashboard)  
   > Learn how to create your own custom dashboards to visualize data in your preferred format.
 
+</section>
+
+## Functions
+
+<section>
+  
+  > [Javadocs](javadoc/index)
+  > The documentation applicable for using the available functions in the pipeline configuration.
+  
 </section>
