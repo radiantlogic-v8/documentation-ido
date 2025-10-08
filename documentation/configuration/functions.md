@@ -2,7 +2,7 @@
 
 The functions section defines the signatures of the functions that can be applied to the source objects as computed attributes. The signatures are used to validate the type of the attributes used as input fields to the function. When a type is specified in the source object, the graph pipeline engine will use it to cast the input attribute to the expected type.
 
-Methods are organized by namespace, ldap, date and string which is reflected in the java packages structure.
+Methods are organized by namespace, ldap, date and string which is reflected in the java packages structure. See [here](../../javadoc/index.html) for the complete javadocs.
 For the purpose of validation at configuration time, their signatures are listed in the functions template for the version of the configuration used (v1 as of now).
 For an up-to-date list of functions and their signatures, you can fetch it from the orchestrator endpoint:
 
