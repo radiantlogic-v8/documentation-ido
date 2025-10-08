@@ -12,7 +12,7 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 <section>
 
   > [Introduction](introduction/overview)  
-  > Familiarize yourself with RadiantOne Identity Observability and its offerings. 
+  > Familiarize yourself with RadiantOne Identity Observability and its offerings.
 
   > [Key Concepts](introduction/key-concepts)  
   > Understand the concepts related to Identity Observability.
@@ -34,7 +34,7 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 <section>
   
-  > [Configuration](configuration)  
+  > [Configuration](configuration/startup-guide.md)  
   > Learn how to configure pipeline yaml configuration files in Identity Observability.
 
 </section>
