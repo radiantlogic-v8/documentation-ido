@@ -5,7 +5,7 @@ description: Navigating and Understanding Group Details
 
 ## Overview
 
-Groups organize collections of accounts for access control and security policy enforcement. The group detail page displays details on group membership, assigned permissions, and management settings.  
+Groups organize collections of accounts for access control and security policy enforcement. The group detail page displays details on group membership, assigned permissions, and management settings.  This document provides information about all the attributes of a Group detail page. 
 
 
 ## Key Attributes  
