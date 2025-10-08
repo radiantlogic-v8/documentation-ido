@@ -3,10 +3,9 @@ title: Knowledge
 description: knowledge
 ---
 
-# Welcome to Identity Observability 
+# Welcome to Identity Observability
 
-Identity Observability delivers a real-time view of identities, attributes, and access rights, giving you continuous visibility and control over your organizations' identity data. By reducing risks caused by misconfigurations, outdated information, and human error, it strengthens your organization's identity and security posture. 
-
+Identity Observability delivers a real-time view of identities, attributes, and access rights, giving you continuous visibility and control over your organizations' identity data. By reducing risks caused by misconfigurations, outdated information, and human error, it strengthens your organization's identity and security posture.
 
 ## Introduction
 
@@ -20,15 +19,24 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 </section>
 
-## Installation 
+## Installation
 
 <section>
   
   > [Installation](installation/installation-steps)  
   > Learn how to install the SaaS version of Identity Observability using the Environment Operations Center.
-  
+
   > [Getting Started](installation/getting-started)  
   > After installing and logging into Identity Observability, explore the landing page to get a high-level view of your company’s identity and security posture.
+</section>
+
+## Configuration
+
+<section>
+  
+  > [Configuration](configuration)  
+  > Learn how to configure pipeline yaml configuration files in Identity Observability.
+
 </section>
 
 ## Monitor identity data and remediate security risks
@@ -53,7 +61,6 @@ Identity Observability delivers a real-time view of identities, attributes, and 
   > [Object Details](object-details/overview)  
   > Learn how to view and understand attributes related to data objects available in Identity Observability.
 
-
 </section>
 
 ## Admin controls
@@ -61,9 +68,6 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 <section>
 
   > [Custom Dashboards](admin-controls/manage-dashboards/create-a-dashboard)  
-  > Learn how to create your own custom dashboards to visualize data in your preferred format. 
+  > Learn how to create your own custom dashboards to visualize data in your preferred format.
 
 </section>
-
-
-
