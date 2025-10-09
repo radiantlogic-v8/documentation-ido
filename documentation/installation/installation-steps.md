@@ -56,9 +56,9 @@ To access the Identity Observability site, use the following URLs and credential
 
 - **IDO Portal**: This is the primary interface of the Identity Observability portal where you can get information about your Identity Posture, access real-time dashboards, create controls, observations and more. To access this site for the first time, use "Setup" as the username and the password that you created while installing the application. 
 
-- **IDP Console**: Admins can use this interface to manage users and roles for accessing the Identity Observability portal.
+- **IDP Console**: Admins can use this interface to manage users and roles for accessing the Identity Observability portal. To access this site for the first time, use "Setup" as the username and the password that you created while installing the application. 
 
-- **Data Sync Config**: This is a the data pipeline service for Identity Observability. It is used to set up data mapping and connector configurations for Identity Observability. Initially, you may need assistance from Radiant Logic to map your data configurations. 
+- **Data Sync Config**: This is a the data pipeline service for Identity Observability. It is used to set up data mapping and connector configurations for Identity Observability. Initially, you may need assistance from Radiant Logic to map your data configurations. To access this site, use “cn=Directory Manager” as the username and the password that you created while installing the application. 
 
 
 
