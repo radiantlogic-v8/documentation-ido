@@ -153,3 +153,22 @@ The following remediation actions are available in Identity Observability. The a
 | resource/remove_manager            | Remove Resource Manager         | Removes a resource manager.                                                                                                                           |
 | resource/set_description           | Set Resource Description        | Sets description about the resource.                                                                                                                  |
 | resource/set_sensitivity_level     | Set Resource Sensitivity Level  | Assigns a sensitivity classification to the resource from level 1 (low) to level 4 (critical) and describes the sensitivity reason.                    |
+
+# Remediation Examples
+
+Here are several examples of remediation actions applicable to issues associated with built-in controls. 
+
+| **Category** | **Issue** | **Code** | **Risk Level** | ** Examples of Dynamic Description** | **Available Remediation Actions** |
+|---------------|------------|-----------|----------------|--------------------------|-----------------------------------|
+| **Account** | Missing Username in User Account | IDO_ACC12 | Medium | The account **Amazon AWS:mvasquez**, owned by **Marina Vasquez**, does not have a username—only a login ID. | Mark as False Positive / Mark as Exception / Set Username |
+| **Account** | Technical/Service Account with Password Never Expiring | IDO_ACC05 | Low | The technical account **Amazon AWS:mvasquez** has a password configured to never expire. | Mark as False Positive / Mark as Exception / Set Password Expiration |
+| **Account** | Orphaned Account | IDO_ACC02 | Medium | The account **Amazon AWS:mvasquez** is orphaned—its usage type (technical, service, or user) is unknown. | Mark as Exception / Mark as Technical Account / Mark as User Account |
+| **Account** | Active Account Belonging to a Former Employee | IDO_ACC03 | Critical | The account **Amazon AWS:mvasquez** belongs to **Marina Vasquez**, who left the company on **03/13/2025**, but the account remains active. | Mark as False Positive / Mark as Exception / Disable Account |
+| **Group** | Group Without Sensitivity Level | IDO_GROUP17 | Low | The group **AWSCloud9Administrator**, owned by **Jenna Lambert**, has no defined sensitivity level. | Mark as Exception / Set Sensitivity Level |
+| **Group** | Critical Sensitive Group Without Description | IDO_GROUP15 | Medium | The critical sensitive group **AWSCloud9Administrator**, owned by **Jenna Lambert**, lacks a description. | Mark as Exception / Set Description |
+| **Group** | Critical Sensitive Group Owner Left | IDO_GROUP08 | Medium | The critical sensitive group **AWSCloud9Administrator** is owned by **Jenna Lambert**, who left the company on **03/13/2025**. | Mark as False Positive / Mark as Exception / Add Manager |
+| **Identity** | Department Manager Without Email | IDO_HR04 | High | The identity **Jenna Lambert**, managing the **Taxes Department**, does not have an email address. | Mark as Exception / Set Email |
+| **Identity** | Contractor Without End Date | IDO_HR08 | Medium | The contractor **Jenna Lambert**, part of the **Internal Auditor Department** managed by **Shari Erickson**, does not have a contract end date. | Mark as Exception / Set Departure Date |
+| **Identity** | Identity Without Employee Number | IDO_HR01 | Low | The identity **Jenna Lambert**, belonging to the **Internal Auditor Department**, lacks an employee number. | Mark as Exception / Set Employee Number |
+| **Identity** | Sensitive Resource Owned by Contractor | IDO_QA05 | Low | The sensitive application **SAP** is owned by **Jenna Lambert**, who is a contractor. | Mark as Exception / Add Manager |
+
