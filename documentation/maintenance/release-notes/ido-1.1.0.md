@@ -17,6 +17,8 @@ These release notes contain the following sections:
 - [Known Issues](#known-issues)
 - [How to Report Problems and Provide Feedback](#how-to-report-problems-and-provide-feedback)
 
+> In this version, the application upgrade in Environment Operations Center supports porting of **sample (static demo) data only** provided by the application. For deployments using live data and connectors, you must create a new application instance with this version and manually copy the configurations from the original instance.
+
 
 ## New Features
 
