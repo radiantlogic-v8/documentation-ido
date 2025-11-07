@@ -4,4 +4,4 @@ description: Release Notes of Identity Observability
 ---
 
 - [Maintenance](#)
-  - [Release Notes](release-notes.md)
+  - [Release Notes](release-notes/release-notes.md)
