@@ -80,3 +80,12 @@ Identity Observability delivers a real-time view of identities, attributes, and 
   > The documentation applicable for using the available functions in the pipeline configuration.
   
 </section>
+
+## Maintenance 
+
+<section>
+
+  > [Release Notes](maintenance/release-notes)  
+  > Release notes contain important information about new features, improvements and bug fixes for RadiantOne Identity Observability.
+
+</section>
