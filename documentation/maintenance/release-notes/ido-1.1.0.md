@@ -12,9 +12,7 @@ These release notes contain the following sections:
 
 - [New Features](#new-features)
 - [Improvements](#improvements)
-- [Security Vulnerability Fixes](#security-vulnerability-fixes)
 - [Bug Fixes](#bug-fixes)
-- [Known Issues](#known-issues)
 - [How to Report Problems and Provide Feedback](#how-to-report-problems-and-provide-feedback)
 
 > In this version, the application upgrade in Environment Operations Center supports porting of **sample (static demo) data only** provided by the application. For deployments using live data and connectors, you must create a new application instance with this version and manually copy the configurations from the original instance.
@@ -77,10 +75,6 @@ These release notes contain the following sections:
 - **ID-2245** – Improved alert channel deletion logic to validate usage or display info before deletion.  
 - **ID-2195** – Fixed regression where tables with functional fields stopped working.
 
-## Known Issues
-
-For known issues reported after the release, please see the Radiant Logic Knowledge Base: 
-https://support.radiantlogic.com/hc/en-us/categories/4412501931540-Known-Issues
 
 ## How to Report Problems and Provide Feedback
 
