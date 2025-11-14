@@ -1,6 +1,6 @@
 ---
-title: configuration
-description: configuration
+title: Configuration
+description: Learn how to set up pipeline configuration
 ---
 
 - [Configuration](#)
