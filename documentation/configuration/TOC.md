@@ -4,7 +4,10 @@ description: Learn how to set up pipeline configuration
 ---
 
 - [Configuration](#)
-  - [Startup Guide](startup-guide.md)
+  - [Starter Guide](startup-guide.md)
+  - [Data Source Examples](#)
+     - [Active Directory](active-directory.md)
+     - [Entra ID](entra-id.md)
   - [Pipeline configuration](pipeline-configuration.md)
   - [Template configuration](template-configuration.md)
   - [Included functions](functions.md)

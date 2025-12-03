@@ -52,9 +52,7 @@ The following sections cover the prerequisites and steps for pipeline configurat
 
 ### **Identify Entities**
 
-Begin by identifying the entities you will work with. Once you've
-identified your entities, familiarize yourself with the data model.
-Focus on **core objects** such as accounts and groups first.
+Begin by identifying the entities you will work with. Once you've identified your entities, familiarize yourself with the data model. Focus on **core objects** such as accounts and groups first.
 
 The concepts related to **JSON model representation are described
 below.**
@@ -195,7 +193,7 @@ To leverage **MFA attributes** in accounts, the attribute mfa_enabled must be se
 
 Configuration templates define **reusable components** for the orchestrator.
 
-Refer to the [graph pipeline template configuration](./configuration/template-configuration/) and the [pipeline configuration quickstart guide](./pipeline-configuration-quickstart) for details on how to build and apply them effectively.
+Refer to the [graph pipeline template configuration](./configuration/template-configuration/) and the [pipeline configuration example](./pipeline-configuration/#configuration-example) for details on how to build and apply them effectively.
 
 ## **4. Monitor Configuration**
 
@@ -273,3 +271,4 @@ The orchestrator will remove all data from the graph database and undeploy:
 3.  G**raph pipelines**.
 
 4.  Clear all data from the **graph database**.
+

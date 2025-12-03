@@ -187,3 +187,6 @@ To create this proxy, follow these steps (similar to the original data source cr
 
 
 9. Click **CREATE** to finalize the configuration. The new data source will appear with a status of **ACTIVE**.  
+
+The next step is to create a configuration pipeline. Refer to [this example](../pipeline-configuration/#configuration-example) for details. 
+

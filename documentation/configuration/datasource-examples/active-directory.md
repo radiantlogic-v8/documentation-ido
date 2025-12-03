@@ -45,3 +45,5 @@ This document provides steps to configure active directory as a data source for 
 
 8. When configuration and validation are complete, click **CREATE**. Once the data source is created, you will be returned to the main **Data Sources** page, where the newly created source should appear with a status of **ACTIVE**.
 
+The next step is to create a configuration pipeline. Refer to [this example](../pipeline-configuration/#configuration-example) for details. 
+
