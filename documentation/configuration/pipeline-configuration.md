@@ -320,7 +320,7 @@ Navigate to **Identity Observability > Template Management** and select **Templa
 
 In the Template Management screen, you will find a set of preconfigured templates. These templates can be referenced when building a Pipeline configuration.
 
-   ![Image of preconfigured templates](Media/temps.png "Image of preconfigured templates")
+   ![Image of preconfigured templates](./media/temps.png "Image of preconfigured templates")
 
 * Confirm which templates are available for the required Data Sources and note their names.
 * **Do not edit these templates.** Organization-specific adjustments for a Data Source should be added using the Pipeline configuration **template-overload** function, covered later in this guide.
@@ -345,7 +345,7 @@ To use an existing configuration:
 
 Upon loading, validation runs automatically. A green status indicates success. If errors occur, the editor will display details for troubleshooting. Validation reruns automatically after every modification.
 
-   ![Image of configuration editor](Media/validation.png "Image of configuration editor")
+   ![Image of configuration editor](./media/validation.png "Image of configuration editor")
 
 Locate the **template-overload** section within the configuration. This section allows you to override properties defined in a referenced template (e.g., `ad_template_v1`). A common override is customizing the Data Source name to align with your organization’s naming conventions. Any template property can be overridden without modifying the original template.
 
@@ -358,7 +358,7 @@ Navigate to **Connector Configuration** from the expanded navigation pane.
 
 The screen displays details for the connectors deployed within this pipeline. Connectors should show a green status to indicate they are running.
 
-   ![Image of connector configuration UI](Media/connectorui.png "Image of connector configuration UI")
+![Image of connector configuration UI](./media/connectorui.png "Image of connector configuration UI")
 
 
 The **OBJECT NAME** column identifies the object class used in each Data Source. For example:
