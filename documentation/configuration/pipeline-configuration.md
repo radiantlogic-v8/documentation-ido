@@ -320,8 +320,6 @@ Navigate to **Identity Observability > Template Management** and select **Templa
 
 In the Template Management screen, you will find a set of preconfigured templates. These templates can be referenced when building a Pipeline configuration.
 
-   ![Image of preconfigured templates](./media/temps.png "Image of preconfigured templates")
-
 * Confirm which templates are available for the required Data Sources and note their names.
 * **Do not edit these templates.** Organization-specific adjustments for a Data Source should be added using the Pipeline configuration **template-overload** function, covered later in this guide.
 * The **functions_v1** template does not represent a Data Source. It provides references to Identity Observability functions available for use in Pipeline configurations.
