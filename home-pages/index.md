@@ -35,13 +35,13 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 <section>
   
-  > [Data Configuration](data-configuration/startup-guide)  
+  > [Data Sync](data-sync/startup-guide)  
   > Learn to configure and synchronize data sources and pipelines for Identity Observability.
 
   > [Javadocs](javadoc/allclasses-index)
   > Reference documentation for all functions you can use when configuring your data pipeline.
 
-  > [Alerts Configuration](admin-controls/settings/alert-configurations)
+  > [Alerts](admin-controls/settings/alert-configurations)
   > Learn how to configure alerts related to active observations and/or controls in your Identity Observability portal.
 
   > [Custom Dashboards](admin-controls/manage-dashboards/create-a-dashboard)  
