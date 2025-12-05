@@ -3,7 +3,7 @@ title: Configuration
 description: configuration
 ---
 
-- [Data Configuration](#)
+- [Data Sync](#)
   - [Startup Guide](startup-guide.md)
   - [Pipeline configuration](pipeline-configuration.md)
   - [Template configuration](template-configuration.md)
