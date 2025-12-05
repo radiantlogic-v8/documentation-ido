@@ -41,7 +41,7 @@ Identity Observability delivers a real-time view of identities, attributes, and 
   > [Javadocs](javadoc/allclasses-index)
   > Reference documentation for all functions you can use when configuring your data pipeline.
 
-  > [Alerts Configuration](javadoc/allclasses-index)
+  > [Alerts Configuration](admin-controls/settings/alert-configurations)
   > Learn how to configure alerts related to active observations and/or controls in your Identity Observability portal.
 
   > [Custom Dashboards](admin-controls/manage-dashboards/create-a-dashboard)  
