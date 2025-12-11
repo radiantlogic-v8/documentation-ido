@@ -28,16 +28,27 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
   > [Getting Started](installation/getting-started)  
   > After installing and logging into Identity Observability, explore the landing page to get a high-level view of your company’s identity and security posture.
+
 </section>
 
 ## Configuration
 
 <section>
   
-  > [Configuration](configuration/startup-guide)  
-  > Learn how to configure pipeline yaml configuration files in Identity Observability.
+  > [Data Sync](data-sync/startup-guide)  
+  > Learn to configure and synchronize data sources and pipelines for Identity Observability.
+
+  > [Javadocs](javadoc/allclasses-index)
+  > Reference documentation for all functions you can use when configuring your data pipeline.
+
+  > [Alerts](admin-controls/settings/alert-configurations)
+  > Learn how to configure alerts related to active observations and/or controls in your Identity Observability portal.
+
+  > [Custom Dashboards](admin-controls/manage-dashboards/create-a-dashboard)  
+  > Learn how to create your own custom dashboards to visualize data in your preferred format.
 
 </section>
+
 
 ## Monitor identity data and remediate security risks
 
@@ -63,20 +74,11 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 </section>
 
-## Admin controls
+## Maintenance 
 
 <section>
 
-  > [Custom Dashboards](admin-controls/manage-dashboards/create-a-dashboard)  
-  > Learn how to create your own custom dashboards to visualize data in your preferred format.
+  > [Release Notes](maintenance/release-notes/release-notes)  
+  > Release notes contain important information about new features, improvements and bug fixes for RadiantOne Identity Observability.
 
-</section>
-
-## Functions
-
-<section>
-  
-  > [Javadocs](javadoc/allclasses-index)
-  > The documentation applicable for using the available functions in the pipeline configuration.
-  
 </section>

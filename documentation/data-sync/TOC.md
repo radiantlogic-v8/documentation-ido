@@ -1,9 +1,10 @@
 ---
 title: Configuration
+<<<<<<< HEAD:documentation/configuration/TOC.md
 description: Learn how to set up pipeline configuration
 ---
 
-- [Configuration](#)
+- [Data Sync](#)
   - [Starter Guide](startup-guide.md)
   - [Data Source Examples](#)
      - [Active Directory](active-directory.md)
