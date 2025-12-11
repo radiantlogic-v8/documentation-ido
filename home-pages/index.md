@@ -44,9 +44,12 @@ Identity Observability delivers a real-time view of identities, attributes, and 
   > [Alerts](admin-controls/settings/alert-configurations)
   > Learn how to configure alerts related to active observations and/or controls in your Identity Observability portal.
 
+  > [Remediation Policies](remediation/remediation-policies)
+  > Learn how to create and assign appropriate remediation policies to your repositories based on your business needs.
+
   > [Custom Dashboards](admin-controls/manage-dashboards/create-a-dashboard)  
   > Learn how to create your own custom dashboards to visualize data in your preferred format.
-
+  
 </section>
 
 

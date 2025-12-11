@@ -1,4 +1,9 @@
-# Overview  
+---
+title: Overview
+description: Remediation overview
+---
+
+## Overview  
 
 Remediation is the process of addressing identified issues (control defects) detected by the enabled controls in your Identity Observability portal. Issues can be resolved individually or in bulk.  
 
