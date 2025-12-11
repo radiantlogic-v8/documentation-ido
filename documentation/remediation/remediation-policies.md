@@ -15,7 +15,7 @@ Remediation notifications in Identity Observability are alerts triggered wheneve
 
 This document explains the types of post-remediation operations and details the process for setting up remediation notifications and policies.
 
-## Post remediation workflow
+## Post Remediation Workflow
 
 When a remediation action is performed, it triggers a specific operation that determines where and how the change is applied. Depending on your remediation policy configuration, the update may be written back to the original backend system, stored in the Identity Observability database, or sent as a notification through channels such as Teams, Slack, email, or ticketing systems. These operations are documented below.
 
@@ -135,7 +135,7 @@ Example configuration (`target_orchestrator.json`):
 
 ## Advanced Example
 
-You can also build custom integrations with these providers to further automate your workflow. Here’s an example of how to create a ServiceNow Integration.
+You can also build custom integrations with these providers to further automate your workflow. Here’s an [example](./remediation-integration/servicenow-integration) of how to create a ServiceNow Integration.
 
 
 ### Setting Remediation Policies
