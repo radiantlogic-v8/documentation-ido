@@ -302,3 +302,77 @@ The behavioral settings are small indicators in the configuration that allow the
 We usually don't enforce the cardinality though since we want to detect in the graph data misconfiguration, i.e. an account owned by 2 identities.
 - **Edge rule event-types**: The event types to consider when maintaining the relationship. It can be `INSERT` or `UPDATE` or both. Edges are automatically deleted when a vertex is removed from the graph.
 - **Vertex transient property**: If a property is required on the vertex but is not part of the graph schema, it can be flagged as `transient` and be referenced in the configuration as a normal property. This is useful for edge resolution when the key used in the predicate is computed but not meant to be stored in the graph database.
+
+## Configuration example 
+
+The following sections provide steps to configure a basic Identity Observability Pipeline.
+
+
+### Prerequisites
+
+* You must have installed **Identity Observability**.
+* You must have created a data source using the **Data Sync Config Portal**. Refer to the data source examples listed [here](./datasource-examples/active-directory.md). 
+
+
+### Review existing templates
+
+Navigate to **Identity Observability > Template Management** and select **Template Management**.
+
+In the Template Management screen, you will find a set of preconfigured templates. These templates can be referenced when building a Pipeline configuration.
+
+* Confirm which templates are available for the required Data Sources and note their names.
+* **Do not edit these templates.** Organization-specific adjustments for a Data Source should be added using the Pipeline configuration **template-overload** function, covered later in this guide.
+* The **functions_v1** template does not represent a Data Source. It provides references to Identity Observability functions available for use in Pipeline configurations.
+
+If no template exists for a targeted Data Source, you will need to create a new template using the "Add Template" button.
+
+
+### Configure your pipeline
+
+Navigate to **Identity Observability > Pipeline Configuration** and select **Pipeline Configuration**.
+
+You are now in the Pipeline Configuration editor. You may build the configuration directly in this screen or prepare it externally and paste it into the editor.
+
+The editor performs automatic validation. If issues occur, it will display error messages with guidance.
+
+To use an existing configuration:
+
+1. Click **LOAD**.
+2. Select **Load Config Archive**.
+3. Choose your configuration and click **OK**.
+
+Upon loading, validation runs automatically. A green status indicates success. If errors occur, the editor will display details for troubleshooting. Validation reruns automatically after every modification.
+
+   ![Image of configuration editor](./media/validation.png "Image of configuration editor")
+
+Locate the **template-overload** section within the configuration. This section allows you to override properties defined in a referenced template (e.g., `ad_template_v1`). A common override is customizing the Data Source name to align with your organization’s naming conventions. Any template property can be overridden without modifying the original template.
+
+Click **APPLY**. A pop-up will display the status. If errors occur, a failure message will include information to assist with resolution.
+
+
+### Connector Configuration
+
+Navigate to **Connector Configuration** from the expanded navigation pane.
+
+The screen displays details for the connectors deployed within this pipeline. Connectors should show a green status to indicate they are running.
+
+![Image of connector configuration UI](./media/connectorui.png "Image of connector configuration UI")
+
+
+The **OBJECT NAME** column identifies the object class used in each Data Source. For example:
+
+* Identity objects come from the custom HR LDAP Data Source.
+* Accounts and Groups originate from the configured AD Data Source.
+
+The connector **STATE** may occasionally show other statuses, such as *UPLOADING*. Large data loads may take additional time. Refresh the browser or click **REFRESH** to update the status.
+
+
+### Verify data configuration
+
+Log in to the **Identity Observability Portal** and select **Explore** from the navigation pane.
+
+Click **Select** to display a dropdown of Identities synchronized through the Pipeline. Choose an Identity to view more information.
+
+The selected Identity and its linked Accounts will be displayed. Hover over any object to reveal additional details. Hover over the Identity and click **View Details** to see all objects linked to that Identity.
+
+

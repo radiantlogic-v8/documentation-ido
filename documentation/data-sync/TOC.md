@@ -1,10 +1,14 @@
 ---
 title: Configuration
-description: configuration
+<<<<<<< HEAD:documentation/configuration/TOC.md
+description: Learn how to set up pipeline configuration
 ---
 
 - [Data Sync](#)
-  - [Startup Guide](startup-guide.md)
+  - [Starter Guide](startup-guide.md)
+  - [Data Source Examples](#)
+     - [Active Directory](active-directory.md)
+     - [Entra ID](entra-id.md)
   - [Pipeline configuration](pipeline-configuration.md)
   - [Template configuration](template-configuration.md)
   - [Included functions](functions.md)
