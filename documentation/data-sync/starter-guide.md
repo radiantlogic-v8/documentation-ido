@@ -14,7 +14,7 @@ Identity Observability is offered as a SaaS service via Radiant Logic's Environm
 You can access Identity Observability's services (main Identity Observability Portal, IDP console to manage users and roles and Data Config Sync to connect your data) by [logging into the application
 endpoints](../installation/installation-steps/#log-in-to-identity-observability-endpoints) that appear on your application's overview page.
 
-![Image of Data Sync Config URL](./media/config-url.png "Image of Data Sync Config URL")
+![Image of Data Sync Config URL](./Media/config-url.png "Image of Data Sync Config URL")
 
 
 ## 2. Connect to a Data Source
@@ -24,7 +24,7 @@ Login to data sync config URL using "cn=Directory Manager" as the username and t
 Once you login to the data sync config URL, you will see an interface for data configuration. This interface includes various features such as Graph Viewer, Pipeline Configuration, Connector
 Configuration, and Template Configuration.
 
-![Image of Left Navigation Pane](./media/nav-icons.png "Image of Left Navigation Pane")
+![Image of Left Navigation Pane](./Media/nav-icons.png "Image of Left Navigation Pane")
 
 
 The Graph Viewer visualizes data schemas with vertices, edges, and attributes, and includes a filter panel for focused analysis. Template Management uses predefined, generic templates like ad_template_v1 for AD, which can be overloaded in the pipeline but not modified directly. <br>
@@ -45,7 +45,7 @@ The next step is to configure the data pipeline to map your organization's ident
 
 Keep in mind that the data will follow a specific flow as represented the schema below:
 
-![Image of Schema](./media/data-schema.png "Image of Schema")
+![Image of Schema](./Media/data-schema.png "Image of Schema")
 
 
 Begin by identifying the entities you will work with. Once you've identified your entities, familiarize yourself with the data model. Focus on **core objects** such as accounts and groups first.
