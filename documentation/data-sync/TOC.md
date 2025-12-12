@@ -1,6 +1,5 @@
 ---
 title: Configuration
-<<<<<<< HEAD:documentation/configuration/TOC.md
 description: Learn how to set up pipeline configuration
 ---
 
