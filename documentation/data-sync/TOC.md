@@ -4,7 +4,7 @@ description: Learn how to set up pipeline configuration
 ---
 
 - [Data Sync](#)
-  - [Starter Guide](startup-guide.md)
+  - [Starter Guide](starter-guide.md)
   - [Data Source Examples](#)
      - [Active Directory](active-directory.md)
      - [Entra ID](entra-id.md)
