@@ -35,7 +35,7 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 <section>
   
-  > [Data Sync](data-sync/startup-guide)  
+  > [Data Sync](data-sync/starter-guide)  
   > Learn to configure and synchronize data sources and pipelines for Identity Observability.
 
   > [Javadocs](javadoc/allclasses-index)
