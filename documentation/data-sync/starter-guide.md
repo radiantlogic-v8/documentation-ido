@@ -176,57 +176,31 @@ Attribute updates or remediations made in the Identity Observability interface a
 
 The **Remediation Notification Service** supports automated remediation through third-party systems such as ITSM tools, orchestrators, or email.
 
-### When Applying a Modified Configuration
+When deploying a new configuration, the orchestrator will automatically:
 
-The orchestrator will:
+- Validate the configuration is valid and aligned with the graph schema.
+- Verify the referenced datasources exist.
+- Validate the attributes and object names are part of the datasource schema.
+- Create and add flat views in the identity catalog naming context for each configured object.
+- Create a default connector configuration for Identity Observability.
+- If the connector configuration is complete, an initial upload is triggered automatically. Connector configurations are complete when they don't need human intervention to customize them.
+- If the pipeline is not uploaded automatically, the pipeline state is flagged as `CONFIGURATION_INCOMPLETE`.
+- After the upload of a pipeline is finished, the connector for that pipeline is restarted automatically.
+- Create and deploy the graph pipelines that push the normalized data into the graph database following the configuration.
+- The orchestrator keeps monitoring the state of the pipelines and the connectors, which is reported on the Prometheus metrics endpoint.
 
-1.  ValIdentity Analyticste the configuration against the graph schema.
+When applying a modified configuration, the orchestrator will:
 
-2.  Verify that all referenced data sources exist.
+- Validate the configuration changes are supported: only non-structural changes are supported, such as the addition of new source objects, the addition of new edges, and added or removed properties. Changing the datasource or the object name of an existing source object is considered a structural change and is not supported.
+- Validate the configuration is aligned with the graph schema and the datasource schema.
+- Deploy or undeploy the views in the identity catalog needed to support the new configuration.
+- Identify the dependencies that need to be re-uploaded, which is common when adding a vertex or an edge that is based on a source object that was already processed in a previous run.
+- Re-upload the dependencies and the pipeline.
+- Back up the graph pipelines and redeploy them based on the new configuration.
 
-3.  Confirm attributes and object names match the data source schema.
+When applying an empty configuration, the orchestrator will:
 
-4.  Create and add **flat views** in the identity catalog naming context for each configured object.
-
-5.  Generate a **default connector configuration** for Identity Observability.
-
-6.  Automatically trigger an **initial upload** if the configuration requires no manual input.
-
-    a.  If manual input is needed, the pipeline state is marked as CONFIGURATION_INCOMPLETE.
-
-7.  After uploading, automatically restart the pipeline connector.
-
-8.  Create and deploy **graph pipelines** that push normalized data into the graph database.
-
-9.  Continuously monitor the state of pipelines and connectors through **Prometheus metrics**.
-
-### When Applying a Modified Configuration
-
-The orchestrator will:
-
-1.  ValIdentity Analyticste that changes are **non-structural** (e.g., new objects, edges, or properties).
-
-    a.  **Structural changes** (like renaming objects or changing data sources) are **not supported**.
-
-2.  Ensure the configuration aligns with the graph and data source schemas.
-
-3.  Deploy or undeploy identity catalog views as needed.
-
-4.  Identify and re-upload **dependent components** when new vertices or edges rely on existing objects.
-
-5.  Re-upload dependencies and pipelines.
-
-6.  Backup, redeploy, and synchronize graph pipelines with the new configuration.
-
-### When Applying an Empty Configuration
-
-The orchestrator will remove all data from the graph database and undeploy:
-
-1.  All **identity catalog views**.
-
-2.  **Connectors**.
-
-3.  **Graph pipelines**.
-
-4.  Clear all data from the **graph database**.
-
+- Undeploy the identity catalog views.
+- Undeploy the connectors.
+- Undeploy the graph pipelines.
+- Empty the graph database of all data.
