@@ -5,6 +5,8 @@ description: RadiantOne IDO Release Notes
 
 # Identity Observability Release Notes
 
+February 2026
+
 These release notes contain important information about new features, improvements and bug fixes for RadiantOne Identity Observability.  
 These release notes contain the following sections:
 
