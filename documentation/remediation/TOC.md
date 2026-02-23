@@ -8,4 +8,5 @@ description: Remediation
   - [Audit trail](audit-trail.md)
   - [Remediation Policies](remediation-policies.md)
   - [Remediation Integration](#)
-    -[Servicenow Integration](servicenow-integration.md)
+    - [Servicenow Integration](servicenow-integration.md)
+    - [Guided Slack Remediation](guided-slack-remediation.md)
