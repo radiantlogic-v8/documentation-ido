@@ -89,38 +89,38 @@ Note that you can also create the app from scratch without using the Manifest. Y
 ![Step 4 – Enable AIDA Messaging Screenshot](./Media/enable-aida-messaging.png)
 
 
-## Step 4: Configure Credentials in Identity Observability
+## Step 5: Configure Credentials in Identity Observability
 
-1. Login to Identity Observability and navigate to:
-   **Admin > Remediation > Guided Remediation in Slack**
+1. Login to Identity Observability and navigate to Admin > Remediation > Guided Remediation in Slack. 
 
 2. Under **Slack Connection Configuration**, provide your Slack Workspace URL
-   (example: [https://radiant-dev.slack.com/api/chat.postMessage](https://radiant-dev.slack.com/api/chat.postMessage))
+   (example: https://radiant-dev.slack.com/api/chat.postMessage)
    and the token that you copied earlier.
 
-![Step 4 – Slack Connection Configuration Screenshot](./Media/step4-slack-connection-configuration.png)
+![Step 5 – Slack Connection Configuration Screenshot](./Media/slack-connection-configuration.png)
 
 
-
-## Step 5: Enable Guided Remediation for a Control
+## Step 6: Enable Guided Remediation for a Control
 
 1. In your Identity Observability Portal, navigate to **Controls** and select a control that you want to be alerted about via Slack.
 
-![Step 5 – Controls Page Screenshot](./Media/controls-page.png)
-
 2. In the Control detail interface, click the (...) menu and click **Configure Alert**.
 
-![Step 5 – Configure Alert Screenshot](./Media/configure-alert.png)
+![Step 6 – Controls Page Screenshot](./Media/controls-page.png)
 
 3. Next, toggle on the **Enable Guided Remediation with Slack** option.
 
-![Step 5 – Enable Guided Remediation Toggle Screenshot](./Media/enable-guided-remediation-toggle.png)
+![Step 6 – Enable Guided Remediation Toggle Screenshot](./Media/enable-guided-remediation-toggle.png)
 
 
+## Step 7: Receive Guided Remediation Alerts
 
-## Step 6: Receive Guided Remediation Alerts
+When an issue related to a Control is detected, you’ll receive a Slack alert with suggested remediation actions. 
 
-When an issue related to a Control is detected, you’ll receive a Slack alert with suggested remediation actions. Note that you will be notified only if you are a manager linked to the control object. This is described further in the following section:
+![Step 7 – Remediation Alert](./Media/rem-alert.png)
+
+
+Note that you will be notified only if you are a manager linked to the control object. This is described further in the following section:
 
 When a guided remediation notification is triggered, Identity Observability uses a deterministic routing order to identify who should receive the notification in Slack.
 
