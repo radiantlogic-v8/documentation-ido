@@ -17,11 +17,9 @@ If you don’t have app permissions in Slack, ask your admin to either enable ap
 1. Login to Identity Observability and navigate to:
    **Admin > Settings > Remediation > Guided Remediation in Slack**
 
-![Step 1 – Guided Remediation Settings Screenshot](./Media/guided-remediation-settings.png)
+![Step 1 – Guided Remediation Settings Screenshot](../Media/guided-remediation-settings.png)
 
 2. Make note of **Event Subscription URL** and **Interaction URL** as you will need these while configuring the Slack App.
-
-
 
 ## Step 2: Create the Slack App Using a Manifest File
 
@@ -70,7 +68,7 @@ If you don’t have app permissions in Slack, ask your admin to either enable ap
 
 4. Create the app and ensure that the Event Subscription URL is verified.
 
-![Step 2 – Slack App Configuration Screenshot](./Media/slack-app-configuration.png)
+![Step 2 – Slack App Configuration Screenshot](../Media/slack-app-configuration.png)
 
 5. Save changes.
 
@@ -86,7 +84,7 @@ Note that you can also create the app from scratch without using the Manifest. Y
 
 1. In the **App Home** section, enable the **Messages Tab** and select the “Slash commands and messages from the messages tab” option.
 
-![Step 4 – Enable AIDA Messaging Screenshot](./Media/enable-aida-messaging.png)
+![Step 4 – Enable AIDA Messaging Screenshot](../Media/enable-aida-messaging.png)
 
 
 ## Step 5: Configure Credentials in Identity Observability
@@ -97,7 +95,7 @@ Note that you can also create the app from scratch without using the Manifest. Y
    (example: https://radiant-dev.slack.com/api/chat.postMessage)
    and the token that you copied earlier.
 
-![Step 5 – Slack Connection Configuration Screenshot](./Media/slack-connection-configuration.png)
+![Step 5 – Slack Connection Configuration Screenshot](../Media/slack-connection-configuration.png)
 
 
 ## Step 6: Enable Guided Remediation for a Control
@@ -106,18 +104,18 @@ Note that you can also create the app from scratch without using the Manifest. Y
 
 2. In the Control detail interface, click the (...) menu and click **Configure Alert**.
 
-![Step 6 – Controls Page Screenshot](./Media/controls-page.png)
+![Step 6 – Controls Page Screenshot](../Media/controls-page.png)
 
 3. Next, toggle on the **Enable Guided Remediation with Slack** option.
 
-![Step 6 – Enable Guided Remediation Toggle Screenshot](./Media/enable-guided-remediation-toggle.png)
+![Step 6 – Enable Guided Remediation Toggle Screenshot](../Media/enable-guided-remediation-toggle.png)
 
 
 ## Step 7: Receive Guided Remediation Alerts
 
 When an issue related to a Control is detected, you’ll receive a Slack alert with suggested remediation actions. 
 
-![Step 7 – Remediation Alert](./Media/rem-alert.png)
+![Step 7 – Remediation Alert](../Media/rem-alert.png)
 
 
 Note that you will be notified only if you are a manager linked to the control object. This is described further in the following section:
@@ -171,27 +169,27 @@ If a defect is found on an account:
 
 Choose the action that fits your use case, or chat with the bot for more details. For more information about the alert, expand the “reply” included in the alert.
 
-![Slack Alert Thread Screenshot](./Media/slack-alert-thread.png)
+![Slack Alert Thread Screenshot](../Media/slack-alert-thread.png)
 
 You can reply to that thread with any follow-up questions to get more insights about the issue.
 
 After understanding the details, you can choose a remediation action such as disabling the account (as shown in the image below).
 
-![Disable Account Action Screenshot](./Media/disable-account.png)
+![Disable Account Action Screenshot](../Media/disable-account.png)
 
 Alternatively, you can also choose other available actions, such as:
 
 * Inquiring why you received the notification.
 
-![Inquire Notification Screenshot](./Media/inquire-notification.png)
+![Inquire Notification Screenshot](../Media/inquire-notification.png)
 
 * Set exception
 
-![Set Exception Screenshot](./Media/set-exception.png)
+![Set Exception Screenshot](../Media/set-exception.png)
 
 * Delegate the action to one of your direct reports (someone you manage).
 
-![Delegate Action Screenshot](./Media/delegate-action.png)
+![Delegate Action Screenshot](../Media/delegate-action.png)
 
 
 
