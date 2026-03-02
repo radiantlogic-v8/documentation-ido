@@ -197,16 +197,18 @@ Alternatively, you can also choose other available actions, such as:
 
 The following remediation actions can be executed directly from Slack.
 
-* identity/disable_all_accounts (for example: IDO_HR10)
-* identity/set_departure_date (for example: IDO_HR10, IDO_HR08)
-* identity/set_email (for example: IDO_HR03)
-* identity/set_direct_manager (for example: IDO_HR12)
-* account/add_manager (for example: IDO_ACC61)
-* account/enable_mfa (for example: IDO_ACC66)
-* account/set_password_required (for example: IDO_ACC09)
-* account/set_description (for example: IDO_ACC63)
-* group/add_manager (for example: IDO_GROUP08)
-* group/set_description (for example: IDO_GROUP15)
+| Action | Example |
+|--------|----------|
+| identity/disable_all_accounts | Remediation of control IDO_HR10: Contractor with a past end date who still has active accounts. |
+| identity/set_departure_date | Remediation of control IDO_HR08: Contractor without an end date. |
+| identity/set_email | Remediation of control IDO_HR03: Resource owner without an email address. |
+| identity/set_direct_manager | Remediation of control IDO_HR12: Contractor without an assigned manager. |
+| account/add_manager | Remediation of control IDO_ACC61: Privileged technical account without an assigned manager. |
+| account/enable_mfa | Remediation of control IDO_ACC66: User account with MFA disabled. |
+| account/set_password_required | Remediation of control IDO_ACC09: User account configured with password not required. |
+| account/set_description | Remediation of control IDO_ACC63: Privileged technical account without a description. |
+| group/add_manager | Remediation of control IDO_GROUP08: Critical or sensitive group whose owner has left. |
+| group/set_description | Remediation of control IDO_GROUP15: Critical or sensitive group without a description. |
 
 For any remediation action not listed below, use the link provided in the Slack notification message. That link redirects you to the control detail page in Identity Observability, where the remediation can be performed.
 
