@@ -1,8 +1,8 @@
-# Guided Remediation in Slack with AIDA
+## Guided Remediation in Slack with AIDA
 
 This guide explains how to enable Guided Remediation in Slack with Radiant Logic’s AIDA, including the required configuration steps and integration details.
 
-## Prerequisites
+### Prerequisites
 
 Before you begin, ensure that you have:
 
@@ -12,7 +12,7 @@ Before you begin, ensure that you have:
 
 If you don’t have app permissions in Slack, ask your admin to either enable app management for your account or install the app for you and share the credentials.
 
-## Step 1: Gather necessary URLs
+### Step 1: Gather necessary URLs
 
 1. Login to Identity Observability and navigate to:
    **Admin > Settings > Remediation > Guided Remediation in Slack**
@@ -21,7 +21,7 @@ If you don’t have app permissions in Slack, ask your admin to either enable ap
 
 2. Make note of **Event Subscription URL** and **Interaction URL** as you will need these while configuring the Slack App.
 
-## Step 2: Create the Slack App Using a Manifest File
+### Step 2: Create the Slack App Using a Manifest File
 
 1. Go to [https://api.slack.com/apps](https://api.slack.com/apps) and click **Create an App**.
 2. Choose **From Manifest** and select your workspace.
@@ -75,19 +75,19 @@ If you don’t have app permissions in Slack, ask your admin to either enable ap
 Note that you can also create the app from scratch without using the Manifest. You will need to enter the appropriate values manually and select all the scopes shown in the manifest file. You will also need to enable event subscription with `message.im` permission and enable interactivity.
 
 
-## Step 3: Install the App
+### Step 3: Install the App
 
 1. Go to **Install App**. Click the green **Install** button. A new page will open to confirm the installation.
 2. Click **Allow**. You will then be redirected back to Install App in your Slack app settings, where you can copy the **Bot User OAuth Token** (starting with `xoxb`).
 
-## Step 4: Enable AIDA Messaging
+### Step 4: Enable AIDA Messaging
 
 1. In the **App Home** section, enable the **Messages Tab** and select the “Slash commands and messages from the messages tab” option.
 
 ![Step 4 – Enable AIDA Messaging Screenshot](../Media/enable-aida-messaging.png)
 
 
-## Step 5: Configure Credentials in Identity Observability
+### Step 5: Configure Credentials in Identity Observability
 
 1. Login to Identity Observability and navigate to Admin > Remediation > Guided Remediation in Slack. 
 
@@ -98,7 +98,7 @@ Note that you can also create the app from scratch without using the Manifest. Y
 ![Step 5 – Slack Connection Configuration Screenshot](../Media/slack-connection-configuration.png)
 
 
-## Step 6: Enable Guided Remediation for a Control
+### Step 6: Enable Guided Remediation for a Control
 
 1. In your Identity Observability Portal, navigate to **Controls** and select a control that you want to be alerted about via Slack.
 
@@ -111,7 +111,7 @@ Note that you can also create the app from scratch without using the Manifest. Y
 ![Step 6 – Enable Guided Remediation Toggle Screenshot](../Media/enable-guided-remediation-toggle.png)
 
 
-## Step 7: Receive Guided Remediation Alerts
+### Step 7: Receive Guided Remediation Alerts
 
 When an issue related to a Control is detected, you’ll receive a Slack alert with suggested remediation actions. 
 
@@ -137,7 +137,7 @@ When a guided remediation notification is triggered, Identity Observability uses
 
 
 
-## Notification Routing Logic by Object Type
+#### Notification Routing Logic by Object Type
 
 | Object Type | Routing Order (Evaluated Top to Bottom) | Description |
 |-------------|------------------------------------------|-------------|
@@ -151,7 +151,7 @@ When a guided remediation notification is triggered, Identity Observability uses
 
 
 
-## Example: Account Defect Notification Flow
+##### Example: Account Defect Notification Flow
 
 If a defect is found on an account:
 
@@ -165,7 +165,7 @@ If a defect is found on an account:
 
 
 
-## Step 7: Respond to the alert
+### Step 7: Respond to the alert
 
 Choose the action that fits your use case, or chat with the bot for more details. For more information about the alert, expand the “reply” included in the alert.
 
@@ -193,7 +193,7 @@ Alternatively, you can also choose other available actions, such as:
 
 
 
-## Remediation Actions Available in Slack
+### Remediation Actions Available in Slack
 
 The following remediation actions can be executed directly from Slack.
 
@@ -210,7 +210,7 @@ The following remediation actions can be executed directly from Slack.
 
 For any remediation action not listed below, use the link provided in the Slack notification message. That link redirects you to the control detail page in Identity Observability, where the remediation can be performed.
 
-## AIDA’s visibility scope
+### AIDA’s visibility scope
 
 The Guided Remediation feature is powered by Radiant One's Artificial Intelligence Data Assistant (AIDA). When using AIDA, end users can access information only for the objects they are responsible for. This default behavior is defined in a JSON configuration file, which can be modified via the API.
 
