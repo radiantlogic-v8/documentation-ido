@@ -9,4 +9,4 @@ description: Remediation
   - [Remediation Policies](remediation-policies.md)
   - [Remediation Integration](#)
     - [Servicenow Integration](remediation-integration/servicenow-integration.md)
-    - [Guided Slack Remediation](remediation-integration/guided-slack-remediation.md)
+    - [Guided Remediation with AIDA](remediation-integration/guided-aida-remediation.md)
