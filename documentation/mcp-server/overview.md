@@ -1,3 +1,8 @@
+---
+title: Overview
+description: Overview of Identity Observability MCP Server
+---
+
 # Identity Observability MCP Server
 
 The Identity Observability MCP server lets you connect AI agents to your identity observability data and access context in a simple, predictable way so they can look up information about identities, accounts, understand their risk, and safely automate remediation steps.
@@ -19,13 +24,13 @@ These services allow agents to:
 
 Each service returns data in JSON format, making it easy for automation platforms, agents, or other systems to process the results.
 
-## Identity Unique Identifier Lookup
+### Identity Unique Identifier Lookup
 
 Use this service when you need to find the unique identifier of an identity.
 
 It searches for a person/identity using information such as their name, employee ID, or email address and returns their unique identity identifier. This identifier is required for retrieving the person's full identity context in later queries.
 
-### Input Parameters
+#### Input Parameters
 
 You can search using one or more of the following:
 
@@ -35,9 +40,9 @@ You can search using one or more of the following:
 
 These parameters are evaluated using a logical OR. This means the service will return any identity that matches any of the provided values.
 
-### Possible Results
+#### Possible Results
 
-#### No Result
+##### No Result
 
 No identity matches the search criteria.
 
@@ -46,19 +51,19 @@ This usually means:
 - the person does not exist in the system, or
 - the provided information is incorrect.
 
-#### One Result
+##### One Result
 
 Exactly one identity matches the search.
 
 The response includes key details about the identity and the unique identity identifier, which can be used in the Identity Context Retrieval service.
 
-#### Multiple Results
+##### Multiple Results
 
 More than one identity matches the search criteria.
 
 When this happens, the response includes identifying details (such as HR ID, name, and email) so the requester can determine which identity is correct.
 
-### Response Data (per identity)
+#### Response Data (per identity)
 
 Each identity record includes:
 
@@ -67,7 +72,7 @@ Each identity record includes:
 - **Full Name** – the person's recorded name
 - **Email Address** – the primary corporate email
 
-### JSON Response Example
+#### JSON Response Example
 
 ```
 {
@@ -84,7 +89,7 @@ Each identity record includes:
 }
 ```
 
-## Identity Context Retrieval
+### Identity Context Retrieval
 
 Use this service when you already know the Identity ID and want to retrieve complete information about that person.
 
@@ -98,24 +103,24 @@ This includes information about:
 
 This information helps with analysis, investigations, and operational decisions.
 
-### Input Parameters
+#### Input Parameters
 
 Required parameter:
 
 - **Unique Identity Identifier**
   (returned by the Identity Lookup service)
 
-### Response Data: Complete Identity Context
+#### Response Data: Complete Identity Context
 
 The response provides structured information about the identity in several categories.
 
-#### Core Identity Attributes
+##### Core Identity Attributes
 
 All attributes stored for the identity within the platform.
 
 These may include HR attributes and other identity metadata maintained by the system.
 
-#### Direct Manager Information
+##### Direct Manager Information
 
 Information about the identity's direct manager, including:
 
@@ -123,7 +128,7 @@ Information about the identity's direct manager, including:
 - Manager Full Name
 - Manager Email Address
 
-#### Risk Profile
+##### Risk Profile
 
 A risk evaluation associated with the identity.
 
@@ -132,7 +137,7 @@ This includes:
 - **Risk Level** – Low, Medium, High, or Critical
 - **Risk Score** – a numeric score representing the risk level
 
-#### Organizational Attachment Information
+##### Organizational Attachment Information
 
 Details about where the identity sits within the organization.
 
@@ -146,7 +151,7 @@ If available, it also includes the department manager's information:
 - Manager Full Name
 - Manager Email Address
 
-#### Associated Access Accounts
+##### Associated Access Accounts
 
 A list of accounts that belong to this identity.
 
@@ -157,7 +162,7 @@ For each account:
 - Account status (Active or Inactive)
 - Last successful login date and time
 
-#### Identity Issues and Detected Problems
+##### Identity Issues and Detected Problems
 
 Any issues detected for the identity or its associated accounts.
 
@@ -197,7 +202,7 @@ Information about how the issue can be resolved.
 - Current resolution status
 - Issue detection date
 
-### JSON Response Example
+#### JSON Response Example
 
 ```
 {
@@ -254,13 +259,13 @@ Information about how the issue can be resolved.
 }
 ```
 
-## Access Account Unique Identifier Lookup
+### Access Account Unique Identifier Lookup
 
 Use this service to find an account ID in a specific system.
 
 It searches for the account and returns a unique account identifier, which can then be used to retrieve the account's full context.
 
-### Input Parameters
+#### Input Parameters
 
 The query must include:
 
@@ -278,25 +283,25 @@ Combined logic:
 
 This ensures that the correct system is searched when looking for the account.
 
-### Possible Results
+#### Possible Results
 
-#### No Result
+##### No Result
 
 No account matches the provided criteria.
 
-#### One Result
+##### One Result
 
 Exactly one account matches.
 
 The response includes the unique account identifier, which can be used to retrieve the full account context.
 
-#### Multiple Results
+##### Multiple Results
 
 More than one account matches the criteria.
 
 Additional information is returned so the requester can determine which account is correct.
 
-### JSON Response Example
+##### JSON Response Example
 
 ```json
 {
@@ -314,7 +319,7 @@ Additional information is returned so the requester can determine which account 
 }
 ```
 
-## Access Account Context Retrieval
+### Access Account Context Retrieval
 
 Use this service to retrieve detailed information about a specific account.
 
@@ -326,22 +331,22 @@ This includes information about:
 - the permissions granted to the account
 - any detected issues or risks
 
-### Input Parameters
+#### Input Parameters
 
 Required parameter:
 
 - **Unique Account Identifier**
   (obtained from the Account Lookup service)
 
-### Response Data: Complete Account Context
+#### Response Data: Complete Account Context
 
 The response provides several types of information about the account.
 
-#### Core Account Attributes
+##### Core Account Attributes
 
 All attributes stored for the account in the platform.
 
-#### Repository or System Information
+##### Repository or System Information
 
 Details about the system that hosts the account.
 
@@ -352,14 +357,14 @@ Includes:
 - Repository Description
 - Repository Type (for example: Directory Service, Database, Cloud Application)
 
-#### Account Risk Profile
+##### Account Risk Profile
 
 Risk indicators associated with the account.
 
 - **Risk Level** (Low / Medium / High / Critical)
 - **Risk Score** (numeric)
 
-#### Account Owner or Manager Information
+##### Account Owner or Manager Information
 
 The information returned depends on the account type.
 
@@ -391,7 +396,7 @@ For each manager:
 - Status
 - Departure Date (if applicable)
 
-#### Associated Groups
+##### Associated Groups
 
 Lists the groups the account belongs to.
 
@@ -402,7 +407,7 @@ Each group entry includes:
 - Association Type (Direct or Indirect)
 - Repository information
 
-#### Associated Resources and Permissions
+##### Associated Resources and Permissions
 
 Lists the resources that the account can access.
 
@@ -420,7 +425,7 @@ Permissions granted to the account include:
 - Permission Description
 - Permission Type
 
-#### Account Issues and Detected Problems
+##### Account Issues and Detected Problems
 
 Any issues detected for the account.
 
@@ -442,7 +447,7 @@ Each issue includes:
 - Current resolution status
 - Issue detection date
 
-### JSON Response Example
+#### JSON Response Example
 
 ```
 {
