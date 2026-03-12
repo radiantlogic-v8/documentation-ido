@@ -77,6 +77,14 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 </section>
 
+## AI tools
+
+<section>
+  
+  > [MCP Server](mcp-server/overview)  
+  > Learn how to connect AI agents to your identity observability data using the MCP server to look up identities, accounts, assess risk, and manage remediation.
+</section>
+
 ## Maintenance 
 
 <section>
