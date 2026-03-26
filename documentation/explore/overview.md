@@ -20,11 +20,10 @@ Once you’re in the page, you can explore available data in the following ways:
   ![Image of data exploration options](Media/explore-options.png "Image showing data exploration options")
 
 * Organization: See the whole organization’s structure. 
-
 * Department: Filter and focus on specific departments. 
-
-* Identity: Search for and review individual identities within the system. 
-
+* Identity: Search for and review individual identities within the system.
+* Account: Search for and review individual accounts within the system.
+* Group: Filter by groups and review members in those groups. 
 * Resource: Explore various resources available within the organization. 
 
 ### Filters and views  
