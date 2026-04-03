@@ -76,15 +76,17 @@ Each identity record includes:
 
 ```
 {
+  "result_count": 1,
   "results": [
     {
-      "identity_id": "unique_identifier",
-      "hr_employee_id": "EMP12345",
-      "full_name": "John Doe",
-      "email": "john.doe@company.com"
+      "account_id": "CLAUDIA_NEAL_1730380876537_3683",
+      "email": null,
+      "employee_number": null,
+      "full_name": "ACME.COM:claudia.neal@acme.com",
+      "login": "claudia.neal@acme.com",
+      "repository": "ACME.COM"
     }
   ],
-  "result_count": 1,
   "status": "success"
 }
 ```
@@ -305,16 +307,17 @@ Additional information is returned so the requester can determine which account 
 
 ```json
 {
+  "result_count": 1,
   "results": [
     {
-      "account_id": "unique_account_identifier",
-      "repository": "Active Directory",
-      "login": "jdoe",
-      "full_name": "John Doe - Engineering",
-      "email": "john.doe@company.com"
+      "account_id": "CLAUDIA_NEAL_1730380876537_3683",
+      "email": null,
+      "employee_number": null,
+      "full_name": "ACME.COM:claudia.neal@acme.com",
+      "login": "claudia.neal@acme.com",
+      "repository": "ACME.COM"
     }
   ],
-  "result_count": 1,
   "status": "success"
 }
 ```
@@ -451,80 +454,233 @@ Each issue includes:
 
 ```
 {
-  "account": {
-    "account_id": "unique_account_identifier",
-    "login": "jdoe",
-    "full_name": "John Doe - Engineering",
-    "email": "john.doe@company.com",
-    "all_attributes": {},
-    "repository": {
-      "repository_id": "AD001",
-      "repository_name": "Active Directory",
-      "repository_description": "Primary Corporate Directory Service",
-      "repository_type": "Directory Service"
-    },
-    "risk_profile": {
-      "risk_level": "Medium",
-      "risk_score": 62
-    },
-    "account_type": "user",
-    "account_owner": {
-      "hr_employee_id": "EMP12345",
-      "full_name": "John Doe",
-      "email": "john.doe@company.com",
-      "status": "Active",
-      "departure_date": null
-    },
-    "owner_manager": {
-      "hr_employee_id": "MGR001",
-      "full_name": "Jane Smith",
-      "email": "jane.smith@company.com"
-    },
-    "associated_groups": [
-      {
-        "group_name": "Engineering-Team",
-        "group_description": "Engineering department team access gro",
-        "association_type": "Direct",
-        "repository": {
-          "repository_id": "AD001",
-          "repository_name": "Active Directory"
-        }
-      }
-    ],
-    "associated_resources": [
-      {
-        "resource_id": "FS-ENG-001",
-        "resource_name": "Engineering File Share",
-        "resource_description": "Shared files for engineering projec",
-        "resource_type": "File Share",
-        "permissions": [
-          {
-            "permission_id": "PERM-READ-001",
-            "permission_name": "Read",
-            "permission_description": "Read access to all files",
-            "permission_type": "Read"
-          },
-          {
-            "permission_id": "PERM-WRITE-001",
-            "permission_name": "Write",
-            "permission_description": "Write access to project direc",
-            "permission_type": "Write"
-          }
-        ]
-      }
-    ],
-    "issues": [
-      {
-        "control_name": "Account Activity Monitor",
-        "control_description": "Detects accounts with anomalous acti",
-        "risk_description": "Account shows unusual login patterns ou",
-        "risk_level": "High",
-        "recommended_remediation": "Review recent activity logs and",
-        "resolution_status": "Pending Review",
-        "detection_date": "2025-11-26T15:30:00Z"
-      }
-    ]
-  },
-  "status": "success"
-}
+	"result_count": 1,
+	"results": {
+	  "account": [
+		{
+		  "account_id": "claudia.neal",
+		  "control_defects": [
+			{
+			  "control": [
+				{
+				  "control_category": "test",
+				  "control_creation_date": "30/03/26",
+				  "control_description": "test control",
+				  "control_displayname": "CONTROL 1 HELLO",
+				  "control_entity": "account",
+				  "control_modification_date": "30/03/26",
+				  "control_name": "CONTROL 0001 YES",
+				  "control_nb_defects_1": 1,
+				  "control_nb_defects_2": 1,
+				  "control_nb_defects_3": 1,
+				  "control_nb_defects_4": 1,
+				  "control_nb_defects_week_1": 1,
+				  "control_nb_defects_week_2": 1,
+				  "control_nb_defects_week_3": 1,
+				  "control_nb_defects_week_4": 1,
+				  "control_remediation_policy": "Remediation policy",
+				  "control_remove_policy": "None",
+				  "control_risk_description": "This is a risk description",
+				  "control_risk_level": 10,
+				  "control_suggested_action": "Suggested action",
+				  "control_updated_date": "30/03/26",
+				  "id": "CONTROL-0001-ACCOUNT"
+				},
+				{
+				  "control_category": "test",
+				  "control_creation_date": "30/03/26",
+				  "control_description": "test control",
+				  "control_displayname": "CONTROL 1 HELLO",
+				  "control_entity": "identity",
+				  "control_modification_date": "30/03/26",
+				  "control_name": "CONTROL 0001 YES",
+				  "control_nb_defects_1": 1,
+				  "control_nb_defects_2": 1,
+				  "control_nb_defects_3": 1,
+				  "control_nb_defects_4": 1,
+				  "control_nb_defects_week_1": 1,
+				  "control_nb_defects_week_2": 1,
+				  "control_nb_defects_week_3": 1,
+				  "control_nb_defects_week_4": 1,
+				  "control_remediation_policy": "Remediation policy",
+				  "control_remove_policy": "None",
+				  "control_risk_description": "This is a risk description",
+				  "control_risk_level": 10,
+				  "control_suggested_action": "Suggested action",
+				  "control_updated_date": "30/03/26",
+				  "id": "CONTROL-0001-IDENTITY"
+				}
+			  ],
+			  "control_defect_audit_trail": "audit_trail_test",
+			  "control_defect_created_at": "30/03/2026",
+			  "control_defect_displayname": "Control Defect 01",
+			  "control_defect_is_closed": false,
+			  "control_defect_last_update": "31/03/2026",
+			  "control_defect_last_who_name": "name",
+			  "control_defect_remediation_uuid": "0001",
+			  "control_defect_risk_level": 23,
+			  "control_defect_status": "TEST",
+			  "control_defect_third_party_status": "TESTING",
+			  "id": "CTRL-DEFECT-001"
+			}
+		  ],
+		  "creation_date": "Creation date not available in ACME.COM",
+		  "default_mfa_method_strength": "False",
+		  "default_mfa_method_type": "none",
+		  "disabled": true,
+		  "dn": "claudia.neal",
+		  "dont_expire_password": false,
+		  "full_name": "ACME.COM:claudia.neal@acme.com",
+		  "groups": [
+			{
+			  "dn": "EVERYONE_EXCEPT_EXTERNAL_USERS",
+			  "group_name": "EVERYONE_EXCEPT_EXTERNAL_USERS",
+			  "id": "EVERYONE_EXCEPT_1730380876194_3519",
+			  "sensitivity_level": 0
+			}
+		  ],
+		  "id": "CLAUDIA_NEAL_1730380876537_3683",
+		  "is_passwordless_active": "False",
+		  "is_passwordless_required": "True",
+		  "is_sspr_allowed": "True",
+		  "is_sspr_registered": "False",
+		  "last_login": "Last login date not available in ACME.COM",
+		  "locked": false,
+		  "login": "claudia.neal@acme.com",
+		  "mfa_active": "False",
+		  "mfa_allowed": "False",
+		  "mfa_properly_configured": "False",
+		  "mfa_properly_configured_reason": "Mfa is disabled",
+		  "mfa_registered": "False",
+		  "mfa_required": "True",
+		  "owner": [
+			{
+			  "arrival_date": "US",
+			  "departments": [
+				{
+				  "department": "DMARPR",
+				  "department_short_name": "DMARPR",
+				  "id": "DMARPR_1730380867151_45",
+				  "identity_job_title": "Marketing Advisor",
+				  "managers": [
+					{
+					  "arrival_date": "US",
+					  "email": "tbenet@radiantlogic.com",
+					  "employee_type": "Internal",
+					  "full_name": "Thibeau BENET",
+					  "given_name": "Thibeau",
+					  "hr_employee_id": "ID0000101",
+					  "id": "ID0000101_1730380868867_527",
+					  "internal": true,
+					  "status": true,
+					  "surname": "BENET",
+					  "title": "Mr"
+					}
+				  ],
+				  "team_members": [
+					{
+					  "arrival_date": "US",
+					  "email": "tbenet@radiantlogic.com",
+					  "employee_type": "Internal",
+					  "full_name": "Thibeau BENET",
+					  "given_name": "Thibeau",
+					  "hr_employee_id": "ID0000101",
+					  "id": "member_id",
+					  "internal": true,
+					  "resources": [
+						{
+						  "description": "Company's Enterprise Resource Planning system (ERP)",
+						  "id": "resource_id",
+						  "resource_family": "SAP",
+						  "resource_name": "Main-FS2-Graphics Solution",
+						  "resource_type": "Share",
+						  "sensitivity_level": 0
+						}
+					  ],
+					  "status": true,
+					  "surname": "BENET",
+					  "title": "Mr"
+					}
+				  ]
+				}
+			  ],
+			  "departure_date": "Departure date not available in HR",
+			  "email": "cneal17@acme.com",
+			  "employee_type": "Internal",
+			  "full_name": "Claudia NEAL",
+			  "given_name": "Claudia",
+			  "hr_employee_id": "ID0000056",
+			  "hr_repository": [
+				{
+				  "id": "1730380822875_402",
+				  "repository_name": "HR",
+				  "repository_type": "Accounts"
+				}
+			  ],
+			  "id": "ID0000056_1730380868289_345",
+			  "internal": true,
+			  "managers": [
+				{
+				  "arrival_date": "US",
+				  "email": "tbenet@radiantlogic.com",
+				  "employee_type": "Internal",
+				  "full_name": "Thibeau BENET",
+				  "given_name": "Thibeau",
+				  "hr_employee_id": "ID0000101",
+				  "id": "ID0000101_1730380868867_527",
+				  "internal": true,
+				  "status": true,
+				  "surname": "BENET",
+				  "title": "Mr"
+				}
+			  ],
+			  "status": true,
+			  "surname": "NEAL",
+			  "title": "Ms"
+			}
+		  ],
+		  "password_cant_change": false,
+		  "password_expired": false,
+		  "password_not_required": false,
+		  "privileged_account": false,
+		  "reconciliation_comment": "fullname with username",
+		  "reconciliation_date": "20241031142209",
+		  "reconciliation_description": "fullname with username",
+		  "reconciliation_rule": "FULLNAME_USERNAME",
+		  "repository": [
+			{
+			  "id": "ACME_COM_1730380876181_3517",
+			  "is_mfa_capable": true,
+			  "is_passwordless_capable": true,
+			  "is_sspr_capable": true,
+			  "repository_family": "Azure",
+			  "repository_name": "ACME.COM",
+			  "repository_type": "Accounts"
+			}
+		  ],
+		  "risks": [
+			{
+			  "account_nb_defects": 0,
+			  "agg_risk_1": 0,
+			  "agg_risk_2": 0,
+			  "agg_risk_3": 0,
+			  "agg_risk_4": 0,
+			  "agg_risk_level": 0,
+			  "agg_risk_score": 0,
+			  "int_risk_1": 0,
+			  "int_risk_2": 0,
+			  "int_risk_3": 0,
+			  "int_risk_4": 0,
+			  "int_risk_level": 0,
+			  "int_risk_score": 0,
+			  "sensitivity_level": 0
+			}
+		  ],
+		  "samaccountname": "claudia.neal@acme.com",
+		  "secondary_mfa_method_types": "none"
+		}
+	  ]
+	},
+	"status": "success"
+  }
 ```
