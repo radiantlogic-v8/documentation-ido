@@ -1,6 +1,6 @@
 # Administrator and Integrator Guide 
 
-The MCP (Model Context Protocol) Server lets an AI assistant such as Cursor or n8n answer questions about people and accounts in your IDO catalog without code or queries. This guide covers everything needed before an end user can connect: provisioning credentials in Keycloak, and the field by field reference for the four tools the MCP exposes.
+The MCP (Model Context Protocol) Server lets an AI assistant such as Cursor or n8n answer questions about people and accounts in your Identity Observability catalog without code or queries. This guide covers all the steps needed to provision credentials in Keycloak, and reference for the four tools the MCP exposes.
 
 For the end user tutroal (configuring Cursor or n8n with a token), see the [Quickstart tutorial](url).
 
@@ -11,29 +11,29 @@ For the end user tutroal (configuring Cursor or n8n with a token), see the [Quic
 3. **Integrate the four tools (integrator).** Point your client at the MCP endpoint and call `fetch_account_id`, `fetch_identity_id`, `get_account_context`, or `get_identity_context` as documented in the [Tools and Data Reference](#tools-and-data-reference).
 
 
-## Administrator Setup in RadiantLogic Identity Observability
+## Admin Setup in RadiantLogic Identity Observability
 
-These steps require **realm-admin** privileges on the tenant realm in Keycloak. On hardened production deployments, your IT team may have removed this capability from line of business administrators. Verify your permissions before promising MCP access to a user.
+These steps require **realm-admin** privileges on the tenant realm in Keycloak. On hardened production deployments, your IT team may have removed this capability from line of business administrators. Verify your permissions before attempting to provide MCP access to a user.
 
 Replace these placeholders with your actual platform values before running any command.
 
 | Placeholder | What it means | Example |
 | --- | --- | --- |
 | `<tenant>` | Identity Observability deployment identifier. Used as both the APISIX URL path segment and the Keycloak realm name. | `acme`, `acme-prod` |
-| `<app-external-dns>` | Public hostname of the IDO application gateway (APISIX). | `ido.example.com` |
+| `<app-external-dns>` | Public hostname of the Identity Observability application gateway (APISIX). | `ido.example.com` |
 | `<auth-external-dns>` | Public hostname of Keycloak. | `auth.example.com` |
 | `<client_id>` / `<client_secret>` | OIDC client credentials provisioned in Keycloak. One pair per end user or automation. | `mcp-john-doe` |
 | `<your-long-lived-token>` | Access token minted from a client pair, carrying the `mcp-access` role. | JWT (~1.5 kB) |
 
 ### 1. Open the Keycloak Admin Console
 
-Every operation in this guide happens in the Keycloak Admin Console, scoped to the tenant realm. There is no IDO specific UI for this; Keycloak is the source of truth for who can call the MCP.
+All authentication and access related operations in this guide are performed in the Keycloak Admin Console within the tenant realm. There is no separate Identity Observability UI for this workflow/
 
 1. Go to `https://<auth-external-dns>/auth/admin`.
 2. Sign in with a realm-admin account.
 3. Select the **tenant realm** in the top left dropdown.
 
-![Keycloak Admin Console with the tenant realm selector highlighted](./mcp-doc-screenshots/screenshot-024.png)
+![Keycloak Admin Console with the tenant realm selector highlighted](./Media/screenshot-024.png)
 
 ### 2. Create the OIDC Client
 
@@ -41,7 +41,7 @@ Each end user or automation gets its own client. One client per user is what mak
 
 1. In the left menu, go to **Clients → Create client**.
 
-   ![Clients list with the Create client button highlighted](./mcp-doc-screenshots/screenshot-025.png)
+   ![Clients list with the Create client button highlighted](./Media/screenshot-025.png)
 
 2. Set **General Settings**:
 
@@ -57,17 +57,17 @@ Each end user or automation gets its own client. One client per user is what mak
    * **Direct access grants:** `ON`
    * **Service accounts roles:** `ON`
 
-   ![Capability config default state with toggles off](./mcp-doc-screenshots/screenshot-026.png)
+   ![Capability config default state with toggles off](./Media/screenshot-026.png)
 
    The result should match:
 
-   ![Capability config with Client authentication on and both grants enabled](./mcp-doc-screenshots/screenshot-027.jpg)
+   ![Capability config with Client authentication on and both grants enabled](./Media/screenshot-027.jpg)
 
 5. Click **Next**, leave **Login settings** empty, click **Save**.
 
 6. Open the **Credentials** tab and copy the **Client Secret**. Share this with the end user (for n8n), or use it to mint a long lived token (for chat).
 
-   ![Credentials tab with the Client Secret copy button highlighted](./mcp-doc-screenshots/screenshot-028.png)
+   ![Credentials tab with the Client Secret copy button highlighted](./Media/screenshot-028.png)
 
 ### 3. Grant the `mcp-access` Role
 
@@ -76,40 +76,41 @@ The MCP middleware checks that incoming tokens carry the `mcp-access` role. With
 1. From the client detail page, open **Service accounts roles**.
 2. Click **Assign role**.
 
-   ![Service accounts roles tab with Assign role highlighted](./mcp-doc-screenshots/screenshot-029.png)
+   ![Service accounts roles tab with Assign role highlighted](./Media/screenshot-029.png)
 
 3. Search for `mcp-access`, tick it, click **Assign**.
 
-   ![Assign Client roles dialog with mcp-access selected](./mcp-doc-screenshots/screenshot-030.png)
+   ![Assign Client roles dialog with mcp-access selected](./Media/screenshot-030.png)
 
-> `mcp-access` is a composite role that already includes `user`, so the service account automatically gets the basic IDO read permissions it needs. No second role is required.
+> `mcp-access` is a composite role that already includes `user`, so the service account automatically gets the basic Identity Observability read permissions it needs. No second role is required.
 
 ### 5. Set the Access Token Lifespan (TTL)
 
-TTL is the knob that distinguishes **chat mode** from **automation mode**.
+TTL is key setting where you can distinguish **chat mode** usage from **automation mode**.
 
 1. Open the client's **Advanced** tab.
 
-   ![Client detail page with the Advanced tab selected](./mcp-doc-screenshots/screenshot-031.png)
+   ![Client detail page with the Advanced tab selected](./Media/screenshot-031.png)
 
 2. Go to **Advanced Settings → Access Token Lifespan**.
 
-   ![Advanced settings sidebar with Access Token Lifespan highlighted](./mcp-doc-screenshots/screenshot-032.png)
+   ![Advanced settings sidebar with Access Token Lifespan highlighted](./Media/screenshot-032.png)
 
 3. Set the value:
 
-   | Use case | Recommended TTL | Why |
-   | --- | --- | --- |
-   | **Chat mode** (Cursor) | 30 days (or your security policy max) | The user pastes the raw token into a config file and cannot refresh it. |
-   | **Automation mode** (n8n, scripts) | 15 minutes (keep it short) | The workflow re-requests a fresh token every cycle, so short TTLs cost nothing and reduce leak blast radius. |
+ | Use case                           | Recommended TTL                                          | Reason                                                                                                                                 |
+| ---------------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **Chat mode** (Cursor)             | 30 days (or the maximum allowed by your security policy) | The token is manually copied into a configuration file and cannot be automatically refreshed.                                             |
+| **Automation mode** (n8n, scripts) | 15 minutes (short-lived)                                 | The workflow retrieves a new token each run, so short TTLs have no operational cost and significantly reduce the impact of token leakage. |
+
 
 4. Click **Save**.
 
-   ![Access Token Lifespan field set to 30 days](./mcp-doc-screenshots/screenshot-033.png)
+   ![Access Token Lifespan field set to 30 days](./Media/screenshot-033.png)
 
 5. **For chat usage only.** Set **Realm settings → Sessions → SSO Session Max** to the same value, then **Save**.
 
-   ![SSO Session Max field set to 30 days](./mcp-doc-screenshots/screenshot-034.png)
+   ![SSO Session Max field set to 30 days](./Media/screenshot-034.png)
 
 > **One client per user, always.** Granular revocation (disable one client at offboarding without breaking everyone else), per client `client_id` in audit logs, and per client TTLs (30 day chat tokens vs 15 minute automation tokens) all depend on it.
 
@@ -183,7 +184,7 @@ The MCP exposes two complementary views: **accounts** (the technical objects in 
 | Risk | `risks[]`; same dual axis structure (`agg_`, `int_`, `identity_nb_defects`, `sensitivity_level`) |
 | Defects | `control_defects[]`; identity level defects (e.g. *contractor with past ending date*) |
 
-**Reading the risk block.** IDO computes risk on two axes:
+**Reading the risk block.** Identity Observability computes risk on two axes:
 
 * `int_risk_*` (intrinsic): risk from the account's own attributes (privileged, no MFA, dormant).
 * `agg_risk_*` (aggregated): propagated from resources and permissions the account holds.
@@ -202,7 +203,7 @@ The MCP Server exposes **four tools** in GA. The schemas below are exactly what 
 
 #### 2.1 `fetch_account_id`
 
-**Purpose.** Find a unique account by login or email **inside a specific repository**. Call first to obtain the `account_id` that `get_account_context` needs.
+ Find a unique account by login or email **inside a specific repository**. Call first to obtain the `account_id` that `get_account_context` needs.
 
 | Input | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -264,7 +265,7 @@ A login search (`"account_name": "eestrada"`) on the same repository returns the
 
 #### 2.2 `fetch_identity_id`
 
-**Purpose.** Find a unique identity by HR ID, full name, or corporate email. Call first to obtain the `identity_id` that `get_identity_context` needs.
+ Find a unique identity by HR ID, full name, or corporate email. Call first to obtain the `identity_id` that `get_identity_context` needs.
 
 | Input | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -316,7 +317,7 @@ The same result comes back for `"Lawrence Brown"` (full name) and `"E000065"` (H
 
 #### 2.3 `get_account_context`
 
-**Purpose.** Return the comprehensive context of an account: attributes, owner, repository, groups, permissions, risks, control defects. Use this to answer *"what does this account do, who owns it, is it risky?"*.
+Returns the comprehensive context of an account: attributes, owner, repository, groups, permissions, risks, control defects. Use this to answer *"what does this account do, who owns it, is it risky?"*.
 
 | Input | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -371,7 +372,7 @@ The same result comes back for `"Lawrence Brown"` (full name) and `"E000065"` (H
             "control_defect_status": "new",
             "control": [
               {
-                "control_name": "IDO_ACC01",
+                "control_name": "Identity Observability_ACC01",
                 "control_displayname": "Dormant Accounts",
                 "control_category": "Hygiene",
                 "control_risk_level": 1,
@@ -391,13 +392,13 @@ The same result comes back for `"Lawrence Brown"` (full name) and `"E000065"` (H
 
 #### 2.4 `get_identity_context`
 
-**Purpose.** Return the comprehensive context of an identity (the *person* view): HR attributes, manager and department, every account the person owns with their groups, permissions, and defects, plus identity level risks and defects.
+ Returns the comprehensive context of an identity (the *person* view): HR attributes, manager and department, every account the person owns with their groups, permissions, and defects, plus identity level risks and defects.
 
 | Input | Type | Required | Description |
 | --- | --- | --- | --- |
 | `identity_id` | string | yes | Unique identity identifier (from `fetch_identity_id`) |
 
-**Output structure.** See section [1. What Information the MCP Can Return](#1-what-information-the-mcp-can-return) for the field by field listing of `results.identity[0]`.
+**Output structure.** See section [1. What Information the MCP Can Return](#1-what-information-the-mcp-can-return) for a detailed breakdown of the fields in results.identity[0]. `results.identity[0]`.
 
 **Sample request**
 
@@ -449,7 +450,7 @@ The same result comes back for `"Lawrence Brown"` (full name) and `"E000065"` (H
             "control_defect_status": "new",
             "control": [
               {
-                "control_name": "IDO_HR10",
+                "control_name": "Identity Observability_HR10",
                 "control_displayname": "Contractor with past ending date and active accounts",
                 "control_category": "Lifecycle",
                 "control_risk_level": 4,
