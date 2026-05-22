@@ -1,4 +1,4 @@
-# Administrator and Integrator Guide for Setting Up MCP 
+# Administrator and Integrator Guide 
 
 The MCP (Model Context Protocol) Server lets an AI assistant such as Cursor or n8n answer questions about people and accounts in your IDO catalog without code or queries. This guide covers everything needed before an end user can connect: provisioning credentials in Keycloak, and the field by field reference for the four tools the MCP exposes.
 
