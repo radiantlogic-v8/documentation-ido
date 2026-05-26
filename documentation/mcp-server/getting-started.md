@@ -155,7 +155,7 @@ curl -X POST \
   | jq -r '.access_token'
 ```
 
-Deliver the resulting token securely to the user. The user can then paste it into the MCP client configuration used for chat access.
+Share the resulting token securely with the user. The user can then paste it into the MCP client configuration used for chat access.
 
 ### 6. Revoke access
 
