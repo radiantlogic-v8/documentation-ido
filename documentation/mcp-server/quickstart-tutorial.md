@@ -1,68 +1,52 @@
-# Using MCP server with your AI tools
+# Getting started with the MCP Server
 
-The MCP (Model Context Protocol) Server lets your AI assistant (Cursor, n8n, and others) answer questions about people and accounts in your IDO catalog in plain English. No code or query needed.
+This tutorial shows how to connect the MCP Server to your tools so you can query IDO from where you already work. Choose the path that matches your use case:
 
-If you administer or integrate the platform, see the companion **MCP Server: Administrator and Integrator Guide** for setup steps and the tools reference.
+- Use the MCP Server in a chat app such as Cursor (single user, conversational).
+- Use the MCP Server in an automation tool such as n8n (workflows that run unattended).
 
-## How It Works
 
-1. **Get credentials from your administrator.** Ask for an MCP URL and either an access token (for chat apps like Cursor) or a client ID, client secret, and token endpoint (for automation tools like n8n).
-2. **Configure your tool.** Paste the URL and credentials into Cursor's `mcp.json` file, or wire them into an n8n workflow with the template provided below.
-3. **Ask a question.** Mention a real person or account by name, email, or login. The assistant calls the MCP tools, retrieves the data, and replies in plain English.
+## Use the MCP Server in your chat app (example: Cursor)
 
-## What You Can Ask About
+Connecting the MCP Server to your chat app lets you query IDO without leaving your editor or chat window. Typical scenarios include:
 
-You can ask about any **person** (an identity) and any **account** they own. For each, the assistant can tell you:
+- Ad-hoc investigations directly from your IDE: paste an email, login, or HR ID from code, a ticket, or another tool, and ask for full context such as manager, groups, and risks.
+- Conversational drill-down: start from a broad question like "What risks are associated with this user?" and then refine follow-up questions like "Focus on the sensitive groups. Which other accounts hold them?".
+- Alert triage: when an identity or account has a defect, pull its context (risk level, owner, suggested remediation) before opening a ticket.
+- One-off comparisons: compare two identities in one prompt, for example "Compare Alice's and Bob's access."
 
-* **Who they are.** Name, email, employee ID, job title, manager, department, arrival and departure dates.
-* **What they can access.** Group membership, permissions, resources, and whether the account is privileged.
-* **Their associated risks.** Risk level and score, MFA status, account state (active, disabled, locked), and how the account was reconciled to the person.
+The steps below cover the simplest configuration: paste a URL and a token into the chat app, then send your first question.
 
-A question must include **at least one identity, account, or resource name**, such as a person's name, an email, a login, or a repository. Open ended queries like *"show me everything risky"* will not work; the assistant only answers when you point it at a precise target.
+### Obtain credentials
 
-**Sample questions**
+Before configuring anything locally, request these from the admin team operating Identity Observability:
 
-* *"What resources does Lawrence Brown have access to?"*
-* *"What are the risks associated with `lawrence.brown@example.com`?"*
-* *"Is the account `eestrada` in repository `AD_CORP` a privileged account?"*
-* *"Compare the risk profiles of Lawrence Brown and Evelyn Estrada and tell me who is most exposed, and why."*
-* *"Is Lawrence Brown a contractor whose departure date has passed? If yes, what active accounts does he still have?"*
-
-## Table of Contents
-
-* [Using MCP in Cursor](#using-mcp-in-cursor)
-* [Using MCP in n8n](#using-mcp-in-n8n)
-
-## Using MCP in Cursor
-
-Connecting the MCP to your chat app lets you query IDO from your IDE. Common use cases: ad hoc investigation, conversational drilling on risk, alert triage, and side by side identity comparisons.
-
-### 1. Get Two Things From Your Administrator
-
-| Item | Looks like |
+| Item | What it looks like |
 | --- | --- |
-| **MCP URL** | An HTTPS link ending with `/mcp/`, for example `https://ido.example.com/acme/mcp/` |
-| **Access token** | A long string of letters and numbers. Treat it like a password. |
+| MCP URL | HTTPS endpoint ending with `/mcp/`, for example `https://ido.example.com/acme/mcp/`. |
+| Access token | A long string of letters and numbers. Treat this like a password and do not share it with colleagues. |
 
-The token is personal. Do not share it with colleagues.
+### Configure Cursor
 
-### 2. Configure Cursor
+Follow these steps to add the MCP Server to Cursor. Exact menu labels may vary slightly by version but follow the same pattern.
 
-1. Click **File → Preferences → Cursor Settings**.
+1. Open Cursor, select **Cursor Settings** from the menu (for example **File → Cursor Settings** or via Command Palette).
 
-   ![Cursor File menu path File → Preferences → Cursor Settings](./mcp-doc-screenshots/screenshot-000.png)
+   ![Cursor File menu showing the path File → Preferences → Cursor Settings](./Media/screenshot-000.png)
 
-2. Click **Tools & MCPs**.
+2. In settings, go to **Tools & MCPs** (or **MCP Tools**).
 
-   ![Cursor Settings sidebar with Tools & MCPs highlighted](./mcp-doc-screenshots/screenshot-001.png)
+   ![Cursor Settings sidebar with Tools & MCPs highlighted](./Media/screenshot-001.png)
 
-3. Click **Add Custom MCP** to open the `mcp.json` file.
+3. Select **Add Custom MCP** to open the `mcp.json` configuration file.
 
-   ![Add Custom MCP button in the Tools & MCPs panel](./mcp-doc-screenshots/screenshot-002.png)
+   ![Add Custom MCP button in the Tools & MCPs panel](./Media/screenshot-002.png)
 
-   ![Default empty mcp.json](./mcp-doc-screenshots/screenshot-003.png)
+   Cursor creates or opens the MCP config file in your home directory (for example `~/.cursor/mcp.json` on macOS).
 
-4. Replace the contents with:
+   ![Default empty mcp.json with an empty mcpServers object](./Media/screenshot-003.png)
+
+4. Replace the contents of `mcp.json` with the following JSON, then update the placeholders:
 
    ```json
    {
@@ -77,95 +61,114 @@ The token is personal. Do not share it with colleagues.
    }
    ```
 
-   The result:
+   ![Filled mcp.json with the IDO server URL and bearer token](./Media/screenshot-004.png)
 
-   ![Filled mcp.json with the IDO server URL and bearer token](./mcp-doc-screenshots/screenshot-004.png)
+5. Save the file and restart Cursor.
 
-5. Restart Cursor. The IDO server now appears as **Connected**.
+After restart, the IDO MCP Server should appear as **Connected** in the MCP tools list. At this point, you are ready to test the integration.
 
-   ![Cursor settings showing the IDO MCP server connected with its tools listed](./mcp-doc-screenshots/screenshot-005.png)
+![Cursor settings showing the IDO MCP server connected with its tools listed](./Media/screenshot-005.png)
 
-### 3. Try It Out
+### Test the connection
 
-Type a question about your own name or email. For example:
+In Cursor chat, type a question about your own identity or email. For example:
 
-* *"Give me a summary of `<your.email@example.com>`."* fetches an identity.
-* *"Who is the owner of `<your.email@example.com>` on service ACME?"* fetches an account.
+- `Give me a summary of <your.email@example.com>.`
+- `Who is the owner of <your.email@example.com> on service ACME?`
 
-If everything is configured correctly, the assistant returns a readable answer with real data (name, manager, groups, risks). If you see *"I don't have access to that information"*, an error code, or hallucinated content, jump to [Troubleshooting](#4-troubleshooting).
+If the configuration is correct, the assistant returns a clear answer with real data such as name, manager, groups, and risks. If the assistant responds with "I don't have access to that information," an error code, or obviously fabricated data, use the troubleshooting tips below.
 
-### 4. Troubleshooting
+### Troubleshooting (chat app)
 
-| What you see | What's going on | What to do |
+Use this table to diagnose issues based on what you see in the chat. For many problems you may need to locate the error code in the tool logs.
+
+| What you see | What is happening | What to do |
 | --- | --- | --- |
-| No MCP server appears in the app's settings | Config file is in the wrong place, has a typo, or the app didn't pick it up. | Re-open the config file. Check the exact path. Verify URL and token were copied without extra spaces. Restart the app. |
-| *"I don't have access to that information"* or error 401 | The token is missing, expired, or invalid. | Confirm the token was pasted in full (not truncated). If correct, contact your administrator with error code `401`. |
-| Error 403 | The token is valid but lacks permission to query the MCP. | Contact your administrator with error code `403`. |
-| Error 429 | Querying the MCP faster than the platform allows. | Wait one minute, retry. If frequent, contact your administrator with error code `429`. |
-| Assistant cannot find the person you mentioned | The name or email is not in IDO under that spelling. | Double check the spelling (case insensitive). For accounts, specify the target system. For identities, try the HR employee ID. |
-| Assistant returns invented names or values | Connection is fine; the model is guessing instead of calling the MCP. | Re-ask with a precise reference (full email, full name, login). |
+| No MCP server appears in the app's settings | The config file is missing, in the wrong location, or contains an error. The app may not have picked up the changes yet. | Re-open the MCP config file and confirm it is at the documented path. Check for typos in the URL and token, and remove extra spaces. Save and restart the app. |
+| Assistant replies "I don't have access to that information" or shows error **401** | The access token is missing, expired, or invalid. | Confirm the token is present in the JSON configuration. Make sure it was not truncated or altered when pasted. If it still fails, contact your administrator with error code **401**. |
+| Assistant shows error **403** | The token is valid but does not have permission to query the MCP Server. | Contact your administrator with error code **403**. |
+| Assistant shows error **429** | Requests are being sent faster than the platform's rate limit. | Wait a minute and retry. If this happens frequently, contact your administrator with error code **429**. |
+| Assistant says it cannot find the person you mentioned | The name or email does not match an identity in IDO under that spelling. | Double-check the name or email. Matching is case-insensitive. For account-related questions, specify the target system. For identity-specific questions, try the HR employee ID. |
+| Assistant returns names or values that look invented | The MCP Server is reachable, but the model is answering from its own knowledge instead of calling the MCP tools. | Ask again with a precise reference such as full email, full name, or login. If this continues, review MCP tool logs or adjust the system prompt in the client to emphasize calling tools. |
 
-**How to find the error code.** The error code is a three digit number (`401`, `403`, `429`, `503`...) usually shown in the assistant's reply. If it is not visible, open Cursor settings, select **Tools & MCPs**, and look for the red dot with a **Show output** button.
+#### Finding the error code
 
-![Tools & MCPs panel showing the IDO server with an Error indicator and a Show Output link](./mcp-doc-screenshots/screenshot-006.png)
+The error code is a three-digit HTTP-like value (for example 401, 403, 429, 503) usually visible in the assistant's response or tool logs. If the code is not obvious in the reply:
 
-If you cannot resolve the issue yourself, send the error code (and one example of the question you asked) to your administrator.
+1. Open **Cursor Settings** and go to **Tools & MCPs**.
+2. Look for a red indicator or "Show output" button next to the MCP Server entry.
+3. Open the output panel to view the raw MCP logs and confirm the error code.
+
+![Tools & MCPs panel showing the IDO server with an Error indicator and a Show Output link, and the raw output panel below with the error code visible](./Media/screenshot-006.png)
+
+If you cannot resolve the issue, send the error code and an example of the question you asked to your administrator.
 
 
-## Using MCP in n8n
+## Use the MCP Server in an automation tool (n8n)
 
-With n8n you can build automated workflows around the MCP: an internal chat panel, a scheduled risk summary posted to Slack, or an enrichment step in your existing IGA pipelines. The rest of this section walks through the simplest end to end flow: a chat interface backed by an AI agent that has the MCP tools at its disposal.
 
-### 1. Get Four Things From Your Administrator
+With n8n, you can build automated workflows that call the MCP Server through the native MCP client tool. Common patterns include:
 
-| Item | Looks like | What it's for |
+- Internal chat panels where colleagues can ask questions about access and risk without leaving your intranet.
+- Scheduled reports, such as "Every Monday morning, generate a risk summary for the week's new joiners and post it to Slack."
+- Enrichment steps in existing IGA pipelines, for example "After a new account is created, retrieve its risk profile and notify the owner if it is privileged."
+
+The steps below create a simple end-to-end flow: an n8n chat interface backed by an AI agent that can call MCP tools. Once this is running, more advanced patterns become variations around the same agent node.
+
+### Ask your administrator for four items
+
+Before opening n8n, request these settings:
+
+| Item | Example | Purpose |
 | --- | --- | --- |
-| **MCP URL** | `https://ido.example.com/acme/mcp/` | The endpoint n8n calls to query IDO. |
-| **Token endpoint** | `https://auth.example.com/auth/realms/acme/protocol/openid-connect/token` | Where n8n asks for a fresh access token before each batch of calls. |
-| **Client ID** | A short string, for example `mcp-n8n-finance` | The n8n identity when asking for tokens. |
-| **Client Secret** | A long random string | The n8n password when asking for tokens. Treat as sensitive. |
+| MCP URL | `https://ido.example.com/acme/mcp/` | Endpoint n8n will call to query IDO. |
+| Token endpoint | `https://auth.example.com/auth/realms/acme/protocol/openid-connect/token` | OAuth 2.0 endpoint where n8n requests new access tokens. |
+| Client ID | `mcp-n8n-finance` | Client identifier used when requesting tokens. |
+| Client Secret | Long random string | Secret paired with the client ID. Treat as sensitive. |
 
-You also need an **API key with an LLM provider** (OpenAI, Anthropic, Google Vertex AI, and so on). The MCP supplies the *tools*; the LLM provides the *reasoning*.
+You will also need an API key or credential for your LLM provider (for example OpenAI, Anthropic, Mistral, or Vertex AI). The MCP Server supplies the tools; the LLM performs the reasoning.
 
-### 2. Create Credentials in n8n
+### Create credentials in n8n
 
-1. In your n8n instance, click the **Credentials** tab, then **Create credential** (top right).
+1. Open your n8n instance and go to the **Credentials** tab. Select **Create credential**.
 
-   ![n8n Credentials tab with the Create credential button highlighted](./mcp-doc-screenshots/screenshot-007.jpg)
+   ![n8n Credentials tab with the Create credential button highlighted](./Media/screenshot-007.jpg)
 
-   A dialog opens.
+   ![Add new credential dialog with an empty Search for app field](./Media/screenshot-008.png)
 
-   ![Add new credential dialog with an empty Search for app field](./mcp-doc-screenshots/screenshot-008.png)
+2. Search for and select **Bearer Auth** as the credential type, then choose **Continue**.
 
-2. Enter **Bearer Auth**, select it, click **Continue**.
+   ![Add new credential dialog with Bearer Auth selected](./Media/screenshot-009.png)
 
-   ![Add new credential dialog with Bearer Auth selected](./mcp-doc-screenshots/screenshot-009.png)
+3. Switch the Bearer token field into **Expression** mode and paste:
 
-3. Switch the credential to **Expression** mode, paste `{{ $json.raw_token }}` into **Bearer Token**, and click **Save**.
+   ```text
+   {{ $json.raw_token }}
+   ```
 
-   ![Bearer Auth credential editor with the Bearer Token field set to {{ $json.raw_token }} in Expression mode](./mcp-doc-screenshots/screenshot-010.png)
+   Save the credential.
 
-4. Go back to the **Credentials** tab and click **Create credential** again.
+   ![Bearer Auth credential editor with the Bearer Token field set to {{ $json.raw_token }} in Expression mode](./Media/screenshot-010.png)
 
-   ![n8n Credentials tab with the Create credential button highlighted](./mcp-doc-screenshots/screenshot-011.jpg)
+4. Back on the **Credentials** tab, select **Create credential** again.
 
-5. Enter your LLM provider name (e.g. **Mistral**) and click **Continue**.
+5. Choose your LLM provider (for example "Mistral", "OpenAI", or another supported model connector), then select **Continue**.
 
-   ![Add new credential dialog ready for the LLM provider name](./mcp-doc-screenshots/screenshot-012.png)
+   ![Add new credential dialog ready for the LLM provider name](./Media/screenshot-012.png)
 
-   ![Add new credential dialog with Mistral Cloud API selected](./mcp-doc-screenshots/screenshot-013.png)
+   ![Add new credential dialog with Mistral Cloud API selected](./Media/screenshot-013.png)
 
-6. Log in or paste the API key from your LLM provider, then click **Save**.
+6. Sign in or paste the API key for your provider and save the credential.
 
-   ![Mistral Cloud API credential editor with the API Key field highlighted](./mcp-doc-screenshots/screenshot-014.png)
+   ![Mistral Cloud API credential editor with the API Key field highlighted](./Media/screenshot-014.png)
 
-Both credentials are now configured.
+You now have one credential for the bearer token used with the MCP Server and one credential for the LLM.
 
-![Credentials list with Mistral Cloud account and Bearer Auth account](./mcp-doc-screenshots/screenshot-015.png)
+![Credentials list with the Mistral Cloud account and Bearer Auth account both configured](./Media/screenshot-015.png)
 
-### 3. Create the Workflow
+### Create the workflow
 
-1. Copy the JSON below.
+1. Copy the workflow JSON below.
 
    ```json
    {
@@ -183,7 +186,10 @@ Both credentials are now configured.
                { "name": "client_secret", "value": "<your-client-secret>" }
              ]
            },
-           "options": { "allowUnauthorizedCerts": true, "timeout": 10000 }
+           "options": {
+             "allowUnauthorizedCerts": true,
+             "timeout": 10000
+           }
          },
          "id": "f5a4343b-0fc5-413f-9ef8-0f02630dabea",
          "name": "Get Token",
@@ -220,12 +226,18 @@ Both credentials are now configured.
          "name": "MCP Client",
          "rewireOutputLogTo": "ai_tool",
          "credentials": {
-           "httpBearerAuth": { "id": "jYyQAa7Jk2cNOvGK", "name": "Bearer Auth account" }
+           "httpBearerAuth": {
+             "id": "jYyQAa7Jk2cNOvGK",
+             "name": "Bearer Auth account"
+           }
          }
        },
        {
          "parameters": {
-           "options": { "allowFileUploads": false, "responseMode": "responseNodes" }
+           "options": {
+             "allowFileUploads": false,
+             "responseMode": "responseNodes"
+           }
          },
          "type": "@n8n/n8n-nodes-langchain.chatTrigger",
          "typeVersion": 1.4,
@@ -238,9 +250,24 @@ Both credentials are now configured.
          "parameters": {
            "assignments": {
              "assignments": [
-               { "id": "f1e2d3c4-0001-4000-8000-aaaaaaaaaaaa", "name": "bearer_token", "value": "=Bearer {{ $json.access_token }}", "type": "string" },
-               { "id": "f1e2d3c4-0002-4000-8000-bbbbbbbbbbbb", "name": "expires_in", "value": "={{ $json.expires_in }}", "type": "number" },
-               { "id": "f1e2d3c4-0003-4000-8000-cccccccccccc", "name": "raw_token", "value": "={{ $json.access_token }}", "type": "string" }
+               {
+                 "id": "f1e2d3c4-0001-4000-8000-aaaaaaaaaaaa",
+                 "name": "bearer_token",
+                 "value": "=Bearer {{ $json.access_token }}",
+                 "type": "string"
+               },
+               {
+                 "id": "f1e2d3c4-0002-4000-8000-bbbbbbbbbbbb",
+                 "name": "expires_in",
+                 "value": "={{ $json.expires_in }}",
+                 "type": "number"
+               },
+               {
+                 "id": "f1e2d3c4-0003-4000-8000-cccccccccccc",
+                 "name": "raw_token",
+                 "value": "={{ $json.access_token }}",
+                 "type": "string"
+               }
              ]
            },
            "options": {}
@@ -255,7 +282,9 @@ Both credentials are now configured.
          "parameters": {
            "message": "={{ $json.output }}",
            "waitUserReply": false,
-           "options": { "memoryConnection": false }
+           "options": {
+             "memoryConnection": false
+           }
          },
          "type": "@n8n/n8n-nodes-langchain.chat",
          "typeVersion": 1,
@@ -265,66 +294,85 @@ Both credentials are now configured.
        }
      ],
      "connections": {
-       "Get Token": { "main": [[{ "node": "Format Bearer Token", "type": "main", "index": 0 }]] },
-       "AI Agent": { "main": [[{ "node": "Respond to Chat", "type": "main", "index": 0 }]] },
-       "MCP Client": { "ai_tool": [[{ "node": "AI Agent", "type": "ai_tool", "index": 0 }]] },
-       "When chat message received": { "main": [[{ "node": "Get Token", "type": "main", "index": 0 }]] },
-       "Format Bearer Token": { "main": [[{ "node": "AI Agent", "type": "main", "index": 0 }]] }
+       "Get Token": {
+         "main": [[{ "node": "Format Bearer Token", "type": "main", "index": 0 }]]
+       },
+       "AI Agent": {
+         "main": [[{ "node": "Respond to Chat", "type": "main", "index": 0 }]]
+       },
+       "MCP Client": {
+         "ai_tool": [[{ "node": "AI Agent", "type": "ai_tool", "index": 0 }]]
+       },
+       "When chat message received": {
+         "main": [[{ "node": "Get Token", "type": "main", "index": 0 }]]
+       },
+       "Format Bearer Token": {
+         "main": [[{ "node": "AI Agent", "type": "main", "index": 0 }]]
+       }
      },
      "pinData": {},
-     "meta": { "templateCredsSetupCompleted": true, "instanceId": "cd3acb52c7bad51f685dccfc81efd411e6db265d5ed0655b62470689e0850912" }
+     "meta": {
+       "templateCredsSetupCompleted": true,
+       "instanceId": "cd3acb52c7bad51f685dccfc81efd411e6db265d5ed0655b62470689e0850912"
+     }
    }
    ```
 
-2. In n8n, open a workflow and paste (Ctrl+V). The default workflow appears.
+2. In n8n, create or open a workflow and paste the JSON (Ctrl/Cmd + V). The starter workflow appears with all nodes and connections in place.
 
-   ![n8n workflow: When chat message received → Get Token → Format Bearer Token → AI Agent → Respond to Chat, plus MCP Client attached to AI Agent](./mcp-doc-screenshots/screenshot-016.png)
+   ![n8n workflow showing the nodes When chat message received → Get Token → Format Bearer Token → AI Agent → Respond to Chat, plus the MCP Client attached to the AI Agent](./Media/screenshot-016.png)
 
-3. Open the **Get Token** node and replace:
+3. Open the **Get Token** node and update:
 
-   * `<your token open id request url>` with the **Token Endpoint** from your administrator.
-   * `<your-client-id>` with the **Client ID**.
-   * `<your-client-secret>` with the **Client Secret**.
+   - `<your token open id request url>` with the Token endpoint from your administrator.
+   - `<your-client-id>` with the MCP client ID.
+   - `<your-client-secret>` with the client secret associated with that ID.
 
-   ![Get Token node parameters with URL, client_id, and client_secret fields highlighted](./mcp-doc-screenshots/screenshot-017.png)
+   ![Get Token node parameters with the URL, client_id, and client_secret fields highlighted](./Media/screenshot-017.png)
 
-4. Open the **MCP Client** node and replace `<mcp request url>` with the **MCP URL**.
+4. Open the **MCP Client** node and replace `<mcp request url>` with the MCP URL.
 
-   ![MCP Client node parameters with the Endpoint field highlighted](./mcp-doc-screenshots/screenshot-018.png)
+   ![MCP Client node parameters with the Endpoint field highlighted](./Media/screenshot-018.png)
 
-5. Click **+** at the bottom of the **AI Agent** node, then search for and pick your LLM credential (here, **Mistral**).
+   The starter workflow does not yet have a chat model wired into the AI Agent.
 
-   ![n8n Language Models node picker showing Mistral Cloud Chat Model and others](./mcp-doc-screenshots/screenshot-019.png)
+5. Under the **AI Agent** node, select the **+** icon to add a model node.
 
-6. In the dropdowns, select the credential you created and the model to use.
+6. Search for your LLM provider node (for example "Mistral", "OpenAI", etc.) and select it.
 
-   ![Mistral Cloud Chat Model node parameters with Credential and Model dropdowns highlighted](./mcp-doc-screenshots/screenshot-020.png)
+   ![n8n Language Models node picker showing Anthropic Chat Model, OpenAI, Mistral Cloud Chat Model, and other supported providers](./Media/screenshot-019.png)
 
-7. Save the workflow and click **Activate** (top right).
+7. In the model node configuration, select the LLM credential you created earlier and choose the model you want to use.
 
-   ![n8n workflow header with the Active toggle switched on](./mcp-doc-screenshots/screenshot-021.png)
+   ![Mistral Cloud Chat Model node parameters with Credential and Model dropdowns highlighted](./Media/screenshot-020.png)
 
-### 4. Try It Out
+8. Save the workflow and click **Activate**.
 
-1. Click **Open Chat** next to the **When chat message received** node.
+   ![n8n workflow header with the Active toggle switched on](./Media/screenshot-021.png)
 
-   ![n8n canvas with the Open Chat button highlighted](./mcp-doc-screenshots/screenshot-022.png)
+### Try the automation flow
 
-2. Ask a question about a person you know exists in IDO. For example: *"Give me a quick summary of `<a.colleague@example.com>`, manager, department, risk level."*
+1. In the workflow canvas, select **Open Chat** next to the **When chat message received** node (the chat trigger).
 
-   ![n8n chat panel with the example prompt typed in the input box](./mcp-doc-screenshots/screenshot-023.png)
+   ![n8n canvas with the Open Chat button highlighted next to the When chat message received node](./Media/screenshot-022.png)
 
-If the agent errors out or invents data, see the troubleshooting table below.
+2. In the chat panel, type a question about a person you know exists in IDO. For example:
 
-### 5. Troubleshooting
+   > Give me a quick summary of `<a.colleague@example.com>` — manager, department, risk level.
 
-| What you see | What's going on | What to do |
+   ![n8n chat panel with the example prompt typed in the input box](./Media/screenshot-023.png)
+
+If everything is configured correctly, the agent responds with real IDO data for that identity. If the response fails or the agent invents data, use the troubleshooting section below.
+
+### Troubleshooting (n8n)
+
+| What you see | What is happening | What to do |
 | --- | --- | --- |
-| Chat returns error 401 from the MCP | Token not authorized or invalid. | Contact your administrator with error code `401`. |
-| *"Permission denied"* or error 403 | Token is valid but the client lacks MCP permission. | Contact your administrator with error code `403`. |
-| No green dot around **MCP Client** when executing | The MCP Client is not wired to the AI Agent as a tool. | Open **MCP Client**. The connector to the AI Agent must use the `ai_tool` port (bottom, dotted). If wrong, delete and re-add the node directly under the AI Agent; n8n wires it as a tool automatically. |
-| Chat panel stays empty after sending a message | **Respond to Chat** is not connected. | Connect the **AI Agent**'s main output to the **Respond to Chat** node. |
-| Agent invents data | Tools are reachable, but the model is not picking them. | Rephrase with a precise reference (full email or HR ID). If it persists, edit the *System Message* in the **AI Agent** node to insist on using the MCP tools. |
-| Error 429 appears randomly | Workflow runs faster than the rate limit. | Add a small delay between calls, or ask your administrator to raise the rate limit. |
+| Chat returns error **401** from the MCP | The token is invalid or not authorized to access the MCP Server. | Contact your administrator with error code **401**. |
+| Chat returns "Permission denied" or error **403** | The token is valid but the underlying client does not have permission to query the MCP. | Contact your administrator with error code **403**. |
+| No green dot around **MCP Client** while the workflow runs | The agent is answering without calling IDO; the MCP Client is not wired as a tool. | Open the MCP Client node and ensure it is connected to the **ai_tool** port on the AI Agent node (the dotted bottom port). If needed, delete and re-add the MCP Client node directly under the AI Agent so n8n wires it as a tool automatically. |
+| The chat panel stays empty after you send a message | The agent finished, but **Respond to Chat** is not connected. | Ensure the AI Agent's main output is connected to the Respond to Chat node. |
+| The agent invents data | The MCP tools are reachable, but the model is not consistently using them. | Ask again with a precise reference (full email or HR ID). If this persists, edit the system message in the AI Agent node to more strongly require use of MCP tools. |
+| Error **429** appears intermittently | The workflow is hitting rate limits. | Insert a small delay between calls or ask your administrator to increase the allowed rate. |
 
-Every n8n node has an **Output** panel that shows the raw JSON exchanged with the MCP. That is the place to look for deeper details when investigating an error.
+For deeper inspection, open the **Output** panel on each n8n node. The output shows the raw JSON exchanged with the MCP Server and is the best place to look for low-level errors.
