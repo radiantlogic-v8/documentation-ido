@@ -1,6 +1,6 @@
 # Getting started with the MCP Server
 
-This tutorial shows how to connect the MCP Server to your tools so you can query IDO from where you already work. Choose the path that matches your use case:
+This tutorial shows how to connect the MCP Server to your tools so you can query Identity Observability from where you already work. Choose the path that matches your use case:
 
 - Use the MCP Server in a chat app such as Cursor (single user, conversational).
 - Use the MCP Server in an automation tool such as n8n (workflows that run unattended).
@@ -8,7 +8,7 @@ This tutorial shows how to connect the MCP Server to your tools so you can query
 
 ## Use the MCP Server in your chat app (example: Cursor)
 
-Connecting the MCP Server to your chat app lets you query IDO without leaving your editor or chat window. Typical scenarios include:
+Connecting the MCP Server to your chat app lets you query Identity Observability without leaving your editor or chat window. Typical scenarios include:
 
 - Ad-hoc investigations directly from your IDE: paste an email, login, or HR ID from code, a ticket, or another tool, and ask for full context such as manager, groups, and risks.
 - Conversational drill-down: start from a broad question like "What risks are associated with this user?" and then refine follow-up questions like "Focus on the sensitive groups. Which other accounts hold them?".
@@ -65,7 +65,7 @@ Follow these steps to add the MCP Server to Cursor. Exact menu labels may vary s
 
 5. Save the file and restart Cursor.
 
-After restart, the IDO MCP Server should appear as **Connected** in the MCP tools list. At this point, you are ready to test the integration.
+After restart, the MCP Server should appear as **Connected** in the MCP tools list. At this point, you are ready to test the integration.
 
 ![Cursor settings showing the IDO MCP server connected with its tools listed](./Media/screenshot-005.png)
 
@@ -88,7 +88,7 @@ Use this table to diagnose issues based on what you see in the chat. For many pr
 | Assistant replies "I don't have access to that information" or shows error **401** | The access token is missing, expired, or invalid. | Confirm the token is present in the JSON configuration. Make sure it was not truncated or altered when pasted. If it still fails, contact your administrator with error code **401**. |
 | Assistant shows error **403** | The token is valid but does not have permission to query the MCP Server. | Contact your administrator with error code **403**. |
 | Assistant shows error **429** | Requests are being sent faster than the platform's rate limit. | Wait a minute and retry. If this happens frequently, contact your administrator with error code **429**. |
-| Assistant says it cannot find the person you mentioned | The name or email does not match an identity in IDO under that spelling. | Double-check the name or email. Matching is case-insensitive. For account-related questions, specify the target system. For identity-specific questions, try the HR employee ID. |
+| Assistant says it cannot find the person you mentioned | The name or email does not match an identity in Identity Observability under that spelling. | Double-check the name or email. Matching is case-insensitive. For account-related questions, specify the target system. For identity-specific questions, try the HR employee ID. |
 | Assistant returns names or values that look invented | The MCP Server is reachable, but the model is answering from its own knowledge instead of calling the MCP tools. | Ask again with a precise reference such as full email, full name, or login. If this continues, review MCP tool logs or adjust the system prompt in the client to emphasize calling tools. |
 
 #### Finding the error code
@@ -121,7 +121,7 @@ Before opening n8n, request these settings:
 
 | Item | Example | Purpose |
 | --- | --- | --- |
-| MCP URL | `https://ido.example.com/acme/mcp/` | Endpoint n8n will call to query IDO. |
+| MCP URL | `https://ido.example.com/acme/mcp/` | Endpoint n8n will call to query Identity Observability. |
 | Token endpoint | `https://auth.example.com/auth/realms/acme/protocol/openid-connect/token` | OAuth 2.0 endpoint where n8n requests new access tokens. |
 | Client ID | `mcp-n8n-finance` | Client identifier used when requesting tokens. |
 | Client Secret | Long random string | Secret paired with the client ID. Treat as sensitive. |
@@ -356,13 +356,13 @@ You now have one credential for the bearer token used with the MCP Server and on
 
    ![n8n canvas with the Open Chat button highlighted next to the When chat message received node](./Media/screenshot-022.png)
 
-2. In the chat panel, type a question about a person you know exists in IDO. For example:
+2. In the chat panel, type a question about a person you know exists in Identity Observability. For example:
 
    > Give me a quick summary of `<a.colleague@example.com>` — manager, department, risk level.
 
    ![n8n chat panel with the example prompt typed in the input box](./Media/screenshot-023.png)
 
-If everything is configured correctly, the agent responds with real IDO data for that identity. If the response fails or the agent invents data, use the troubleshooting section below.
+If everything is configured correctly, the agent responds with real Identity Observability data related to that person. If the response fails or the agent invents data, use the troubleshooting section below.
 
 ### Troubleshooting (n8n)
 
