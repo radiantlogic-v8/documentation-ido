@@ -1,14 +1,14 @@
 # MCP tools and data reference
 
-The Identity Observability MCP server exposes tools that can be invoked by language models.  Each tool is uniquely identified by a name and includes metadata describing its schema.
+The Identity Observability MCP server exposes tools that can be invoked by language models. Each tool is uniquely identified by a name and includes metadata describing its schema.
 
-This document servea as a tools and data reference guide for integrators or anyone who needs a detailed view of what the MCP Server returns, field by field. 
+This document serves as a data and tools reference guide for integrators or anyone who needs a detailed view of what the MCP Server returns, field by field.
 
-## 1. Data returned by the MCP Server
+## Data returned by the MCP Server
 
-The MCP Server exposes two complementary views of your identity landscape: accounts and identities. Accounts represent technical objects in connected repositories. Identities represent people, aggregated across all of their accounts. 
+The MCP Server tools expose two complementary views of your identity landscape: accounts and identities. Accounts represent technical objects in connected repositories. Identities represent people, aggregated across all of their accounts.
 
-### 1.1 Account data (get_account_context)
+### Account data
 
 The `get_account_context` tool returns the full context for an account. Fields are grouped below by theme.
 
@@ -22,10 +22,10 @@ The `get_account_context` tool returns the full context for an account. Fields a
 | Reconciliation | `reconciliation_type`, `reconciliation_rule`, `reconciliation_reliability` |
 | Privilege | `privileged_account` |
 | Relationships | `repository` (repository where the account lives), `owner` (reconciled identity, including HR attributes, manager, departments, and full account list) |
-| Authorization | `groups[]` (group membership), `permissions[]` (entitlements), each with a linked `resource` |
-| Risk and quality | `risks[]` (aggregated and intrinsic risk levels and scores, sensitivity), `control_defects[]` (each defect includes the full control definition and audit trail) |
+| Authorization | `groups` (group membership), `permissions` (entitlements), each with a linked `resource` |
+| Risk and quality | `risks` (aggregated and intrinsic risk levels and scores, sensitivity), `control_defects` (each defect includes the full control definition and audit trail) |
 
-### 1.2 Identity data (get_identity_context)
+### Identity data
 
 The `get_identity_context` tool returns the full context for an identity (the person view). Fields are grouped below by theme.
 
@@ -33,30 +33,30 @@ The `get_identity_context` tool returns the full context for an identity (the pe
 | --- | --- |
 | Identifiers | `id`, `hr_employee_id`, `full_name`, `given_name`, `surname`, `email` |
 | Lifecycle | `arrival_date`, `departure_date`, `status`, `internal` |
-| Organization | `departments[]` (each department has `department_short_name`, `identity_job_title`, and `managers[]`) |
-| Accounts | `accounts[]` – for each account: `id`, `groups[]`, `permissions[]`, `control_defects[]` |
-| Risk | `risks[]` – same dual-axis structure as accounts (`agg_*`, `int_*`, `identity_nb_defects`, `sensitivity_level`) |
-| Defects | `control_defects[]` – identity-level defects, such as “contractor with past ending date and active accounts” |
+| Organization | `departments` (each department has `department_short_name`, `identity_job_title`, and `managers`) |
+| Accounts | `accounts` – for each account: `id`, `groups`, `permissions`, `control_defects` |
+| Risk | `risks` – same dual-axis structure as accounts (`agg_*`, `int_*`, `identity_nb_defects`, `sensitivity_level`) |
+| Defects | `control_defects` – identity-level defects, such as "contractor with past ending date and active accounts" |
 
-### 1.3 Interpreting the risk model
+### Interpreting the risk model
 
 Identity Observability computes risk along two axes:
 
-- `int_risk_*` (intrinsic risk): risk introduced by the account or identity itself, for example privileged access, missing MFA, or dormant accounts.  
-- `agg_risk_*` (aggregated risk): risk propagated from the resources and permissions associated with the account or identity. 
+- `int_risk_*` (intrinsic risk): risk introduced by the account or identity itself, for example privileged access, missing MFA, or dormant accounts.
+- `agg_risk_*` (aggregated risk): risk propagated from the resources and permissions associated with the account or identity.
 
 For each axis:
 
-- `*_risk_level` is a bucket from 1 to 4, where higher values indicate higher risk.  
-- `*_risk_score` is a numeric value designed for ranking and sorting.  
+- `*_risk_level` is a bucket from 1 to 4, where higher values indicate higher risk.
+- `*_risk_score` is a numeric value designed for ranking and sorting.
 
-Use `*_risk_level` for everyday questions and user-facing explanations. Use `*_risk_score` when precise sorting or prioritization is required. 
+Use `*_risk_level` for everyday questions and user-facing explanations. Use `*_risk_score` when precise sorting or prioritization is required.
 
-## 2. Tools
+## Tools
 
-The MCP Server exposes four tools in general availability. Tool descriptions, input parameters, and output schemas below match what an MCP client sees via the `tools/list` method described in the MCP specification. 
+The MCP Server exposes four tools in general availability. Tool descriptions, input parameters, and output schemas below match what an MCP client sees via the `tools/list` method described in the MCP specification.
 
-### 2.1 Common conventions
+**Common conventions**
 
 All tool responses follow a common wrapper structure:
 
@@ -69,14 +69,14 @@ All tool responses follow a common wrapper structure:
 }
 ```
 
-Additional conventions:
+**Additional conventions**
 
-- Lookups that do not find a match return `status: "success"`, `result_count: 0`, and `results: []`. There is no dedicated “not found” error.  
-- Date fields that are not exposed by the source repository return a human-readable sentinel string, such as `"Last login date not available in <repository_name>"`. Clients should always check the value type before parsing dates. [web:35][web:38]
+- Lookups that do not find a match return `status: "success"`, `result_count: 0`, and `results: []`. There is no dedicated "not found" error.
+- Date fields that are not exposed by the source repository return a human-readable sentinel string, such as `"Last login date not available in <repository_name>"`. Clients should always check the value type before parsing dates.
 
-### 2.2 `fetch_account_id`
+### Fetch Account ID
 
-Finds a unique account by login or email within a specific repository. Typically called first to obtain the `account_id` required by `get_account_context`.
+`fetch_account_id` finds a unique account by login or email within a specific repository. Typically called first to obtain the `account_id` required by `get_account_context`.
 
 #### Input parameters
 
@@ -138,9 +138,9 @@ Finds a unique account by login or email within a specific repository. Typically
 
 A login-based search such as `"account_name": "eestrada"` on the same repository returns the same record. A lookup using a non-existing repository name returns `result_count: 0` with no error.
 
-### 2.3 `fetch_identity_id`
+### Fetch Identity ID
 
-Finds a unique identity by HR identifier, full name, or corporate email. Typically called first to obtain the `identity_id` required by `get_identity_context`.
+`fetch_identity_id` finds a unique identity by HR identifier, full name, or corporate email. Typically called first to obtain the `identity_id` required by `get_identity_context`.
 
 #### Input parameters
 
@@ -198,7 +198,7 @@ Finds a unique identity by HR identifier, full name, or corporate email. Typical
 
 The same result is returned for `"identity_name": "Lawrence Brown"` (full name) and `"identity_name": "E000065"` (HR ID). Partial names such as `"Brown"` or non-existing identities return `result_count: 0`.
 
-### 2.4 `get_account_context`
+### get_account_context
 
 Returns comprehensive context for a single account, including attributes, owner, repository, group membership, permissions, risks, and control defects.
 
@@ -210,7 +210,7 @@ Returns comprehensive context for a single account, including attributes, owner,
 
 #### Output structure
 
-The account payload is returned under `results.account[0]`. See the account field listing in section **1.1 Account data**.  
+The account payload is returned under `results.account[0]`. See the account field listing in section **Account data**.
 
 #### Sample request
 
@@ -344,7 +344,7 @@ The account payload is returned under `results.account[0]`. See the account fiel
 }
 ```
 
-### 2.5 `get_identity_context`
+### get_identity_context
 
 Returns comprehensive context for a single identity (person), including HR details, manager and department, all owned accounts (with groups, permissions, and defects), and identity-level risks and defects.
 
@@ -356,7 +356,7 @@ Returns comprehensive context for a single identity (person), including HR detai
 
 #### Output structure
 
-The identity payload is returned under `results.identity[0]`. See the identity field listing in section **1.2 Identity data**.
+The identity payload is returned under `results.identity[0]`. See the identity field listing in section **Identity data**.
 
 #### Sample request
 
@@ -491,18 +491,18 @@ The identity payload is returned under `results.identity[0]`. See the identity f
 }
 ```
 
-**Note for clients:** comparing two identities at once requires loading both contexts into the model. Each identity context can be around 100 KB. If reasoning appears truncated, constrain the request to a specific dimension such as “risk profile only” or “permissions only” so both responses fit within the model’s context window. [web:36][web:39]
+**Note for clients:** comparing two identities at once requires loading both contexts into the model. Each identity context can be around 100 KB. If reasoning appears truncated, constrain the request to a specific dimension such as "risk profile only" or "permissions only" so both responses fit within the model's context window.
 
-## 3. Manual curl validation
+## Manual curl validation
 
-The MCP HTTP transport uses a JSON-RPC lifecycle with initialization, operation, and tool calls, as described in the MCP specification. [web:39][web:42] The following sequence allows you to validate the MCP Server with `curl`.
+The MCP HTTP transport uses a JSON-RPC lifecycle with initialization, operation, and tool calls, as described in the MCP specification. The following sequence allows you to validate the MCP Server with `curl`.
 
 ```bash
 TOKEN="<your access token>"
 MCP_URL="https://<app-external-dns>/<tenant>/mcp/"
 ```
 
-### 3.1 Initialize
+### Initialize
 
 Capture the `Mcp-Session-Id` header from the response.
 
@@ -514,7 +514,7 @@ curl -i -X POST "$MCP_URL" \
   -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"curl-test","version":"1.0"}}}'
 ```
 
-### 3.2 Confirm initialization
+### Confirm initialization
 
 Set `SESSION_ID` to the `Mcp-Session-Id` value from the previous response.
 
@@ -529,7 +529,7 @@ curl -X POST "$MCP_URL" \
   -d '{"jsonrpc":"2.0","method":"notifications/initialized"}'
 ```
 
-### 3.3 List tools
+### List tools
 
 ```bash
 curl -X POST "$MCP_URL" \
@@ -540,7 +540,7 @@ curl -X POST "$MCP_URL" \
   -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
 ```
 
-### 3.4 Call a tool (example: `fetch_identity_id`)
+### Call a tool (example: fetch_identity_id)
 
 ```bash
 curl -X POST "$MCP_URL" \
