@@ -56,20 +56,96 @@ Follow these steps to configure remediation targets:
 
 ### ServiceNow Notification Integration
 
-To configure ServiceNow notifications, create a webhook target pointing to your ServiceNow instance and API endpoint.
+To configure ServiceNow notifications, create a webhook target that points to your ServiceNow instance and API endpoint. The webhook configuration depends on the authentication method your ServiceNow instance accepts. The sections below show three supported variants: OAuth2 with a non-expiring token, OAuth2 with a dynamic token, and Basic authentication.
 
-Example configuration (`target_servicenow.json`):
+In every case, the webhook is created as a remediation target with `"service": "webhook"`. The URL points to the ServiceNow REST API endpoint that consumes the remediation payload, for example:
+
+```
+https://<instance_id>.service-now.com/api/<scope_id>/<app_id>
+```
+
+#### ServiceNow with OAuth2 authentication
+
+##### Non-expiring token
+
+If your ServiceNow instance has already issued a non-expiring bearer token, place the token directly in the `authorization` block of the webhook config.
+
+Example configuration (`target_servicenow_oauth_static.json`):
 
 ```json
 {
-    "service": "webhook",
-    "displayname": "ServiceNow Target",
-    "config": {
-        "url": "https://<instance_id>.service-now.com/api/<scope_id>/<api_id>/<resource_relative_path>",
-        "method": "POST"
+  "service": "webhook",
+  "displayname": "ServiceNow HR Data Update",
+  "config": {
+    "url": "https://dev294858.service-now.com/api/x_43524_ido/create_rfc/rfc",
+    "method": "POST",
+    "http-config": {
+      "authorization": {
+        "credentials": "abc-yourtoken-here",
+        "type": "Bearer"
+      }
     }
+  }
 }
 ```
+
+##### Dynamic token
+
+If your ServiceNow instance issues short-lived tokens through an OAuth2 token endpoint, configure the webhook with an `oauth2` block. Identity Observability fetches a fresh token automatically before each call and reuses the client secret you have stored in IDO's secret store.
+
+Example configuration (`target_servicenow_oauth_dynamic.json`):
+
+```json
+{
+  "service": "webhook",
+  "displayname": "ServiceNow HR Data Update",
+  "config": {
+    "url": "https://dev294858.service-now.com/api/x_43524_ido/create_rfc/rfc",
+    "method": "POST",
+    "http-config": {
+      "oauth2": {
+        "client-id": "",
+        "client-secret-ref": "servicenow-secret-createdthroughIDOapi",
+        "scopes": [],
+        "token-url": ""
+      }
+    }
+  }
+}
+```
+
+The value referenced by `client-secret-ref` (`servicenow-secret-createdthroughIDOapi` in the example above) is provisioned through the Identity Observability API. Use the **Secrets management → Update a secret** endpoint at `api/docs#/paths/config-secrets-ref/post` to create or update the secret before activating the webhook.
+
+![Update a secret request in the IDO API documentation, showing the ref set to servicenow-secret and the body containing the OAuth2 client_secret value](./Media/update-secret-oauth-client-secret.png)
+
+### ServiceNow with Basic authentication
+
+For ServiceNow instances that accept HTTP Basic authentication, configure the webhook with a `basic-auth` block. The `username-ref` and `password-ref` fields point to secrets you have created in IDO's secret store, so the credentials never appear in the webhook configuration itself.
+
+Example configuration (`target_servicenow_basic.json`):
+
+```json
+{
+  "service": "webhook",
+  "displayname": "ServiceNow HR Data Update",
+  "config": {
+    "url": "https://dev294858.service-now.com/api/x_43524_ido/create_rfc/rfc",
+    "method": "POST",
+    "http-config": {
+      "basic-auth": {
+        "username-ref": "servicenowuser",
+        "password-ref": "servicenowpassword"
+      }
+    }
+  }
+}
+```
+
+Both `servicenowuser` and `servicenowpassword` are created or updated through the same secrets API used for OAuth2: `api/docs#/paths/config-secrets-ref/post`.
+
+![Update a secret request creating the servicenowuser secret, with a sample curl request body containing the ServiceNow username](./Media/update-secret-basic-username.png)
+
+![Update a secret request creating the servicenowpassword secret, with a sample curl request body containing the ServiceNow password](./Media/update-secret-basic-password.png)
 
 
 
