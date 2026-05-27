@@ -1,7 +1,16 @@
 ---
 title: Knowledge
-description: knowledge
+description: Knowledge homepage
 ---
+
+<tabs>
+  <tablist>
+    <tab>Knowledge</tab>
+    <tab>Developer</tab>
+  </tablist>
+
+<tabpanels>
+  <tabpanel>
 
 # Welcome to Identity Observability
 
@@ -77,14 +86,6 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
 </section>
 
-## AI tools
-
-<section>
-  
-  > [MCP Server](mcp-server/overview)  
-  > Learn how to connect AI agents to your identity observability data using the MCP server to look up identities, accounts, assess risk, and manage remediation.
-</section>
-
 ## Maintenance 
 
 <section>
@@ -93,3 +94,20 @@ Identity Observability delivers a real-time view of identities, attributes, and 
   > Release notes contain important information about new features, improvements and bug fixes for RadiantOne Identity Observability.
 
 </section>
+</tabpanel>
+
+<tabpanel>
+
+## AI tools
+
+<section>
+  
+  > [MCP Server](mcp-server/getting-started)  
+  > Learn how to connect AI agents to your identity observability data using the MCP server to look up identities, accounts, assess risk, and manage remediation.
+</section>
+
+</tabpanel>
+
+</tabpanels>
+</tabs>
+
