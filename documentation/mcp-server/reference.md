@@ -491,7 +491,7 @@ The identity payload is returned under `results.identity[0]`. See the identity f
 }
 ```
 
-**Note for clients:** comparing two identities at once requires loading both contexts into the model. Each identity context can be around 100 KB. If reasoning appears truncated, constrain the request to a specific dimension such as "risk profile only" or "permissions only" so both responses fit within the model's context window.
+> Comparing two identities at once requires loading both contexts into the model. Each identity context can be around 100 KB. If reasoning appears truncated, constrain the request to a specific dimension such as "risk profile only" or "permissions only" so both responses fit within the model's context window.
 
 ## Manual curl validation
 
