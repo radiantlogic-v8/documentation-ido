@@ -115,9 +115,9 @@ With n8n, you can build automated workflows that call the MCP Server through the
 
 The steps below create a simple end-to-end flow: an n8n chat interface backed by an AI agent that can call MCP tools. Once this is running, more advanced patterns become variations around the same agent node.
 
-### Ask your administrator for four items
+### Obtain Identity Observability credentials
 
-Before opening n8n, request these settings:
+Before opening n8n, request these credentials from your administrator:
 
 | Item | Example | Purpose |
 | --- | --- | --- |
