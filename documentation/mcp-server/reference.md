@@ -198,9 +198,9 @@ A login-based search such as `"account_name": "eestrada"` on the same repository
 
 The same result is returned for `"identity_name": "Lawrence Brown"` (full name) and `"identity_name": "E000065"` (HR ID). Partial names such as `"Brown"` or non-existing identities return `result_count: 0`.
 
-### get_account_context
+### Get Account Context 
 
-Returns comprehensive context for a single account, including attributes, owner, repository, group membership, permissions, risks, and control defects.
+`get_account_context` returns comprehensive context for a single account, including attributes, owner, repository, group membership, permissions, risks, and control defects.
 
 #### Input parameters
 
@@ -344,9 +344,9 @@ The account payload is returned under `results.account[0]`. See the account fiel
 }
 ```
 
-### get_identity_context
+### Get Identity Context
 
-Returns comprehensive context for a single identity (person), including HR details, manager and department, all owned accounts (with groups, permissions, and defects), and identity-level risks and defects.
+`get_identity_context` returns comprehensive context for a single identity (person), including HR details, manager and department, all owned accounts (with groups, permissions, and defects), and identity-level risks and defects.
 
 #### Input parameters
 
