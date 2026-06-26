@@ -16,25 +16,23 @@ This guide explains how to configure Okta as an identity provider for Identity O
 
 ###  1. Create an Okta App Integration
 
+Follow the steps listed below to create an [OpenID connect app integration](https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm)): 
+
 1. In the Okta Admin Console, go to **Applications > Applications**.
 2. Click **Create App Integration**.
-
-   ![Okta Admin Console – Applications page with Create App Integration button highlighted](Media/okta-01-create-app-integration.png)
-
 3. Select **OIDC - OpenID Connect** as the sign-in method.
 4. Select **Web Application** as the application type.
+6. Click **Next**.
+7. Enter a name for your application (e.g. `IDO`).
 
-   ![New App Integration dialog showing OIDC and Web Application selected](Media/okta-02-oidc-web-application.png)
-
-5. Click **Next**.
-6. Enter a name for your application (e.g. `IDO`).
+   ![Okta general settings](Media/okta-general.png)
 
 
-###  2. Configure the Redirect URI in Keycloak
+###  2. Configure the Redirect URI in IDP Console
 
-Before saving the Okta app, you need to retrieve the redirect URI from Keycloak.
+Before saving the Okta app, you need to retrieve the redirect URI from your [IDP console](../installation/installation-steps/#log-in-to-identity-observability-endpoints). To retrieve this,  
 
-1. Open Keycloak and navigate to **Identity Providers**.
+1. Login to your IDP console and navigate to **Identity Providers**.
 2. Click **OpenID Connect v1.0**.
 3. Copy the **Redirect URI** displayed on the page.
 
@@ -46,7 +44,6 @@ Before saving the Okta app, you need to retrieve the redirect URI from Keycloak.
 
 5. Scroll down and click **Save**.
 
-
 ###  3. Create an Okta Group and Assign Users
 
 1. In the Okta Admin Console, go to **Directory > Groups**.
@@ -57,9 +54,7 @@ Before saving the Okta app, you need to retrieve the redirect URI from Keycloak.
 
 4. Click the group you just created, then click **Assign people**.
 5. Find and assign the appropriate users, then click **Done**.
-
-   ![Group detail page with Assign people dialog open](Media/okta-05-assign-people.png)
-
+   
 ####  Assign the Group to the Identity Observability Application
 
 1. Go to **Applications > Applications** and click **Identity Observability**.
