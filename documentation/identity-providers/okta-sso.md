@@ -1,16 +1,16 @@
 ---
 title: Configure Okta as an Identity Provider
-description: How to configure Okta as an identity provider for Identity Observability using Keycloak OpenID Connect
+description: How to configure Okta as an identity provider for Identity Observability using IDP console OpenID Connect
 ---
 
 ## Overview
 
-This guide explains how to configure Okta as an identity provider for Identity Observability using Keycloak's OpenID Connect integration. By the end, users will be able to log in to the Identity Observability portal using their Okta credentials.
+This guide explains how to configure Okta as an identity provider for Identity Observability using IDP console's OpenID Connect integration. By the end, users will be able to log in to the Identity Observability portal using their Okta credentials.
 
 ### Prerequisites
   
 - Admin access to the Okta Admin Console
-- Admin access to Keycloak
+- Admin access to IDP console
 - An existing Identity Observability deployment
 
 
@@ -30,13 +30,13 @@ Follow the steps listed below to create an [OpenID connect app integration](http
 
 ###  2. Configure the Redirect URI in IDP Console
 
-Before saving the Okta app, you need to retrieve the redirect URI from your [IDP console](../installation/installation-steps/#log-in-to-identity-observability-endpoints). To retrieve this,  
+Before saving the Okta app, you need to retrieve the redirect URI from your [IDP console](../installation/installation-steps/#log-in-to-identity-observability-endpoints). To retrieve this, follow these steps:
 
 1. Login to your IDP console and navigate to **Identity Providers**.
 2. Click **OpenID Connect v1.0**.
 3. Copy the **Redirect URI** displayed on the page.
 
-   ![Keycloak Identity Provider page with Redirect URI field highlighted](Media/keycloak-01-redirect-uri.png)
+   ![IDP console Identity Provider page with Redirect URI field highlighted](Media/IDP-console-01-redirect-uri.png)
 
 4. Return to Okta and paste the copied URI into the **Sign-in redirect URIs** field.
 
@@ -65,43 +65,30 @@ Before saving the Okta app, you need to retrieve the redirect URI from your [IDP
    ![Identity Observability Assignments tab showing the group assigned](Media/okta-06-assign-group-to-app.png)
 
 
-###  4. Copy Client Credentials to Keycloak
+###  4. Copy Client Credentials to IDP console
 
 1. In the Identity Observability application in Okta, click the **General** tab.
-2. Copy the **Client ID**.
+2. Copy the **Client ID** & the **Client Secret** values.
+3. In the IDP console of Identity Observability, paste the appropriate values into the **Client ID** and **Client Secret** fields respectively.
 
-   ![Okta Identity Observability app General tab with Client ID highlighted](Media/okta-07-client-id.png)
-
-3. In Keycloak, paste the Client ID into the **Client ID** field of the OpenID Connect identity provider.
-4. Back in Okta, copy the **Client Secret**.
-5. In Keycloak, paste the Client Secret into the **Client Secret** field.
-
-   ![Keycloak identity provider form with Client ID and Client Secret filled in](Media/keycloak-02-client-credentials.png)
+   ![IDP console identity provider form with Client ID and Client Secret filled in](Media/IDP-console-02-client-credentials.png)
 
 #### Copy the Discovery Endpoint
 
-1. In Okta, go to **Security > API** and click the **default** authorization server.
-2. Copy the **Metadata URI**.
-
-   ![Okta default authorization server settings with Metadata URI highlighted](Media/okta-08-metadata-uri.png)
-
-3. In Keycloak, paste the Metadata URI into the **Discovery endpoint** field.
+1. In Okta, go to **Security > API > Authorization Servers** and click the **default** authorization server.
+2. Copy the **Metadata URI** located under the settings tab.
+3. In IDP console, paste the Metadata URI into the **Discovery endpoint** field.
 4. Click **Show metadata** and review the retrieved metadata to confirm the connection is valid.
 
-   ![Keycloak identity provider with Discovery endpoint populated and metadata displayed](Media/keycloak-03-discovery-endpoint.png)
+###  5. Configure the IDP console Identity Provider Settings
 
-###  5. Configure the Keycloak Identity Provider Settings
-
-1. In Keycloak, click **Advanced** on the identity provider configuration page.
+1. In IDP console, click **Advanced** on the identity provider configuration page.
 2. Scroll down and enable **Trust Email**.
-
-   ![Keycloak Advanced settings with Trust Email toggle enabled](Media/keycloak-04-trust-email.png)
-
 3. Click **Scopes**.
-4. Enter the following scopes: `openid email profile groups`.
+4. Enter the following scopes: `openid`, `email`, `profile`, `groups`.
 5. Click **Save**.
 
-   ![Keycloak Scopes field with openid email profile groups entered](Media/keycloak-05-scopes.png)
+  ![IDP console Scopes field with openid email profile groups entered](Media/IDP-console-05-scopes.png)
 
 
 ###  6. Configure Scopes in Okta
@@ -114,8 +101,6 @@ Before saving the Okta app, you need to retrieve the redirect URI from your [IDP
    - **Description**: a description of what this scope provides
 4. Click **Create**.
 
-   ![Okta Add Scope dialog with groups scope configured](Media/okta-09-add-scope.png)
-
 
 ###  7. Configure a Groups Claim in Okta
 
@@ -126,9 +111,10 @@ Before saving the Okta app, you need to retrieve the redirect URI from your [IDP
    - **Value type**: Select **Groups**
    - **Filter**: Set to **Starts with** (or **Equals**) and enter `Identity Observability`
    - **Include in**: Select **The following scopes** and enter `groups`
-3. Click **Create**.
 
-   ![Okta Add Claim dialog with groups claim configured](Media/okta-10-add-claim.png)
+   ![Groups Claim in Okta](Media/okta-group-claims.png)
+
+3. Click **Create**.
 
 
 ###  8. Configure an Access Policy in Okta
@@ -140,8 +126,6 @@ Before saving the Okta app, you need to retrieve the redirect URI from your [IDP
    - **Assign to**: select **The following clients**, search for and select `Identity Observability`
 3. Click **Create Policy**.
 
-   ![Okta Add Policy dialog with Identity Observability client selected](Media/okta-11-add-policy.png)
-
 #### Add a Policy Rule
 
 1. Click **Add rule**.
@@ -149,8 +133,6 @@ Before saving the Okta app, you need to retrieve the redirect URI from your [IDP
 3. Uncheck **Client Credentials** and **Device Authorization** grant types.
 4. Under **The following scopes**, add the **OIDC default scopes** and the `groups` scope.
 5. Click **Create rule**.
-
-   ![Okta Add Rule dialog with grant types and scopes configured](Media/okta-12-add-rule.png)
 
 
 ###  9. Verify the Configuration with Token Preview
@@ -166,9 +148,9 @@ Before saving the Okta app, you need to retrieve the redirect URI from your [IDP
    ![Token Preview result showing groups claim with Identity Observability value](Media/okta-13-token-preview.png)
 
 
-###  10. Configure a Mapper in Keycloak
+###  10. Configure a Mapper in IDP console
 
-1. In Keycloak, open the OpenID Connect identity provider and click **Mappers**.
+1. In IDP console, open the OpenID Connect identity provider and click **Mappers**.
 2. Click **Add mapper** and fill in the following fields:
    - **Name**: a descriptive name for the mapper
    - **Sync mode override**: **Force**
@@ -176,32 +158,32 @@ Before saving the Okta app, you need to retrieve the redirect URI from your [IDP
    - **Claim**: `groups`
    - **Claim Value**: `Identity Observability`
 
-   ![Keycloak Add Mapper dialog with Claim to Role settings configured](Media/keycloak-06-add-mapper.png)
+   ![IDP console Add Mapper dialog with Claim to Role settings configured](Media/IDP-console-06-add-mapper.png)
 
 3. Click **Select Role**, then select **Client roles**.
 4. Search for `technical` and select the **technicaladmin** role.
 5. Click **Assign**, then click **Save**.
 
-   ![Keycloak role selection with technicaladmin role highlighted](Media/keycloak-07-select-role.png)
+   ![IDP console role selection with technicaladmin role highlighted](Media/IDP-console-07-select-role.png)
 
 
 ###  11. Assign Roles to Users
 
-1. In Keycloak, go to **Users**.
+1. In IDP console, go to **Users**.
 2. Create a new user, or locate an existing user and update their role mapping as needed.
-3. To remove the `technicaladmin` role from an existing user, open the user's **Role mapping** tab, click the kebab menu (⋮) next to the role, select **Unassign**, and confirm by clicking **Remove**.
+3. To remove the `technicaladmin` role from an existing user, open the user's **Role mapping** tab, click the (⋮) menu next to the role, select **Unassign**, and confirm by clicking **Remove**.
 
-   ![Keycloak User Role mapping tab with Unassign option in kebab menu](Media/keycloak-08-role-mapping.png)
+   ![IDP console User Role mapping tab with Unassign option in kebab menu](Media/IDP-console-08-role-mapping.png)
 
 ###  12. Log In to Identity Observability via Okta Credentials
 
 1. Navigate to the Identity Observability portal.
 2. Click **oidc** on the login page.
 
-   ![Identity Observability portal login page with oidc option highlighted](Media/Identity Observability-01-login-oidc.png)
+   ![Identity Observability portal login page with oidc option highlighted](Media/IdentityObservability-01-login-oidc.png)
 
 3. If your account already exists, click **Add to existing account** and verify your email address.
 
-   ![Identity Observability account linking prompt with Add to existing account option](Media/Identity Observability-02-add-to-existing-account.png)
+   ![Identity Observability account linking prompt with Add to existing account option](Media/IdentityObservability-02-add-to-existing-account.png)
 
 4. Once verified, you will be logged in to Identity Observability using your Okta credentials.
