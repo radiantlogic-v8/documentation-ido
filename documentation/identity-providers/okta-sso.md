@@ -11,7 +11,8 @@ This guide explains how to configure Okta as an external OpenID Connect (OIDC) i
   
 - Admin access to the Okta Admin Console
 - Admin access to IDP console
-- An existing Identity Observability deployment
+- Access to your Identity Observability application 
+    - You can access Identity Observability's services (the main Identity Observability Portal and the **IDP console** URLs) by logging into the [application endpoints](../installation/installation-steps/#log-in-to-identity-observability-endpoints) that appear on your application's **overview page**. Use the **IDP CONSOLE** endpoint whenever this guide refers to the IDP console.
 
 Follow the steps below to configure Okta as an OIDC provider for Radiant Logic Identity Observability.
 
