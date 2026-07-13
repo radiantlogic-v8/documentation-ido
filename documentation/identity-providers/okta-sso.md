@@ -5,7 +5,7 @@ description: How to configure Okta as an identity provider for Identity Observab
 
 ## Overview
 
-This guide explains how to configure Okta as an identity provider for Identity Observability using IDP console's OpenID Connect integration. By the end, users will be able to log in to the Identity Observability portal using their Okta credentials.
+This guide explains how to configure Okta as an external OpenID Connect (OIDC) identity provider for **Radiant Logic Identity Observability**. This allows users to log in to the Identity Observability portal using their Okta credentials.
 
 ### Prerequisites
   
@@ -13,177 +13,176 @@ This guide explains how to configure Okta as an identity provider for Identity O
 - Admin access to IDP console
 - An existing Identity Observability deployment
 
+Follow the steps below to configure Okta as an OIDC provider for Radiant Logic Identity Observability.
 
-###  1. Create an Okta App Integration
-
-Follow the steps listed below to create an [OpenID connect app integration](https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm)): 
+### 1. Create the Okta application integration
 
 1. In the Okta Admin Console, go to **Applications > Applications**.
 2. Click **Create App Integration**.
-3. Select **OIDC - OpenID Connect** as the sign-in method.
-4. Select **Web Application** as the application type.
-6. Click **Next**.
-7. Enter a name for your application (e.g. `IDO`).
 
-   ![Okta general settings](Media/okta-general.png)
+   ![Applications and the Create App Integration button](images/step-03-create-app-integration.png)
 
+3. Choose **OIDC - OpenID Connect** as the sign-in method and **Web Application** as the application type, then click **Next**.
 
-###  2. Configure the Redirect URI in IDP Console
+   ![Create a new app integration dialog with OIDC and Web Application selected](images/step-04-select-oidc.png)
 
-Before saving the Okta app, you need to retrieve the redirect URI from your [IDP console](../installation/installation-steps/#log-in-to-identity-observability-endpoints). To retrieve this, follow these steps:
+4. On the **New Web App Integration** screen, give the app a name (for example, `IDO`). Leave the other defaults for now, you'll add the redirect URI in the next section.
 
-1. Login to your IDP console and navigate to **Identity Providers**.
-2. Click **OpenID Connect v1.0**.
-3. Copy the **Redirect URI** displayed on the page.
+### 2. Add the redirect URI from the IDP console
 
-   ![IDP console Identity Provider page with Redirect URI field highlighted](Media/IDP-console-01-redirect-uri.png)
+1. Open the **IDP console** of Identity Observability in a second tab.
+2. Go to **Identity providers > OpenID Connect v1.0**.
+3. Copy the **Redirect URI** that the IDP console displays — this is the callback URL Okta must trust.
 
-4. Return to Okta and paste the copied URI into the **Sign-in redirect URIs** field.
+   ![IDP console Add OpenID Connect provider form showing the Redirect URI](images/step-12-copy-redirect-uri.png)
 
-   ![Okta app settings with Sign-in redirect URIs field populated](Media/okta-03-sign-in-redirect-uri.png)
-
+4. Back in Okta, paste that value into **Sign-in redirect URIs**.
 5. Scroll down and click **Save**.
 
-###  3. Create an Okta Group and Assign Users
+   ![Okta sign-in redirect URIs field with the pasted value](images/step-13-paste-redirect-uri.png)
 
-1. In the Okta Admin Console, go to **Directory > Groups**.
-2. Click **Add group**.
-3. Enter a name for the group (e.g. `Identity Observability`) and click **Save**.
+### 3. Create an Okta group for IDO access
 
-   ![Add group dialog with group name filled in](Media/okta-04-add-group.png)
+1. In Okta, go to **Directory > Groups > Add group**.
+2. Name the group `IDO` and click **Save**.
 
-4. Click the group you just created, then click **Assign people**.
-5. Find and assign the appropriate users, then click **Done**.
-   
-####  Assign the Group to the Identity Observability Application
+   ![Add group dialog with the name IDO](images/step-18-group-name.png)
 
-1. Go to **Applications > Applications** and click **Identity Observability**.
-2. Click the **Assignments** tab.
+3. Open the new **IDO** group and click **Assign people**.
+4. Add the user(s) who should have access, then click **Done**.
+
+   ![Assign people to the IDO group](images/step-21-assign-people.png)
+
+### 4. Assign the group to the IDO application
+
+1. Go to **Applications > Applications** and open the **IDO** app.
+2. Switch to the **Assignments** tab.
 3. Click **Assign > Assign to Groups**.
-4. Find the group you created and click **Assign**, then click **Done**.
+4. Assign the **IDO** group, then click **Done**.
 
-   ![Identity Observability Assignments tab showing the group assigned](Media/okta-06-assign-group-to-app.png)
+   ![Assign the IDO group to the application](images/step-30-assign-group.png)
 
+### 5. Copy Client Credentials to the IDP console
 
-###  4. Copy Client Credentials to IDP console
+1. In the IDO application in Okta, click the **General** tab.
+2. Copy the **Client ID** and the **Client Secret** values.
 
-1. In the Identity Observability application in Okta, click the **General** tab.
-2. Copy the **Client ID** & the **Client Secret** values.
+   ![Okta Client Credentials showing Client ID and Client Secret](images/step-33-copy-client-id.png)
+
 3. In the IDP console of Identity Observability, paste the appropriate values into the **Client ID** and **Client Secret** fields respectively.
 
-   ![IDP console identity provider form with Client ID and Client Secret filled in](Media/IDP-console-02-client-credentials.png)
-
-#### Copy the Discovery Endpoint
+### 6. Copy the Discovery Endpoint
 
 1. In Okta, go to **Security > API > Authorization Servers** and click the **default** authorization server.
-2. Copy the **Metadata URI** located under the settings tab.
-3. In IDP console, paste the Metadata URI into the **Discovery endpoint** field.
+2. Copy the **Metadata URI** located under the **Settings** tab.
+
+   ![Okta default authorization server with the Metadata URI](images/step-38-copy-metadata-uri.png)
+
+3. In the IDP console, paste the Metadata URI into the **Discovery endpoint** field.
 4. Click **Show metadata** and review the retrieved metadata to confirm the connection is valid.
 
-###  5. Configure the IDP console Identity Provider Settings
+   ![IDP console Discovery endpoint field with Show metadata](images/step-39-paste-discovery-endpoint.png)
 
-1. In IDP console, click **Advanced** on the identity provider configuration page.
+### 7. Configure Identity Provider settings in the IDP console
+
+1. In the IDP console, click **Advanced** on the identity provider configuration page.
 2. Scroll down and enable **Trust Email**.
+
+   ![IDP console Advanced settings with Trust Email enabled](images/step-43-trust-email.png)
+
 3. Click **Scopes**.
 4. Enter the following scopes: `openid`, `email`, `profile`, `groups`.
 5. Click **Save**.
 
-  ![IDP console Scopes field with openid email profile groups entered](Media/IDP-console-05-scopes.png)
+   ![IDP console requested scopes](images/step-45-set-scopes.png)
 
+### 8. Create a custom scope in Okta
 
-###  6. Configure Scopes in Okta
-
-1. In Okta, navigate to your **default** authorization server and click **Scopes**.
+1. Return to Okta's default authorization server and open the **Scopes** tab.
 2. Click **Add Scope**.
-3. Fill in the following fields:
-   - **Name**: `groups`
-   - **Display phrase**: a short label visible to users during consent
-   - **Description**: a description of what this scope provides
+3. Name it `groups`, then add a display phrase and description.
 4. Click **Create**.
 
+   ![Okta Add Scope dialog for the groups scope](images/step-48-scope-name.png)
 
-###  7. Configure a Groups Claim in Okta
+### 9. Create a groups claim in Okta
 
-1. Click **Claims**, then click **Add Claim**.
-2. Fill in the following fields:
-   - **Name**: `groups`
-   - **Include in token type**: Select **ID Token** and set to **Always**
-   - **Value type**: Select **Groups**
-   - **Filter**: Set to **Starts with** (or **Equals**) and enter `Identity Observability`
-   - **Include in**: Select **The following scopes** and enter `groups`
+1. Open the **Claims** tab and click **Add Claim**.
+2. Configure the claim:
+   - **Name:** `groups`
+   - **Include in token type:** ID Token, and set it to **Always**
+   - **Value type:** Expression, sourced from **Groups**
+   - **Filter:** `Equals` `IDO`
+   - **Include in:** the following scopes → `groups`
 
-   ![Groups Claim in Okta](Media/okta-group-claims.png)
+   ![Okta Add Claim dialog with the groups filter](images/step-63-type-ido.png)
 
-3. Click **Create**.
+3. Click **Create**. The new `groups` claim now appears in the claims list.
 
+   ![The groups claim in the claims list](images/step-68-create-claim.png)
 
-###  8. Configure an Access Policy in Okta
+### 10. Create an access policy
 
-1. Click **Access Policies**, then click **Add Policy**.
-2. Fill in the following fields:
-   - **Name**: a descriptive name for the policy
-   - **Description**: a brief description
-   - **Assign to**: select **The following clients**, search for and select `Identity Observability`
-3. Click **Create Policy**.
+1. Open the **Access Policies** tab and click **Add Policy**.
+2. Give it a name and description.
+3. Set **Assign to > The following clients** and select the **IDO** client.
+4. Click **Create Policy**.
 
-#### Add a Policy Rule
+   ![Access policy assigned to the IDO client](images/step-76-select-ido-client.png)
 
-1. Click **Add rule**.
-2. Enter a name for the rule.
-3. Uncheck **Client Credentials** and **Device Authorization** grant types.
-4. Under **The following scopes**, add the **OIDC default scopes** and the `groups` scope.
-5. Click **Create rule**.
+### 11. Add a rule to the policy
 
+1. On the new policy, click **Add rule** and name it.
+2. Uncheck **Client Credentials** and **Device Authorization**.
+3. Under **Scopes requested**, choose **The following scopes**, add the OIDC default scopes, and include `groups`.
+4. Scroll down and click **Create rule**.
 
-###  9. Verify the Configuration with Token Preview
+   ![Access policy rule with the groups scope added](images/step-85-add-groups-scope.png)
 
-1. Click **Token Preview**.
-2. Select `Identity Observability` as the application.
-3. Set the grant type to **Authorization Code**.
-4. Select a test user.
-5. Add the following scopes: `openid`, `email`, `groups`.
-6. Click **Preview Token**.
-7. Scroll down in the token preview and confirm that the `groups` claim contains `Identity Observability` as a value.
+### 12. Test with Token Preview
 
-   ![Token Preview result showing groups claim with Identity Observability value](Media/okta-13-token-preview.png)
+1. Open the **Token Preview** tab.
+2. Set the **OAuth/OIDC client** to **IDO**, the **Grant type** to **Authorization Code**, pick a test **User**, and add the scopes `openid`, `email`, and `groups`.
+3. Click **Preview Token**.
 
+   ![Token Preview request properties](images/step-94-preview-token.png)
 
-###  10. Configure a Mapper in IDP console
+4. In the previewed token, confirm the payload contains a **`groups`** claim with the value **`IDO`**. This proves Okta is issuing group membership correctly.
 
-1. In IDP console, open the OpenID Connect identity provider and click **Mappers**.
-2. Click **Add mapper** and fill in the following fields:
-   - **Name**: a descriptive name for the mapper
-   - **Sync mode override**: **Force**
-   - **Mapper type**: **Claim to Role**
-   - **Claim**: `groups`
-   - **Claim Value**: `Identity Observability`
+   ![Previewed token showing the groups claim set to IDO](images/step-95-verify-groups-claim.png)
 
-   ![IDP console Add Mapper dialog with Claim to Role settings configured](Media/IDP-console-06-add-mapper.png)
+### 13. Map the Okta group to an IDO role in the IDP console
 
-3. Click **Select Role**, then select **Client roles**.
-4. Search for `technical` and select the **technicaladmin** role.
-5. Click **Assign**, then click **Save**.
+1. In the IDP console, open the provider's **Mappers** tab and click **Add mapper**.
+2. Name it, set **Sync mode override** to **Force**, and set **Mapper type** to **Claim to Role**.
 
-   ![IDP console role selection with technicaladmin role highlighted](Media/IDP-console-07-select-role.png)
+   ![IDP console mapper set to Claim to Role](images/step-102-claim-to-role.png)
 
+3. Set **Claim** to `groups` and **Claim Value** to `IDO`.
 
-###  11. Assign Roles to Users
+   ![Mapper claim set to groups and claim value IDO](images/step-104-claim-value-ido.png)
+
+4. For the role, click **Select Role > Client roles**, search for `technical`, and select the **technicaladmin** role, then click **Assign**.
+5. Click **Save**.
+
+   ![Assigning the technicaladmin client role](images/step-109-technicaladmin.png)
+
+### 14. Manage users and role mappings
 
 1. In IDP console, go to **Users**.
 2. Create a new user, or locate an existing user and update their role mapping as needed.
 3. To remove the `technicaladmin` role from an existing user, open the user's **Role mapping** tab, click the (⋮) menu next to the role, select **Unassign**, and confirm by clicking **Remove**.
 
-   ![IDP console User Role mapping tab with Unassign option in kebab menu](Media/IDP-console-08-role-mapping.png)
+   ![User role mapping in the IDP console](images/step-114-role-mapping.png)
 
-###  12. Log In to Identity Observability via Okta Credentials
+### 15. Verify login through the Identity Observability portal
 
-1. Navigate to the Identity Observability portal.
-2. Click **oidc** on the login page.
+1. Open the Identity Observability portal sign-in page and click **oidc** to sign in with Okta.
 
-   ![Identity Observability portal login page with oidc option highlighted](Media/IdentityObservability-01-login-oidc.png)
+   ![IDO portal sign-in with the oidc option](images/step-119-oidc.png)
 
-3. If your account already exists, click **Add to existing account** and verify your email address.
+2. If the account already exists, choose **Add to existing account** and verify by email.
+3. Once verified, you will be logged in to Identity Observability using your Okta credentials.
 
-   ![Identity Observability account linking prompt with Add to existing account option](Media/IdentityObservability-02-add-to-existing-account.png)
+   ![Signed in to IDO](images/step-121-signed-in.png)
 
-4. Once verified, you will be logged in to Identity Observability using your Okta credentials.
