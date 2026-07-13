@@ -184,6 +184,3 @@ Follow the steps below to configure Okta as an OIDC provider for Radiant Logic I
 
 2. If the account already exists, choose **Add to existing account** and verify by email.
 3. Once verified, you will be logged in to Identity Observability using your Okta credentials.
-
-   ![Signed in to IDO](Media/step-121-signed-in.png)
-
