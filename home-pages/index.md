@@ -58,6 +58,9 @@ Identity Observability delivers a real-time view of identities, attributes, and 
 
   > [Custom Dashboards](admin-controls/manage-dashboards/create-a-dashboard)  
   > Learn how to create your own custom dashboards to visualize data in your preferred format.
+
+  > [External OIDC providers](identity-providers/okta-config)
+  > Learn how to configure authentication for Identity Observability using external OIDC providers such as Okta.  
   
 </section>
 
