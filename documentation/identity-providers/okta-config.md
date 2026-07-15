@@ -8,10 +8,10 @@ description: How to configure Okta as an identity provider for Identity Observab
 This guide explains how to configure Okta as an external OpenID Connect (OIDC) identity provider for **Radiant Logic Identity Observability**. This allows users to log in to the Identity Observability portal using their Okta credentials.
 
 ### Prerequisites
-  
+
 - Admin access to the Okta Admin Console
 - Admin access to IDP console
-- Access to your Identity Observability application 
+- Access to your Identity Observability application
     - You can access Identity Observability's services (the main Identity Observability Portal and the **IDP console** URLs) by logging into the [application endpoints](../installation/installation-steps/#log-in-to-identity-observability-endpoints) that appear on your application's **overview page**. Use the **IDP CONSOLE** endpoint whenever this guide refers to the IDP console.
 
 Follow the steps below to configure Okta as an OIDC provider for Radiant Logic Identity Observability.
@@ -118,9 +118,9 @@ Follow the steps below to configure Okta as an OIDC provider for Radiant Logic I
 
    ![Okta Add Claim dialog with the groups filter](Media/step-63-type-ido.png)
 
-3. Click **Create**. The new `groups` claim now appears in the claims list.
-
    ![The groups claim in the claims list](Media/step-68-create-claim.png)
+
+3. Click **Create**. The new `groups` claim now appears in the claims list.
 
 ### 10. Create an access policy
 
@@ -164,19 +164,14 @@ Follow the steps below to configure Okta as an OIDC provider for Radiant Logic I
    ![Mapper claim set to groups and claim value IDO](Media/step-104-claim-value-ido.png)
 
 4. For the role, click **Select Role > Client roles**, search for `technical`, and select the **technicaladmin** role, then click **Assign**.
+
+   **Note:** Assign the `technicaladmin` role only to admin users. All other users should be assigned the `user` role.
+
 5. Click **Save**.
 
    ![Assigning the technicaladmin client role](Media/step-109-technicaladmin.png)
 
-### 14. Manage users and role mappings
-
-1. In IDP console, go to **Users**.
-2. Create a new user, or locate an existing user and update their role mapping as needed.
-3. To remove the `technicaladmin` role from an existing user, open the user's **Role mapping** tab, click the (⋮) menu next to the role, select **Unassign**, and confirm by clicking **Remove**.
-
-   ![User role mapping in the IDP console](Media/step-114-role-mapping.png)
-
-### 15. Verify login through the Identity Observability portal
+### 14. Verify login through the Identity Observability portal
 
 1. Open the Identity Observability portal sign-in page and click **oidc** to sign in with Okta.
 
