@@ -28,14 +28,13 @@ These release notes contain the following sections:
 * **IDO-248** – Improved handling of defect statuses in Remediation, particularly when a remediation action does not fully resolve the event.
 * **IDO-788** – Permission hierarchy is now displayed in the DataViz Explorer for better access structure visibility.
 * **IDO-789, IDO-596** – EOC enhancements: new option to enable MCP Server Services, and new option to enable external access to the Portal API.
-* **IDO-827** – Fields can now be copied from the IDO portal interface.
-* **IDO-813** – Internal API calls for Observation Supervisor migrated from observation_supervisor to api_umbrella for controls & observation edition, improving architecture consistency.
+* **IDO-827** – Fields can now be copied from the Identity Observability portal interface.
 
 ## Bug Fixes
 
 * **IDO-854, IDO-840, IDO-823, IDO-822** – Fixed several Query Builder issues: removed invalid search criteria containing (+self) from all entities, fixed duplicated entries, resolved duplicate rows when querying departments with child departments, and corrected an incorrect warning when bulk-removing Sensitivity Level.
 * **IDO-782, IDO-777, IDO-759** – Fixed Visibility Cone issues: resource managers can no longer remediate on resources they don't manage from the landing page, remediation for Highly Sensitive Group Manager role is resolved, and Line/department managers can now see their sub-departments in the homepage and Query Builder page.
-* **IDO-814, IDO-798, IDO-795** – Fixed User Access Review issues: technical accounts are now correctly reviewed by the Application Owner instead of the Default reviewer, review campaign configuration counter issues are resolved, and the correct IDO controls have been added to AIDA for the anomalous detection step in UAR.
+* **IDO-814, IDO-798, IDO-795** – Fixed User Access Review issues: technical accounts are now correctly reviewed by the Application Owner instead of the Default reviewer, review campaign configuration counter issues are resolved, and the correct Identity Observability controls have been added to AIDA for the anomalous detection step in UAR.
 * **IDO-785, IDO-784** – Fixed Audit & Compliance issues: Active Directory Controls Mashup Dashboard issues are resolved, and service and technical accounts are now loaded correctly in the point-in-time database.
 * **IDO-922** – Fixed Guided Remediation in Slack so that AIDA-based remediation now correctly takes into account the blacklisted addresses list.
 * **IDO-898** – Fixed a spurious error message appearing when enabling or disabling a control or observation in the Observation/Control Management page.
