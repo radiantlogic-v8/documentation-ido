@@ -15,8 +15,8 @@ These release notes contain the following sections:
 * **IDO-821** – New Security Event Hub extractor for CrowdStrike, enabling ingestion of identity threat protection events into the Security Events Hub.
 * **IDO-765** – Support for ProofPoint VAP and TopClickers security events in the Security Event Hub, broadening the range of third-party identity-centric signals.
 * **IDO-869, IDO-868** – Expanded the External Controls presence across the portal: external controls are now included in the home page grouped by family for all roles (tech admin, line manager, resource owner, etc.), and are also surfaced in detail pages of related entities such as accounts and identities.
-* **IDO-853** – Custom Attributes now support configuration JSON upload from realtime to point-in-time, enabling consistent attribute enrichment across both views.
-* **IDO-791** – New MCP tools for Application and Permission details, enabling AI assistants (AIDA) to query identity data programmatically.
+* **IDO-853** – Custom Attributes now support a JSON configuration to manage the upload from realtime to point-in-time, enabling consistent attribute enrichment across both views.
+* **IDO-791** – New MCP tools for Application and Permission details, enabling your AI assistants to query identity data programmatically.
 * **IDO-781** – The DataViz Explorer access chain now extends from identities to display technical account, group, and resource managers for a more complete visibility picture.
 
 ## Improvements to Existing Features
