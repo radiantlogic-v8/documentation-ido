@@ -8,7 +8,7 @@ This document explains what the MCP Server does, how it can be used, and how tec
 
 ## What you can ask
 
-You can ask about any identified person or about an account that belongs to that person. Depending on the data available in your environment, the assistant can help with the following types of questions:
+You can ask about any identified person, about an account that belongs to that person, and about the resources and permissions that make up access. Depending on the data available in your environment, the assistant can help with the following types of questions:
 
 * **Who they are:** identity details, such as name, email address, employee ID, job title, manager, department, start date, and departure date.
 * **What they can access:** access details, such as group membership, assigned permissions, accessible resources, and whether an account is privileged.
@@ -28,12 +28,14 @@ Broad requests without a specific target are not supported. For example, a reque
 * Who is the manager of Lawrence Brown?
 * Is the account eestrada in repository AD_CORP a privileged account?
 * When was Lawrence Brown's account last used?
+* Which groups grant the Users and Groups Managers permission?
 
 **Analysis questions**
 
 * Compare the risk profiles of Lawrence Brown and Evelyn Estrada, and explain which one is more exposed.
 * List the resources Lawrence Brown can access that no one else in his department can access.
 * Is Lawrence Brown a contractor whose departure date has passed, and if so, what active accounts does he still have?
+* Who can access the SAP_ERP resource, and through which permissions?
 
 ## Technical setup in RadiantOne Identity Observability
 

@@ -6,7 +6,7 @@ This document serves as a data and tools reference guide for integrators or anyo
 
 ## Data returned by the MCP Server
 
-The MCP Server tools expose two complementary views of your identity landscape: accounts and identities. Accounts represent technical objects in connected repositories. Identities represent people, aggregated across all of their accounts.
+The MCP Server tools expose complementary views of your identity landscape. Accounts represent technical objects in connected repositories, and identities represent people, aggregated across all of their accounts. The tools also expose two access-object views: resources (applications, systems, or assets) and permissions (the individual access rights that belong to a resource).
 
 ### Account data
 
@@ -38,6 +38,29 @@ The `get_identity_context` tool returns the full context for an identity (the pe
 | Risk | `risks` – same dual-axis structure as accounts (`agg_*`, `int_*`, `identity_nb_defects`, `sensitivity_level`) |
 | Defects | `control_defects` – identity-level defects, such as "contractor with past ending date and active accounts" |
 
+### Resource data
+
+The `get_resource_context` tool returns the full context for a resource (an application, system, or asset). Fields are grouped below by theme.
+
+| Group | Fields |
+| --- | --- |
+| Identifiers | `id`, `resource_name`, `resource_type`, `resource_family`, `description` |
+| Repository | `repository_name`, `repository_displayname`, `repository_family`, `repository_type` |
+| Risk and quality | `risk_level`, `risk_score`, `agg_risk_level`, `agg_risk_score`, `agg_risk_1..4`, `int_risk_1..4`, `nb_defects`, `sensitivity_level` |
+| Permissions | `permissions` – every permission that belongs to the resource. For each permission: `id`, `permission_name`, `permission_type`, `sensitivity_level`, and `groups` (the groups that grant it, each with `id`, `group_name`, `group_display_name`) |
+
+### Permission data
+
+The `get_permission_context` tool returns the full context for a permission (an access right that belongs to a resource). Fields are grouped below by theme.
+
+| Group | Fields |
+| --- | --- |
+| Identifiers | `id`, `permission_name`, `permission_type` |
+| Resource | `resource` – the parent resource: `id`, `resource_name`, `resource_type`, `sensitivity_level` |
+| Repository | `repository_name`, `repository_displayname`, `repository_family`, `repository_type` |
+| Risk and quality | `risk_level`, `risk_score`, `agg_risk_level`, `agg_risk_score`, `agg_risk_1..4`, `int_risk_1..4`, `nb_defects`, `sensitivity_level` |
+| Access chain | `groups` – the groups that grant the permission. For each group: `id`, `group_name`, `group_display_name`, and `accounts` (the accounts that hold it, each with `account_id`, `account_display_name`, `id`, and `owner` → `identity_id`, `full_name`). When the permission is granted directly to accounts (no group), `accounts` and the resolved `identities` appear at the top level instead. |
+
 ### Interpreting the risk model
 
 Identity Observability computes risk along two axes:
@@ -54,7 +77,7 @@ Use `*_risk_level` for everyday questions and user-facing explanations. Use `*_r
 
 ## Tools
 
-The MCP Server exposes four tools in general availability. Tool descriptions, input parameters, and output schemas below match what an MCP client sees via the `tools/list` method described in the MCP specification.
+The MCP Server exposes eight tools in general availability. Tool descriptions, input parameters, and output schemas below match what an MCP client sees via the `tools/list` method described in the MCP specification.
 
 **Common conventions**
 
@@ -492,6 +515,334 @@ The identity payload is returned under `results.identity[0]`. See the identity f
 ```
 
 > Comparing two identities at once requires loading both contexts into the model. Each identity context can be around 100 KB. If reasoning appears truncated, constrain the request to a specific dimension such as "risk profile only" or "permissions only" so both responses fit within the model's context window.
+
+### Fetch Resource ID
+
+`fetch_resource_id` finds a resource (an application, system, or asset) by name or display name. Matching is case-insensitive and partial, so `"sharepoint"` matches `"SharePoint Online (US)"`. Typically called first to obtain the `resource_id` required by `get_resource_context`.
+
+#### Input parameters
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `resource_name` | string | yes | Resource name or display name (case-insensitive partial match). |
+| `repository_name` | string | no | Repository or system name. Disambiguates when several resources share the same name across systems (case-insensitive partial match). |
+
+#### Output schema (top level)
+
+```json
+{
+  "results": [
+    {
+      "resource_id": "string",
+      "name":        "string",
+      "displayname": "string | null",
+      "type":        "string | null",
+      "family":      "string | null",
+      "repository":  "string | null"
+    }
+  ],
+  "result_count": 0,
+  "status": "success",
+  "error": "string (optional, only on failure)"
+}
+```
+
+#### Sample request
+
+```json
+{
+  "name": "fetch_resource_id",
+  "arguments": {
+    "resource_name": "SAP_ERP"
+  }
+}
+```
+
+#### Sample response
+
+```json
+{
+  "results": [
+    {
+      "resource_id": "SAP_ERP_1730380896048_34440",
+      "name": "SAP_ERP",
+      "displayname": "SAP_ERP",
+      "type": "Profile",
+      "family": "SAP",
+      "repository": "ACME.COM"
+    }
+  ],
+  "result_count": 1,
+  "status": "success"
+}
+```
+
+A partial search such as `"resource_name": "SAP"` matches the same record and any other resource whose name contains `"SAP"`. Add `repository_name` to disambiguate when several systems expose a resource with the same name. A non-existing name returns `result_count: 0` with no error.
+
+### Fetch Permission ID
+
+`fetch_permission_id` finds a permission (an access right that belongs to a resource) by name or display name. Matching is case-insensitive and partial, so `"admin"` matches `"Full Administrator"`. Typically called first to obtain the `permission_id` required by `get_permission_context`.
+
+#### Input parameters
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `permission_name` | string | yes | Permission name or display name (case-insensitive partial match). |
+| `resource_name` | string | no | Resource name or display name. Disambiguates when several permissions share the same name across resources (case-insensitive partial match). |
+| `repository_name` | string | no | Repository or system name. Narrows the search to a specific source system and can be used on its own, without `resource_name` (case-insensitive partial match). |
+
+#### Output schema (top level)
+
+```json
+{
+  "results": [
+    {
+      "permission_id": "string",
+      "name":          "string",
+      "displayname":   "string | null",
+      "type":          "string | null",
+      "family":        "string | null",
+      "resource":      "string | null"
+    }
+  ],
+  "result_count": 0,
+  "status": "success",
+  "error": "string (optional, only on failure)"
+}
+```
+
+#### Sample request
+
+```json
+{
+  "name": "fetch_permission_id",
+  "arguments": {
+    "permission_name": "Users and Groups"
+  }
+}
+```
+
+#### Sample response
+
+```json
+{
+  "results": [
+    {
+      "permission_id": "USERS_AND_GROUPS_1730380888586_26527",
+      "name": "USERS_AND_GROUPS",
+      "displayname": "Users and Groups Managers",
+      "type": "Role",
+      "family": "Azure",
+      "resource": "Infrastructure"
+    }
+  ],
+  "result_count": 1,
+  "status": "success"
+}
+```
+
+`resource_name` and `repository_name` are optional and can be supplied independently. Use them when the same permission name exists on several resources or in several systems. A non-existing name returns `result_count: 0` with no error.
+
+### Get Resource Context
+
+`get_resource_context` returns comprehensive context for a single resource, including core attributes, repository, risk profile, the full list of permissions that belong to the resource and, for each permission, the groups that grant access to it. This is the main building block for answering "who can reach this resource, and through which permissions?".
+
+#### Input parameters
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `resource_id` | string | yes | Unique resource identifier obtained from `fetch_resource_id`. |
+
+#### Output structure
+
+The resource payload is returned under `results.resource[0]`. See the resource field listing in section **Resource data**.
+
+#### Sample request
+
+```json
+{
+  "name": "get_resource_context",
+  "arguments": {
+    "resource_id": "SAP_ERP_1730380896048_34440"
+  }
+}
+```
+
+#### Sample response (excerpt)
+
+```json
+{
+  "results": {
+    "resource": [
+      {
+        "id": "SAP_ERP_1730380896048_34440",
+        "resource_name": "SAP_ERP",
+        "resource_type": "Profile",
+        "resource_family": "SAP",
+        "description": "Company's Enterprise Resource Planning system (ERP)",
+        "repository_name": "ACME.COM",
+        "repository_displayname": "ACME.COM",
+        "repository_family": "Azure",
+        "repository_type": "Accounts",
+        "risk_level": 0,
+        "risk_score": 0,
+        "agg_risk_level": 0,
+        "agg_risk_score": 0,
+        "nb_defects": 0,
+        "sensitivity_level": 0,
+
+        "permissions": [
+          {
+            "id": "IE01_1730380896095_34795",
+            "permission_name": "IE01",
+            "permission_type": "FineGrained",
+            "sensitivity_level": 0,
+            "groups": [
+              {
+                "id": "AWSCODESTARSERVI_1730380903952_58114",
+                "group_name": "AWSCodeStarServiceRole",
+                "group_display_name": "AWSCodeStarServiceRole"
+              }
+              /* ... more granting groups ... */
+            ]
+          }
+          /* ... more permissions ... */
+        ]
+      }
+    ]
+  },
+  "result_count": 1,
+  "status": "success"
+}
+```
+
+### Get Permission Context
+
+`get_permission_context` returns comprehensive context for a single permission, including core attributes, risk profile, the resource it belongs to, and the access chain — the groups that grant it and, for each group, the accounts that hold it together with their owning identity. This answers "what does this permission allow, and who can be granted access through it?".
+
+#### Input parameters
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `permission_id` | string | yes | Unique permission identifier obtained from `fetch_permission_id`. |
+
+#### Output structure
+
+The permission payload is returned under `results.permission[0]`. See the permission field listing in section **Permission data**.
+
+#### Sample request
+
+```json
+{
+  "name": "get_permission_context",
+  "arguments": {
+    "permission_id": "USERS_AND_GROUPS_1730380888586_26527"
+  }
+}
+```
+
+#### Sample response (excerpt)
+
+```json
+{
+  "results": {
+    "permission": [
+      {
+        "id": "USERS_AND_GROUPS_1730380888586_26527",
+        "permission_name": "Users and Groups Managers",
+        "permission_type": "Role",
+        "repository_name": "ACME.COM",
+        "repository_displayname": "ACME.COM",
+        "repository_family": "Azure",
+
+        "resource": [
+          {
+            "id": "INFRASTRUCTURE_1730380896048_34400",
+            "resource_name": "Infrastructure",
+            "resource_type": "Profile",
+            "sensitivity_level": 0
+          }
+        ],
+
+        "risk_level": 0,
+        "risk_score": 0,
+        "agg_risk_level": 0,
+        "agg_risk_score": 0,
+        "nb_defects": 0,
+        "sensitivity_level": 0,
+
+        "groups": [
+          {
+            "id": "DOMAIN_ADMINS_1730380903952_58120",
+            "group_name": "Domain Admins",
+            "group_display_name": "Domain Admins",
+            "accounts": [
+              {
+                "id": "CN_WILLIE_CLARKE_1730380879383_5184",
+                "account_id": "CN_WILLIE_CLARKE_1730380879383_5184",
+                "account_display_name": "ACMEB:WCLARKE18-adm",
+                "owner": [
+                  {
+                    "identity_id": "ID0000063_1730380868397_377",
+                    "full_name": "Willie CLARKE"
+                  }
+                ]
+              }
+              /* ... more accounts ... */
+            ]
+          }
+          /* ... more groups ... */
+        ]
+      }
+    ]
+  },
+  "result_count": 1,
+  "status": "success"
+}
+```
+
+> The `groups` section is present only when the permission is granted through groups. Permissions granted directly to accounts instead expose `accounts` (the direct holders) and `identities` (the resolved people); the two shapes are mutually exclusive for a given permission.
+
+## Performance, batching, and group-size limits
+
+The context tools can traverse very large graphs: a single resource or permission may be linked to thousands of groups, accounts, and identities. Two mechanisms keep responses fast and bounded. Both are transparent to the caller, but they change what you may observe in latency and payload, so integrators should be aware of them.
+
+### Batched prefetching and query memoization
+
+Internally, a context is resolved as a sequence of relation steps (resource → permissions → groups → accounts → identities). Instead of issuing one query per parent entity, the engine batches sibling lookups into a single `ANY($1)` query and regroups the returned rows per parent using a window function. A request-scoped query runner also memoizes identical queries, so a relation already resolved for one branch is not fetched again.
+
+What this means for you:
+
+- Fewer database round-trips and lower latency on wide contexts, with no change to the response shape.
+- Results are deterministic and identical to the non-batched path. Batching is a performance optimization only.
+- No configuration is required; batching is always on.
+
+### Group-size cap (MAX_GROUP_ELEMENTS)
+
+To protect the server and the model's context window, every "multiple" child collection returned by a `get_*_context` tool is capped per parent. The SQL layer stops early at `MAX_GROUP_ELEMENTS + 1` rows for a given parent (no systematic `COUNT`); only when that ceiling is reached does it run a targeted `COUNT(DISTINCT)` for that single parent to report the exact total.
+
+| Setting | Default | Effect |
+| --- | --- | --- |
+| `MAX_GROUP_ELEMENTS` | 1000 | Per-parent ceiling for "multiple" child collections in `get_*_context` tools. Set to `0` or a negative value to disable the cap entirely. |
+
+When a collection exceeds the ceiling, the oversized array is replaced in the response by a marker object instead of the elements:
+
+```json
+{
+  "truncated": true,
+  "error": "group truncated: exceeded the limit of 1000 elements",
+  "threshold": 1000,
+  "total_count": 4213
+}
+```
+
+How to handle it as an integrator:
+
+- Before iterating a "multiple" collection, check whether it is an array of elements or a single object carrying `"truncated": true`.
+- Use `total_count` to decide whether to narrow the query (for example, target a specific permission or group) rather than trying to expand the whole collection.
+- Batching is preserved even with the cap: a per-parent `ROW_NUMBER()` window lets one `ANY($1)` round-trip serve many parents while enforcing the ceiling independently for each.
+
+> The marker never appears at the top level, only inside the "multiple" child collections (for example a resource's `permissions`, a permission's `groups`, or a group's `accounts`). `result_count` still reflects the top-level entity.
 
 ## Manual curl validation
 

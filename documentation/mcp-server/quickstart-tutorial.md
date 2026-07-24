@@ -14,6 +14,7 @@ Connecting the MCP Server to your chat app lets you query Identity Observability
 - Conversational drill-down: start from a broad question like "What risks are associated with this user?" and then refine follow-up questions like "Focus on the sensitive groups. Which other accounts hold them?".
 - Alert triage: when an identity or account has a defect, pull its context (risk level, owner, suggested remediation) before opening a ticket.
 - One-off comparisons: compare two identities in one prompt, for example "Compare Alice's and Bob's access."
+- Access-chain investigation: start from a resource or permission and find who can reach it, for example "Who can access the SAP_ERP resource, and through which permissions?".
 
 The steps below cover the simplest configuration: paste a URL and a token into the chat app, then send your first question.
 
@@ -75,6 +76,7 @@ In Cursor chat, type a question about your own identity or email. For example:
 
 - `Give me a summary of <your.email@example.com>.`
 - `Who is the owner of <your.email@example.com> on service ACME?`
+- `Who can access the SAP_ERP resource?`
 
 If the configuration is correct, the assistant returns a clear answer with real data such as name, manager, groups, and risks. If the assistant responds with "I don't have access to that information," an error code, or obviously fabricated data, use the troubleshooting tips below.
 
@@ -203,7 +205,7 @@ You now have one credential for the bearer token used with the MCP Server and on
            "text": "={{ $('When chat message received').item.json.chatInput }}",
            "hasOutputParser": true,
            "options": {
-             "systemMessage": "Use your available MCP Tools. Start by fetching identities id, with identity id, go to identity context and retrieve them, then fetch account id, then account context.",
+             "systemMessage": "Use your available MCP Tools. Always resolve an id first, then fetch its context. For a person, fetch the identity id, then the identity context, then the account id, then the account context. For a resource, fetch the resource id, then the resource context. For a permission, fetch the permission id, then the permission context.",
              "maxIterations": 10
            }
          },
