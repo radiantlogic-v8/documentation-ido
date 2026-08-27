@@ -2,7 +2,7 @@
 title: Knowledge
 description: Knowledge homepage
 ---
-
+https://github.com/radiantlogic-v8/documentation-ido/blob/v2/home-pages/index.md
 <tabs>
   <tablist>
     <tab>Knowledge</tab>
@@ -14,7 +14,7 @@ description: Knowledge homepage
 
 # Welcome to Identity Observability
 
-Identity Observability delivers a real-time view of identities, attributes, and access rights, giving you continuous visibility and control over your organizations' identity data. By reducing risks caused by misconfigurations, outdated information, and human error, it strengthens your organization's identity and security posture.
+Identity Observability delivers a near real-time view of human and non-human identities, including AI agents, their attributes, and access rights. It provides continuous visibility and control over your organization’s identity data, helping reduce risk from misconfigurations, outdated information, human error, and unmanaged agent access.
 
 ## Introduction
 
@@ -64,6 +64,17 @@ Identity Observability delivers a real-time view of identities, attributes, and 
   
 </section>
 
+## Observability for Agentic AI 
+
+<section>
+
+  > [Introduction](agentic-ai/overview)  
+  > Familiarize yourself with the concepts used to gain visibility into AI agents, understand their access and ownership, and manage associated risk across the organization. 
+
+  > [Key Concepts](agentic-ai/key-concepts)  
+  > Understand the concepts related to Identity Observability.
+
+</section>
 
 ## Monitor identity data and remediate security risks
 
