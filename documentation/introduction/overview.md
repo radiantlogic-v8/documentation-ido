@@ -1,8 +1,10 @@
 # Overview   
 
-Identity Observability in the RadiantOne Identity Data Platform provides capabilities that are focused on ensuring the quality, accuracy, and actionability of identity-related data. It aims to provide a reliable foundation for access management and governance, authorization, and risk management. 
- 
- It creates a real-time view of identities, attributes, and access rights, enabling organizations to continuously improve their identity data, while improving their security posture by reducing risks associated with misconfigurations, outdated data, and human error.  
+Identity Observability in the RadiantOne Identity Data Platform provides capabilities focused on ensuring the quality, accuracy, and actionability of identity-related data. It provides a reliable foundation for access management and governance, authorization, and risk management.
+
+It creates a near real-time view of identities, attributes, and access rights, enabling organizations to continuously improve their identity data while strengthening their security posture by reducing risks associated with misconfigurations, outdated data, and human error.
+
+RadiantOne supports identity observability for both **human identities and non-human identities (AI agents)**. Organizations can monitor the identity data, attributes, access rights, and governance context associated with agents alongside their workforce and customer identities. This unified visibility helps teams identify excessive or inappropriate access, stale or incomplete identity data, and policy violations across all identity types. Refer to [this document](../agentic-ai/introduction.md) for more information on Observability for AI agents.
  
 ## Data Model of Identity Observability 
 

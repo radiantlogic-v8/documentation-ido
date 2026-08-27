@@ -8,6 +8,7 @@ description: Learn how to set up pipeline configuration
   - [Data Source Examples](#)
      - [Active Directory](datasource-examples/active-directory.md)
      - [Entra ID](datasource-examples/entra-id.md)
+     - [AI Agents](datasource-examples/ai-agent-data-sources.md)
   - [Pipeline configuration](pipeline-configuration.md)
   - [Template configuration](template-configuration.md)
   - [Included functions](functions.md)

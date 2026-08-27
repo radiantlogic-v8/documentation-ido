@@ -20,7 +20,7 @@ Identity Observability delivers a near real-time view of human and non-human ide
 
 <section>
 
-  > [Introduction](introduction/overview)  
+  > [Overview](introduction/overview)  
   > Familiarize yourself with RadiantOne Identity Observability and its offerings.
 
   > [Key Concepts](introduction/key-concepts)  
@@ -64,7 +64,7 @@ Identity Observability delivers a near real-time view of human and non-human ide
   
 </section>
 
-## Observability for Agentic AI 
+## AI Agent Observability 
 
 <section>
 
@@ -72,7 +72,10 @@ Identity Observability delivers a near real-time view of human and non-human ide
   > Familiarize yourself with the concepts used to gain visibility into AI agents, understand their access and ownership, and manage associated risk across the organization. 
 
   > [Key Concepts](agentic-ai/key-concepts)  
-  > Understand the concepts related to Identity Observability.
+  > Understand the concepts related to AI Agent Observability.
+
+  > [Getting Started](agentic-ai/getting-started)  
+  > Learn how to enable and use Observability for AI agents.
 
 </section>
 
