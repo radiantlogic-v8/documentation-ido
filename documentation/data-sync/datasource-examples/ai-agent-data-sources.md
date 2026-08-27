@@ -168,9 +168,9 @@ Select the cached naming context and click the CACHE tab.
 
 #### Editing Persistent Cache Refresh
 
-Click "..." inline with the configured cache and choose Edit.
+1. Click "..." inline with the configured cache and choose Edit.
 
-Select the ![CONFIGURE icon](../Media/10-configure-icon.png) option to change the periodic refresh schedule.
+2. Select the ![CONFIGURE icon](../Media/10-configure-icon.png) option to change the periodic refresh schedule.
 
 #### Re-initialize Persistent Cache
 
