@@ -61,4 +61,4 @@ Observability for Agentic AI provides role-based views of the same underlying da
 
 ### Agent Owner access
 
-The Agent Owner view is created automatically when a user is assigned as an agent's owner. No separate provisioning is required.
+The Agent Owner view is created automatically for a user with line manager role. No separate provisioning is required.
