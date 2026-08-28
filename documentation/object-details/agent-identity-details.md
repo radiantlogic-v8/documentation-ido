@@ -4,7 +4,7 @@ An agent identity represents a non-human AI agent that runs on a hosting platfor
 
 The details include the agent's identification and configuration, its lifecycle history, what it is made of, what it can reach, and who owns it. An example of the page is included below:
 
-![The agent detail page, showing the page header with status pill and issue chips above the Details section](agent-detail-page.png)
+![The agent detail page, showing the page header with status pill and issue chips above the Details section](Media/agent-detail-page.png)
 
 The status next to the agent name shows the agent's current lifecycle status — for example "Active". The status changes if you quarantine or re-enable the agent.
 Clicking the **Access Chain** button opens a data visualization interface where you can explore the access chain of the selected agent in the Explore menu.
@@ -47,7 +47,7 @@ The first section of the agent detail page describes how the agent is identified
 
 Below the Details section, two collapsible sections summarise where the agent comes from and its lifecycle details.
 
-![The collapsed Provider and Lifecycle sections above the capability tab strip](agent-lifecycle-tabs.png)
+![The collapsed Provider and Lifecycle sections above the capability tab strip](Media/agent-lifecycle-tabs.png)
 
 ### Provider
 
