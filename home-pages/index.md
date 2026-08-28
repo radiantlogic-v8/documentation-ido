@@ -2,7 +2,7 @@
 title: Knowledge
 description: Knowledge homepage
 ---
-https://github.com/radiantlogic-v8/documentation-ido/blob/v2/home-pages/index.md
+
 <tabs>
   <tablist>
     <tab>Knowledge</tab>
