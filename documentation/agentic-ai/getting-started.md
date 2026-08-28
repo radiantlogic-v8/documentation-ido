@@ -63,6 +63,32 @@ If you have access to more than one role-based view, use the role selector in th
 
 For example, a user who is both a Repository Manager and an Agent Owner can switch between a repository-focused view and a view of only the agents they own.
 
+
+### Apply tags
+
+Tags are labels that help you organize agents, apply policy, and support reporting across your environment.
+There are three types of tags:
+
+| Tag type | Assigned by | Editable |
+|---|---|---|
+| **Manual tag** | An administrator | Yes |
+| **Dynamic tag** | A rule defined in an observation or supported control | No |
+| **Backend label** | The source platform, imported by the connector | No |
+
+Tag names are unique across the platform.
+
+**Manual tags** are applied and removed by administrators at any time, directly from the agent's details page or in bulk through Query Builder.
+
+To add manual tags:
+
+- **Single agent** — Open the agent's details page and use the tag editor to add or remove manual tags.
+- **Multiple agents** — Use Query Builder to find the agents you want to tag, select them in the results list, then choose the bulk tag action. Bulk tagging applies to all selected agents or none — it is an all-or-nothing operation. Dynamic tags cannot be assigned through bulk tagging.
+
+**Dynamic tags** are assigned and removed automatically based on rule criteria you define. When an agent matches a rule, the tag is applied at the next evaluation cycle. When the agent no longer matches, the tag is removed. Each dynamic tag displays the rule that assigned it.
+To set one up, open an observation or supported control, define the criteria that identify the agents you want to group, and select the tags to apply. Tags are applied automatically at the next evaluation cycle and removed as soon as an agent no longer meets the criteria.
+
+**Backend labels** originate from the source platform — for example, cloud resource tags imported by a connector. They appear in the agent's provider details and can be searched and filtered by key or value, but cannot be edited or used to scope policy.
+
 ## Complete your first review
 
 After you connect a platform, allow the initial synchronization to complete. The platform creates an agent record for each discovered agent and automatically links it to a repository representing its hosting scope, such as an AWS account, Google Cloud project, or Azure subscription.
