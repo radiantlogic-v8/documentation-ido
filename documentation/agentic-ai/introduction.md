@@ -28,7 +28,7 @@ This fragmentation prevents organizations from maintaining a complete, consisten
 | Missing governance | Agents may lack owners, review cycles, or lifecycle controls |
 | Audit requirements | Teams cannot readily identify agents with access to sensitive or regulated data |
 
-\-The Radiant Logic Identity Data Platform addresses this fragmentation by bringing agent inventory, ownership, access relationships, risk posture, and governance into a single enterprise model.
+The Radiant Logic Identity Data Platform addresses this fragmentation by bringing agent inventory, ownership, access relationships, risk posture, and governance into a single enterprise model.
 
 ## What differentiates the approach
 
@@ -58,7 +58,5 @@ Observability for Agentic AI provides role-based views of the same underlying da
 | Observability Owner | Day-to-day governance, including ownership assignment, remediation, investigations, quarantine, and decommissioning | Technical Administrator | All agents |
 | Repository Manager | Visibility into agents in managed cloud accounts, groups, repositories, or platform environments | Repository Manager | Owned repositories only |
 | Agent Owner | A focused view of owned agents, including usage, issues, and recommendations | Line Manager, extended to users who manage at least one agent | Owned agents only |
-
-### Agent Owner access
 
 The Agent Owner view is created automatically for a user with line manager role. No separate provisioning is required.
