@@ -1,5 +1,5 @@
 ---
-title: Agentic AI
+title: AI Agent Observability
 description: AI Agent Observability
 ---
 
