@@ -68,7 +68,7 @@ Identity Observability delivers a near real-time view of human and non-human ide
 
 <section>
 
-  > [Introduction](agentic-ai/overview)  
+  > [Introduction](agentic-ai/introduction)  
   > Familiarize yourself with the concepts used to gain visibility into AI agents, understand their access and ownership, and manage associated risk across the organization. 
 
   > [Key Concepts](agentic-ai/key-concepts)  
