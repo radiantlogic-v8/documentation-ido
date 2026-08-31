@@ -4,7 +4,7 @@ To integrate AI agent data sources with RadiantOne, create an **agentic data sou
 
 The setup process includes five steps:
 
-1. Download the connector .jar file and observability mapping profile for your platform from the RadiantOne Developer Marketplace (to-add).
+1. Download the connector .jar file and observability mapping profile for your platform from the [Radiant Logic Connector Marketplace](https://github.com/radiantlogicinc/connector-marketplace).
 2. Import the mapping profile to define how agent data is represented in the Identity Observability data model.
 3. Create a data source template to associate with the connector downloaded in Step 1.
 4. Create the agentic data source based on the template you created in step 3.
@@ -17,20 +17,18 @@ This document describes each step in detail.
 - **Platform credentials:** Obtain read-only credentials for the account you want to crawl. For Amazon Bedrock, provide an access key and secret key, with an optional session token, or use an assumable role ARN (Amazon Resource Name).
 - **RadiantOne permissions:** Use an account authorized to manage data sources, drivers and templates, and Identity Observability settings in RadiantOne Control Panel.
 
-## 1. Download the Connector Files
+## Download the Connector Files
 
 Each agentic AI data source has its own connector file and Identity Observability mapping profile.
 
-Download both the connector file and mapping profile for the appropriate data source type/platform from the [RadiantOne Developer Marketplace](to-add). For example, to download the Amazon Bedrock connector template and mapping profile, you would:
-
-`<to-do: add the steps after adding the cards to Marketplace>`
+Download both the connector file and mapping profile for the appropriate data source type/platform from the [Radiant Logic Connector Marketplace](https://github.com/radiantlogicinc/connector-marketplace). 
 
 | File | Details |
 | --- | --- |
-| Connector .jar | The connector plugin (.jar) for the target platform. This is located in (to-add). |
-| Observability mapping profile | The mapping profile that is used to associate source agent objects and attributes to the canonical model used by Observability. An example mapping profile is `agent_canonical_model_template_v1`. This is located in (to-add). |
+| Connector .jar | The connector plugin (.jar) for the target platform. |
+| Observability mapping profile | The mapping profile that is used to associate source agent objects and attributes to the canonical model used by Observability. An example mapping profile is `agent_canonical_model_template_v1`. |
 
-## 2. Add the Observability mapping profile
+## Add the Observability mapping profile
 
 1. Login to your RadiantOne Data Sync Config endpoint and navigate to **Identity Observability > Template Management**.
 
@@ -40,11 +38,11 @@ Download both the connector file and mapping profile for the appropriate data so
 
 3. Enter a template name. This is the name you will be selecting at a later step during provisioning.
 
-4. In the editor, paste the content from the Observability mapping profile file you downloaded in step 1.
+4. In the editor, paste the content from the Observability mapping profile file you downloaded in step 1 of the previous section.
 
 5. Save the template.
 
-## 3. Create the Data Source template
+## Create the Data Source template
 
 1. Go to **Data Catalog >Template Management**.
 
@@ -62,7 +60,7 @@ Download both the connector file and mapping profile for the appropriate data so
 
 The template should appear in the **Agentic** category.
 
-## 4. Create the Agent data source
+## Create the Agent data source
 
 1. Go to **Data Catalog > Data Sources** and click on the New Source button.
 
@@ -90,7 +88,7 @@ The template should appear in the **Agentic** category.
 
 7. In the next provisioning screen click "Continue" and follow the instructions listed below.
 
-## 5. Run auto-setup for Observability
+## Run auto-setup for Observability
 
 After creating the data source, select **Continue** in the provisioning dialog.
 
@@ -123,7 +121,7 @@ Typically, the only options you need to select are the cache refresh strategy an
 
    ![Staged IDO data mapping dialog showing the agents_mapping YAML with the agent_canonical_model_template_v1 entry highlighted](../Media/08-staged-ido-data-mapping.png)
 
-## 6. Add the mapping to the pipeline configuration
+## Add the mapping to the pipeline configuration
 
 Provisioning prepares the mapping but does not apply it to an active pipeline.
 
@@ -139,7 +137,7 @@ An example of the config copied over is shown below:
 
 3. Save and click Apply to apply the configuration to the pipeline.
 
-Applying the pipeline configuration takes effect im../Mediately. Review the changes before applying them. After the pipeline is applied, discovered agents appear in the inventory, dashboards, and controls of the Identity Observability interface.
+Applying the pipeline configuration takes effect immediately. Review the changes before applying them. After the pipeline is applied, discovered agents appear in the inventory, dashboards, and controls of the Identity Observability interface.
 
 ## Managing provisioned configuration
 

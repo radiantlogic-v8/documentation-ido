@@ -82,7 +82,7 @@ Activating the Agentic AI capability enables the agent data model, controls, das
 
 ### Connect agent platforms
 
-Configure agent data synchronization using [RadiantOne data source](to-add) for at least one supported agent platform.
+Configure agent data synchronization using [RadiantOne data source](../data-sync/datasource-examples/ai-agent-data-sources.md) for at least one supported agent platform.
 
 By using a data source connector, Radiant One retrieves identity, configuration, access, and metadata information needed for observability, but does not retrieve secret values. Where credentials are detected, Radiant One records credential references and material types rather than secret contents.
 

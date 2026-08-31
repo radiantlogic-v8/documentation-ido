@@ -37,7 +37,7 @@ Select a password by either entering your chosen password in the space provided,
 Depending on the complexity and strength of your password, you will receive a notification that your password is "Weak", "Fair", "Good", or "Strong". It is recommended you adjust the password until you receive a "Strong" rating. Adjust your password accordingly to ensure you have entered a strong password before proceeding to the confirmation step. To confirm your password, reenter or copy and paste your password in the confirmation space provided. If you selected to have a password automatically generated, the password will also automatically populate in the confirmation text box.
 
 
-To reveal your original or confirmation password, select the eye icon (to-add) located within the text field you wish to view. Once the application has been successfully installed, the application's status changes to "Operational".
+To reveal your original or confirmation password, select the eye icon located within the text field you wish to view. Once the application has been successfully installed, the application's status changes to "Operational".
 
 
 After successfully installing the application, admins can use this password to access the Identity Observability endpoints: Identity Observability site (IDO Dashboard), the Identity Data Provider Service (IDP console) and the Identity Data Pipeline service (ID Sync Config). 
