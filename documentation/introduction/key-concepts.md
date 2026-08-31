@@ -171,9 +171,6 @@ Risk levels can be used to determine prioritization and resource allocation.
 
 Each control tracks its remediation lifecycle through a finite state machine:  
 
-<to-add: An image of control defect status>  
-
-
 **Remediation Status Categories:**  
 - **New**: Newly identified control violations awaiting remediation  
 - **Renew**: Issues previously fixed but now reappeared  

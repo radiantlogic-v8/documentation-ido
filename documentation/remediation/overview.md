@@ -103,7 +103,7 @@ In the example below, remediation involves disabling associated accounts:
 
 ## Remediation Actions
 
-The following remediation actions are available in Identity Observability. The actions vary depending on the issue that needs to be remediated. 
+The following remediation actions are available for standard objects in Identity Observability. The actions vary depending on the issue that needs to be remediated. 
 
 | Remediation Code                   | Action                          | Description                                                                                                                                          |
 |------------------------------------|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -157,7 +157,23 @@ The following remediation actions are available in Identity Observability. The a
 | resource/add_manager               | Add Resource Manager            | Assigns a manager responsible for the resource by picking an identity.                                                                                |
 | resource/remove_manager            | Remove Resource Manager         | Removes a resource manager.                                                                                                                           |
 | resource/set_description           | Set Resource Description        | Sets description about the resource.                                                                                                                  |
-| resource/set_sensitivity_level     | Set Resource Sensitivity Level  | Assigns a sensitivity classification to the resource from level 1 (low) to level 4 (critical) and describes the sensitivity reason.                    |
+| resource/set_sensitivity_level     | Set Resource Sensitivity Level  | Assigns a sensitivity classification to the resource from level 1 (low) to level 4 (critical) and describes the sensitivity reason. |
+
+The following remediation actions are available for agent identities. 
+
+| Action | Effect |
+| --- | --- |
+| Quarantine | Sets the status to QUARANTINED and preserves the previous status in the status reason. The connector performs the source-platform update, which can also isolate the agent. |
+| Lift quarantine | Removes the quarantine status and reverses the platform-specific update. |
+| Disable / Enable | Changes the local status between PUBLISHED and SUSPENDED. |
+| Set description | Adds or updates the agent description. |
+| Set manager | Assigns or updates the agent owner. |
+| Mark as exception | Accepts a finding with a justification and expiration date. |
+| Mark as false positive | Dismisses a finding that does not apply. |
+
+Note that quarantine is the only action that writes to the source platform. All others update the agent record locally in the Identity Observability portal only. Quarantine behavior is connector-specific. 
+
+For the "Disable" action, you can configure a notification that triggers remediation in an external system such as ServiceNow or n8n.
 
 # Remediation Examples
 

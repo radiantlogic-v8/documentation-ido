@@ -5,12 +5,11 @@ description: Audit who performed remediation actions.
 
 ## Remediation Audit Trail  
 
- Remediation Audit trail records all end-user activities in Identity Observability related to remediation, such as attribute updates, accounts disabled etc., providing traceability for data modification. 
+The Remediation Audit Trail captures all end-user activities in Identity Observability related to remediation, including attribute updates, account disabling, agent disabling, and other actions, providing traceability of data modifications.
 
 The Audit Trail page can be accessed through the admin settings page, control detail page as well as object detail page.  
 
 It provides details such as the action taken, who performed the action, the affected entity, the time of occurrence, and the action’s status.  
-
  
 1. Technical administrators can access this page by clicking on “Admin > Settings > Audit Trail”. This will list all actions performed through Identity Observability.  
 
@@ -39,7 +38,7 @@ This lists the audit trail related to remediation of a specific control.
 | Field            | Description                                                                                                                                  | Examples / Possible Values                                                                                                                                                                                                 |
 |------------------|----------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Remediation Value | Type of action performed, displayed in one of the following formats:<br>• entity/remediation action (for control issue remediation)<br>• entity/attribute (for attribute updates)<br><br>Refer to the remediation code listed in the remediation table above. | Account/disable<br>Identity/updateEmail                                                                                                                                                                                     |
-| Entity Type      | The classification of the entity subject to remediation.                                                                                     | Accounts, Identities, Departments, Resources, Repositories                                                                                                                                                                  |
+| Entity Type      | The classification of the entity subject to remediation.                                                                                     | Accounts, Identities, Agent Identities, Departments, Resources, Repositories                                                                                                                                                                  |
 | Affected Entity  | The name and unique identifier (ID) of the impacted entity.                                                                                   | Account: 12345<br>Identity: jdoe                                                                                                                                                                                            |
 | Action Status    | Indicates the progress or result of the remediation action (distinct from issue status).                                                     | error – Action failed due to an execution error<br>cancel – Action was canceled before completion<br>running – Action is in progress<br>submitted – Action was submitted but not yet started<br>completed – Action finished successfully |
 

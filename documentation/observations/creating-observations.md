@@ -7,7 +7,7 @@ description: Creating Observations
  
 This document provides an overview of Observations and outlines the steps to create and view observations.  
  
-Observations are near real-time queries that you can create to get up-to-date visual information about identity-related events in the form of dashboard. You can use the results of an observation to take timely and appropriate actions, ensuring continuous and effective oversight of user identity and access. 
+Observations are near real-time queries that you can create to get up-to-date visual information about identity-related events in the form of dashboard. You can use the results of an observation to take timely and appropriate actions, ensuring continuous and effective oversight of user identities, agent identities and access. 
  
 You have the flexibility to enable existing Observations or create new observations tailored to your business needs. For example, you might set up an observation to track contractors whose accounts are set to expire on a particular date. This enables you to track and follow up on changes over time. You can quickly pinpoint accounts that need review or deactivation, allowing you to take prompt actions such as alerting the appropriate manager or disabling the account. Additionally, you can generate reports and build custom dashboards to share these insights with others. 
 

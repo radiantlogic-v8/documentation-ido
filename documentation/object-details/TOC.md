@@ -6,6 +6,7 @@ description: Object details
 - [Object details](#)
   - [Overview](overview.md)
   - [Identity details](identity-details.md)
+  - [Agent identity details](agent-identity-details.md)
   - [Account details](account-details.md)
   - [Department details](department-details.md)
   - [Group details](group-details.md)

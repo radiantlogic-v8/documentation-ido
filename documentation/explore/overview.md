@@ -58,7 +58,10 @@ Here are some examples of how you can utilize the Explore feature.
 
  ![Image showing access comparison](Media/compare-access.png "Image showing access comparison") 
 
-
 * Resource Discovery: Identify and analyze resources associated with departments or users. 
 
-* Organizational Mapping: Understand how departments, users, and resources are interrelated through graphical views. 
+* Organizational Mapping: Understand how departments, users, and resources are interrelated through graphical views.
+
+* Agent Ownership Review: View the agents owned by an identity. Use this view to identify agents that may become orphaned when an employee leaves.
+
+* Department Agent Analysis: View agents associated with a department alongside its members. Trace dependencies between the department, its agents, and related identities.
