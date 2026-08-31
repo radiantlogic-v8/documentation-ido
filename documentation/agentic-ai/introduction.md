@@ -60,3 +60,44 @@ Observability for Agentic AI provides role-based views of the same underlying da
 | Agent Owner | A focused view of owned agents, including usage, issues, and recommendations | Line Manager, extended to users who manage at least one agent | Owned agents only |
 
 The Agent Owner view is created automatically for a user with line manager role. No separate provisioning is required.
+
+## Getting started
+
+To start using this feature, complete these three main steps:
+
+1. Enable observability for Agentic AI in your environment.
+2. Connect one or more supported agent platforms.
+3. Allow the first synchronization to occur and review the dashboards in the Identity Observability portal.
+
+After the first synchronization, the platform begins applying the included agent controls, dashboards, and canonical data mapping. You can then review discovered agents, investigate their access, assign owners, and address identified risks. You can also create custom controls and observations.
+
+### Enable the capability
+
+Ensure that you are subscribed to the Agentic AI License to access this feature and review the following:
+
+1. In the **Environment Operations Center**, make sure the **Agentic AI** option is enabled for your Identity Observability application. You must have Identity Observability version 3 or higher to access this feature.
+2. Assign the **AI Agents** entitlement to the users and groups who need access.
+
+Activating the Agentic AI capability enables the agent data model, controls, dashboards, and interface components available. Agent-specific pages remain hidden until Radiant One connects with agent data. For example, the agent dashboard does not appear when no agents have been discovered. Similarly, a repository does not show an **Agents** tab until it contains at least one agent.
+
+### Connect agent platforms
+
+Configure agent data synchronization using [RadiantOne data source](to-add) for at least one supported agent platform.
+
+By using a data source connector, Radiant One retrieves identity, configuration, access, and metadata information needed for observability, but does not retrieve secret values. Where credentials are detected, Radiant One records credential references and material types rather than secret contents.
+
+The only supported write-back action is quarantine. It is disabled by default and must be explicitly enabled before Radiant One can request a source-platform quarantine action.
+
+#### Supported platforms
+
+| Platform | Supported agent types | Identity context |
+| --- | --- | --- |
+| Amazon Web Services | Amazon Bedrock Agents and Bedrock AgentCore Runtimes | AWS IAM, IAM roles, and STS AssumeRole chains |
+| Microsoft Azure | Azure AI Foundry agents | Microsoft Entra ID, Azure RBAC, service principals, managed identities, and Dataverse security roles |
+| Google Cloud | Vertex AI agents | Google Cloud IAM, service accounts, and workload identity |
+
+For connector-specific requirements, setup instructions, and least-privilege permissions, refer to the connector listing in Connector marketplace.
+
+## Next step
+
+Learn how to complete your first observability review using the [AI Agent Dashboard](./ai-agent-dashboard.md). 
