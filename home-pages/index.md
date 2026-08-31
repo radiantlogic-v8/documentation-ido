@@ -28,6 +28,21 @@ Identity Observability delivers a near real-time view of human and non-human ide
 
 </section>
 
+## AI Agent Observability 
+
+<section>
+
+  > [Introduction](agentic-ai/introduction)  
+  > Familiarize yourself with the concepts used to gain visibility into AI agents, understand their access and ownership, and manage associated risk across the organization. 
+
+  > [Key Concepts](agentic-ai/key-concepts)  
+  > Understand the concepts related to AI Agent Observability.
+
+  > [Getting Started](agentic-ai/getting-started)  
+  > Learn how to enable and use Observability for AI agents.
+
+</section>
+
 ## Installation
 
 <section>
@@ -62,21 +77,6 @@ Identity Observability delivers a near real-time view of human and non-human ide
   > [External OIDC providers](identity-providers/okta-config)
   > Learn how to configure authentication for Identity Observability using external OIDC providers such as Okta.  
   
-</section>
-
-## AI Agent Observability 
-
-<section>
-
-  > [Introduction](agentic-ai/introduction)  
-  > Familiarize yourself with the concepts used to gain visibility into AI agents, understand their access and ownership, and manage associated risk across the organization. 
-
-  > [Key Concepts](agentic-ai/key-concepts)  
-  > Understand the concepts related to AI Agent Observability.
-
-  > [Getting Started](agentic-ai/getting-started)  
-  > Learn how to enable and use Observability for AI agents.
-
 </section>
 
 ## Monitor identity data and remediate security risks
