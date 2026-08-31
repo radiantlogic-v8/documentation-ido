@@ -43,9 +43,9 @@ The **Agent Security Dashboard** provides an operational view of AI agents acros
 
 Use this dashboard to identify agents with Critical, High, Medium, or Low risk issues; review the agents or risks with the greatest exposure; and prioritize remediation. Risk issues are grouped into control categories—Authentication, Identity Lifecycle, Privilege & Access, and Hygiene—and each category links to its underlying controls. Repository Managers can filter the dashboard by repository and agent status to focus on the relevant scope.
 
-**Who can access it:** Technical Administrators and Repository Managers. Technical Administrators can view the broader agent-security posture. Repository Managers view data only for repositories they are authorized to manage.
+**Who can access it:** Technical Administrators and Repository Managers. Technical Administrators can view the broader agent-security posture. 
 
-![Agent Security Dashboard for a Technical Administrator showing risk issues grouped by control category and the Top 10 Risks table](images/agent-security-dashboard-technical-admin.png)
+Repository Managers view data only for repositories they are authorized to manage.
 
 ![Agent Security Dashboard for a Repository Manager showing repository and status filters, agent metrics, risk issues, and agents at risk](images/agent-security-dashboard-repository-manager.png)
 
