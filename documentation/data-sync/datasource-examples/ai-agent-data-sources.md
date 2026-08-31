@@ -5,10 +5,10 @@ To integrate AI agent data sources with RadiantOne, create an **agentic data sou
 The setup process includes five steps:
 
 1. Download the connector .jar file and observability mapping profile for your platform from the [Radiant Logic Connector Marketplace](https://github.com/radiantlogicinc/connector-marketplace).
-2. Import the mapping profile to define how agent data is represented in the Identity Observability data model.
-3. Create a data source template to associate with the connector downloaded in Step 1.
-4. Create the agentic data source based on the template you created in step 3.
-5. Run the observability auto-setup for the data source you created in step 4, then add the generated mapping to your pipeline configuration.
+2. Import the [mapping profile](#Add-the-Observability-mapping-profile) to define how agent data is represented in the Identity Observability data model.
+3. Create a [data source template](#Create-the-Data-Source-template) to associate with the connector downloaded in Step 1.
+4. Create the [agentic data source](#Create-the-Agent-data-source) based on the template you created in step 3.
+5. Run the observability [auto-setup](#Run-auto-setup-for-Observability) for the data source you created in step 4, then add the generated mapping to your pipeline configuration.
 
 This document describes each step in detail.
 
