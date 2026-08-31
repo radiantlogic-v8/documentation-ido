@@ -33,13 +33,16 @@ Identity Observability delivers a near real-time view of human and non-human ide
 <section>
 
   > [Introduction](agentic-ai/introduction)  
-  > Familiarize yourself with the concepts used to gain visibility into AI agents, understand their access and ownership, and manage associated risk across the organization. 
+  > Familiarize yourself with the concepts used to gain visibility into AI agents, understand their access and ownership, and manage associated risk across the organization.
 
   > [Key Concepts](agentic-ai/key-concepts)  
   > Understand the concepts related to AI Agent Observability.
 
-  > [Getting Started](agentic-ai/getting-started)  
-  > Learn how to enable and use Observability for AI agents.
+  > [Connect to Data Sources](../data-sync/datasource-examples/ai-agent-data-sources.md)  
+  > Easily connect to AI agent repositories using connectors accessible in the Radiant Logic Marketplace.
+
+  > [AI Agent Dashboards](agentic-ai/ai-agent-dashboards)  
+  > Observe AI Agents access chains, risk scores and more via role-based dashboards.
 
 </section>
 
