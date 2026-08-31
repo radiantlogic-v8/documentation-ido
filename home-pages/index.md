@@ -38,7 +38,7 @@ Identity Observability delivers a near real-time view of human and non-human ide
   > [Key Concepts](agentic-ai/key-concepts)  
   > Understand the concepts related to AI Agent Observability.
 
-  > [Connect to Data Sources](../data-sync/datasource-examples/ai-agent-data-sources.md)  
+  > [Connect to Data Sources](data-sync/datasource-examples/ai-agent-data-sources.md)  
   > Easily connect to AI agent repositories using connectors accessible in the Radiant Logic Marketplace.
 
   > [AI Agent Dashboards](agentic-ai/ai-agent-dashboards)  
