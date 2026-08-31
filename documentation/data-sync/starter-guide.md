@@ -7,9 +7,9 @@ description: Data Configuration Starter Guide
 
 This document provides a high-level overview of steps to configure, deploy, and monitor data sources and pipelines in Identity Observability.
 
-## 1. Install Identity Observability
+## 1. Install the Identity Data Platform
 
-Identity Observability is offered as a SaaS service via Radiant Logic's Environment Operations Center. Refer to the [installation steps guide](../installation/installation-steps/) to learn how to install and access Identity Observability.
+Identity Observability is a capability in the Identity Data Platform, which is offered as a SaaS service via Radiant Logic's Environment Operations Center. Refer to the [installation steps guide](../installation/installation-steps/) to learn how to install and access Identity Observability.
 
 You can access Identity Observability's services (main Identity Observability Portal, IDP console to manage users and roles and Data Config Sync to connect your data) by [logging into the application
 endpoints](../installation/installation-steps/#log-in-to-identity-observability-endpoints) that appear on your application's overview page.
@@ -162,9 +162,9 @@ Next, use the Query Builder or the Explore page to confirm that objects have bee
 
 ## Things to know
 
-Connectors continuously collect identity data from backend sources (LDAP, Entra ID, Active Directory) and send it to the Identity Data Management (IDM) service.
+Change event listeners continuously collect identity data from backend sources (e.g. LDAP, Entra ID, Active Directory) and send it to the identity observability data store.
 
-The **Pipeline Orchestrator** maps and transforms this data into the **Identity Observability (Identity Observability)** model, reconciling user and HR identities, identifying service accounts, and normalizing attributes
+The **Pipeline Orchestrator** is the service that maps and transforms this data into the **Identity Observability (Identity Observability)** model, reconciling user and HR identities, identifying service accounts, and normalizing attributes
 such as AD UAC values.
 
 Processed data is stored in the Identity Observability graph and visualized in the **Identity Observability
