@@ -26,7 +26,7 @@ Download both the connector file and mapping profile for the appropriate data so
 | File | Details |
 | --- | --- |
 | Connector .jar | The connector plugin (.jar) for the target platform. |
-| Observability mapping profile | The mapping profile that is used to associate source agent objects and attributes to the canonical model used by Observability. An example mapping profile is `agent_canonical_model_template_v1`. |
+| Observability mapping profile | The mapping profile that is used to associate source agent objects and attributes to the canonical model used by Observability. An example mapping profile is: `agent-canonical-model-mapping-v1.yaml` |
 
 ## Add the Observability mapping profile
 
