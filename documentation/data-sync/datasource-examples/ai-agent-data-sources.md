@@ -38,7 +38,7 @@ Download both the connector file and mapping profile for the appropriate data so
 
 3. Enter a template name. This is the name you will be selecting at a later step during provisioning.
 
-4. In the editor, paste the content from the Observability mapping profile file you downloaded in step 1 of the previous section.
+4. In the editor, paste the content from the Observability mapping profile file you downloaded in the previous section [Download the Connector Files](#Download-the-Connector-Files).
 
 5. Save the template.
 
