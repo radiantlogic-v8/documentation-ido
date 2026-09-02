@@ -50,7 +50,7 @@ Download both the connector file and mapping profile for the appropriate data so
 
    ![Manage Drivers & Templates page with the CREATE TEMPLATE menu open and Agentic source type highlighted](../Media/02-create-template-agentic-source-type.jpg)
 
-3. In the New Custom Template screen, click *choose a file* to select the connector .jar file that you downloaded from the Radiant Logic Marketplace.
+3. In the New Custom Template screen, click *choose a file* to select the connector .jar file that you downloaded from the [Radiant Logic Connector Marketplace](https://github.com/radiantlogicinc/connector-marketplace).
 
    ![New Custom Template dialog with the .jar plugin upload area and template name, plugin name, and plugin class name fields](../Media/03-new-custom-template-upload-jar.jpg)
 
