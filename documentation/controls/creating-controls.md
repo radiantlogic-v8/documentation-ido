@@ -44,46 +44,86 @@ To create a custom control beyond the default controls, see [Creating a new cont
 
 ## Creating a new control 
 
-1. Click the Control menu item on the left navigation.  This will open the Control management interface. 
- 
+1. Click the Control menu item on the left navigation. This opens the Control management interface, which lists existing controls and provides a button to create a new one.
+
    ![Image of control in the navigation menu](Media/controls-menu.png "Image showing where Control is located in the navigation")
-2. Click on the "Create control" button to open the control creation interface.
-3. Select the entity type that the control will evaluate, then define one or more criteria. For standard account and access controls, choose the relevant identity or entitlement entity. Suppose you want to create a control for Accounts that last logged in before a certain date. To do so, select the “Account” category from the dropdown and set the criteria to a certain date such as “before 10/20/2025.”
 
-   To evaluate AI agents, select **Agent Identity**. You can then build criteria against:
+2. Click the "Create control" button to open the control creation interface.
 
-   * **Top-level agent attributes** — name, status, lifecycle state, version, description, publication timestamp, and custom metadata fields.
-   * **Sub-objects** — tools (executor reference, API schema, permission level), subagents (endpoint, forwarding configuration), knowledge resources, and guardrails.
+3. On the Criteria step, use the entity dropdown on the left to select the population the control evaluates: Identities, Departments, Accounts, Groups, or Agent Identities. For standard account and access controls, choose the relevant identity or entitlement entity. To evaluate AI agents, choose **Agent Identities**.
 
-   Criteria can be combined using `AND`, `OR`, and negated groups. Sub-object criteria follow the same logic as top-level criteria — for example, you can flag any agent that has at least one tool with no API schema, or any agent with a subagent endpoint using plaintext HTTP.
+   ![Image of the entity selection on the control creation page](Media/control-criteria.png "Image showing the entity dropdown on the Criteria step")
 
-   > Note that risk is surfaced at the agent level, not the sub-object level. When an agent matches a control, its at-risk tools, subagents, or resources are implied. It does not generate separate defects per sub-object.
+   Define one or more conditions using **Criterion** and **Group**. Each criterion is built from an attribute, an operator, and a value, and the attributes offered depend on the entity you selected. Departments, for example, can be evaluated on conditions such as having tags, not having tags, having assigned agents, not having assigned agents, managed by identity, managed by person, and not managed by identity. Agent identities can be evaluated on lifecycle events such as published, suspended, blocked, and deleted, on the identity that created, published, invoked, blocked, or deleted the agent, and on values such as last updated or aggregated risk level.
 
-   ![Image of control creation page](Media/create-control-2.png "Image showing the initial control creation step")
-   
-4. Click “Apply” to review and then click “Next” to proceed through the remaining steps. 
- 
-5. On the Name, Description & Status tab, provide a suitable name and description for the control. Choose the relevant control family from Authentication, Identity Lifecycle, Privilege and Access, or Identity Hygiene. 
-   ![Image of Name & Description tab](Media/create-control-3.png "Image showing Name & Description tab")
-Then, choose whether you want the control to be active immediately or saved in a deactivated state for future use.  
-6. On the Risk Assessment page, select a risk level that you think is appropriate for this control, provide description for this risk and include clear actionable steps for remediating this risk.
-   ![Image of Risk assessment](Media/create-control-4.png "Image showing risk assignment")
- 
-7. On the Breakdown configuration tab, you can add additional filters or criteria for your control by clicking the Configuration Breakdown option and selecting the configurations that you would like to add. This step is optional. Click “Skip for now” to skip this step.  
- 
-8. On the Alert Configuration tab, activate and configure how and when alerts fire for this control:
+   ![Image showing how a criterion is built](Media/control-criterion.png "Image showing the attribute list for a criterion")
 
-   * **Triggering event** — when to fire: on new defect opened, defect closed, risk level change, or a scheduled digest.
-   * **Grouping window** — the time window within which multiple matching events are bundled into a single alert notification (for example, every 30 minutes, 1 hour, 4 hours, or daily). Use this to avoid alert fatigue when a control matches many agents at once.
-   * **Flood protection** — the maximum number of alerts sent within a rolling time period. Once the threshold is reached, further notifications are suppressed until the window resets.
-   * **Channel** — delivery method: Email, Slack, Microsoft Teams, or Webhook.
-   * **Recipients** — the users, groups, or webhook endpoints to notify.
+   Use **Group** to nest conditions and control how they combine. A nested group carries its own **Criterion** and **Group** options, so you can express conditions such as an agent that has at least one tool with no API schema, or a subagent endpoint using plaintext HTTP.
 
-   > Note that alert delivery channels must be configured by a technical administrator under **Admin > Settings > Alert templates** before they are available for selection here. Contact your platform administrator if a channel is missing.
- 
-9. On the Setting Visible Attributes tab, select the attributes that you want to hide or display in the Controls table by clicking on the “eye” icon next to the attribute name. If you do not see a desired attribute in the displayed list, click Advanced settings to add additional attribute(s).  Click Next after selecting the attributes. 
- 
-10. After making all the desired changes, select “Submit”. To view the control you just created, navigate to Controls > My Controls and click the control name. If the Control isn't already activated, you can activate it from the My Controls page.
+   > Risk is surfaced at the entity level rather than the sub-object level. When an agent matches a control, its at-risk tools, subagents, and resources are implied. The control does not raise a separate defect for each sub-object.
+
+4. Click **Apply**. The table below refreshes with the entities that currently match, so you can confirm the criteria return what you expect. Click **Next**.
+
+   ![Image of control criteria applied](Media/control-apply.png "Image showing applied criteria on the Criteria step")
+
+5. On the Control Details step, complete the following sections.
+
+   **5.1. Control Details.** Give the control a unique, descriptive name and a description that explains its purpose and scope to the rest of your team. Select the **Control Family** that best fits: Authentication, Identity Lifecycle, Privilege and Access, or Identity Hygiene. Use the status toggle to decide whether the control begins monitoring right away or is saved in a disabled state for later. A disabled control is saved but does not evaluate criteria or raise alerts.
+
+   ![Image of the Control Family list](Media/control-family.png "Image showing the four control families")
+
+   **5.2. Dynamic Tags.** Click **Add Tag** to attach one or more tags to the control. Select an existing tag from the list or type a new name and click **Create** to add one. Tags are assigned dynamically to every entity that matches the control, so they follow the population as it changes. Click **Edit** to change the tags later.
+
+   ![Image of the dynamic tag picker](Media/control-tags.png "Image showing selecting or creating a dynamic tag")
+
+   ![Image of the Control Details step](Media/control-details.png "Image showing control name, description, family, status toggle, and dynamic tags")
+
+   **5.3. Breakdown Configuration.** This section is optional. Click **Configure Breakdown**, then use **Breakdown by** to select the criteria you want results segmented on, for example Department Type, Sensitivity Level, Priority based on Risk Level, Employee Type, or Identity Job Titles. Click **Remove Breakdown** to clear the selection.
+
+   ![Image of breakdown configuration](Media/control-breakdown.png "Image showing a selected breakdown criterion")
+
+   Click **Next**.
+
+6. On the Risk Assessment step, select the default risk level for the control: Critical for severe impact such as a major breach or service outage, High for serious impact, Medium for moderate impact, or Low for limited impact. Use **Risk Description** to explain the potential impact and consequences of the risk. Click **Next**.
+
+   ![Image of Risk Assessment](Media/control-risk.png "Image showing risk level selection and risk description")
+
+7. On the Remediation step, turn on **Enable Remediation** to define how matches are resolved.
+
+   * **4.1. Suggested Remediation.** Provide clear, actionable steps that teams can follow to mitigate the risk.
+   * **4.2. Remediation Configuration.** Select which actions are offered to the people working the control. **False Positive**, **Mark as Exception**, and **Mark as Processed** are available by default. Click **Add New Action** to define an additional action.
+
+   ![Image of the Remediation step](Media/control-remediation.png "Image showing suggested remediation and remediation actions")
+
+   Leave the toggle off to create the control without remediation guidance. Click **Next**.
+
+8. On the Setting Visible Attributes step, choose which attributes appear as columns in the control table. Click the eye icon next to an attribute to show or hide it. Viewers can still adjust column visibility from the table settings afterwards, so this sets the starting view rather than a permanent one.
+
+   ![Image of the Setting Visible Attributes step](Media/control-visible-attributes.png "Image showing attribute visibility selection")
+
+   If an attribute you want is not listed, click **Advanced settings**. In the dialog, search for an attribute and click the plus icon to add it, or click the X to remove one from the table. Use **+ Add All** and **Remove All** to work with the full list at once. Click **Apply** to return to the step with your changes in place, then click **Next**.
+
+   ![Image of the Advanced settings dialog](Media/control-advanced-settings.png "Image showing the Advanced settings column picker")
+
+9. On the Alert Configuration step, decide how the control signals its findings.
+
+   **Enable SSF/CAEP.** Turn this on to publish Shared Signals Framework (SSF/CAEP) events for the control. Click **Choose file** to upload the transmitter configuration, or click **Preview Sample Configuration** to see the expected format. The step reports **Config required** until a valid configuration is supplied.
+
+   ![Image of the Alert Configuration step](Media/control-alerts.png "Image showing the Alert Configuration step")
+
+   ![Image of SSF/CAEP configuration](Media/control-ssf.png "Image showing SSF/CAEP configuration upload")
+
+   **Enable notifications for this control.** Turn this on to activate and configure how and when alerts fire for this control:
+
+   * **Triggering event.** When to fire: on new defect opened, defect closed, risk level change, or a scheduled digest.
+   * **Grouping window.** The time window within which multiple matching events are bundled into a single alert notification, for example every 30 minutes, 1 hour, 4 hours, or daily. Use this to avoid alert fatigue when a control matches many agents at once.
+   * **Flood protection.** The maximum number of alerts sent within a rolling time period. Once the threshold is reached, further notifications are suppressed until the window resets.
+   * **Channel.** Delivery method: Email, Slack, Microsoft Teams, or Webhook.
+   * **Recipients.** The users, groups, or webhook endpoints to notify.
+
+   > Alert delivery channels must be configured by a technical administrator under **Admin > Settings > Alert templates** before they are available for selection here. Contact your platform administrator if a channel is missing. Until channels are configured, this step shows a notice in place of the notification settings.
+
+10. Click **Submit**. To view the control you created, go to Controls > My Controls and click its name. If you saved the control in a disabled state, you can activate it from the My Controls page.
 
 ## Agent control reference
 
