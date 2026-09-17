@@ -50,7 +50,7 @@ Keep in mind that the data will follow a specific flow as represented the schema
 
 Begin by identifying the entities you will work with. Once you've identified your entities, familiarize yourself with the data model. Focus on **core objects** such as accounts and groups first.
 
-The concepts related to **JSON model representation are described below.
+The concepts related to JSON model representation are described below.
 
   | **Concept**               | **Description**                                                                                     |
 |---------------------------|-----------------------------------------------------------------------------------------------------|
