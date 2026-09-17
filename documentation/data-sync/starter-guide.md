@@ -148,13 +148,13 @@ Example: if the accounts and groups of a resource are mapped in an AD repository
 
 To leverage **MFA attributes** in accounts, the attribute mfa_enabled must be set on the repository containing the accounts.
 
-## 3. Deploy Configuration
+## 4. Deploy Configuration
 
 Configuration templates define **reusable components** for the orchestrator.
 
 Refer to the [graph pipeline template configuration](./configuration/template-configuration/) and the [pipeline configuration example](./pipeline-configuration/#configuration-example) for details on how to build and apply them effectively.
 
-## 4. Monitor Configuration
+## 5. Monitor Configuration
 
 After mapping your data to Identity Observability, login to your Identity Observability portal and enable controls and observations. Ensure that you upload data updates on a regular basis by using the Real Time Audit and Compliance page under Settings. From there, the "Load Data" option can be used to manually initiate data loading. You can define the schedule and frequency for data loading. You can also define settings for purging of the old data to optimize performance. 
 
