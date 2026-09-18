@@ -1,5 +1,5 @@
 ---
-title: Active Direcoty Data Source
+title: Active Directory Data Source
 description: Guide that shows how to create Active Direcoty Data Source 
 ---
 
