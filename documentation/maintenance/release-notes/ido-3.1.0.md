@@ -1,6 +1,6 @@
 # RadiantOne Identity Observability Release Notes
 
-**September 30, 2026**
+**October 05, 2026**
 
 These release notes contain important information about new features, improvements, and bug fixes for RadiantOne Identity Observability (IDO) version 3.1.0.
 
