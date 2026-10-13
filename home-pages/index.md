@@ -118,21 +118,21 @@ Identity Observability delivers a near real-time view of human and non-human ide
 
 <tabpanel>
 
-## AI Tools
-
-<section>
-  
-  > [MCP Server](mcp-server/getting-started)  
-  > Learn how to connect AI agents to your identity observability data using the MCP server to look up identities, accounts, assess risk, and manage remediation.
-
-</section>
-
 ## Self-managed Installation
 
 <section>
   
   > [Self-managed installation Guide](self-managed/idp-selfmanaged)  
   > Learn how to deploy Identity Observability in your own Kubernetes cluster using Helm charts.
+
+</section>
+
+## AI Tools
+
+<section>
+  
+  > [MCP Server](mcp-server/getting-started)  
+  > Learn how to connect AI agents to your identity observability data using the MCP server to look up identities, accounts, assess risk, and manage remediation.
 
 </section>
 
