@@ -122,7 +122,7 @@ Identity Observability delivers a near real-time view of human and non-human ide
 
 <section>
   
-  > [Self-managed installation Guide](self-managed/idp-selfmanaged)  
+  > [Self-managed installation Guide](self-managed/installation-steps)  
   > Learn how to deploy Identity Observability in your own Kubernetes cluster using Helm charts.
 
 </section>
