@@ -4,4 +4,4 @@ description: Self-managed Installation Steps
 ---
 
 - [Self-managed](#)
-  - [Installation steps](idp-selfmanaged.md)
+  - [Installation steps](installation-steps.md)
