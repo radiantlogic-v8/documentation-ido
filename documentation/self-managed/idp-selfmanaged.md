@@ -1,4 +1,7 @@
-# Self-Managed Identity Data Platform Deployment
+---
+title: Self-managed Installation Steps
+description: Installation steps for self-managed Identity Data Platform
+---
 
 This document serves as a guide for deploying Radiant Logic's Identity Data Platform with Helm charts on a Kubernetes cluster. It outlines the prerequisites and provides detailed, step-by-step instructions for the deployment.
 
