@@ -1,3 +1,8 @@
+---
+title: Agent Identity Details
+description: Navigating and Understanding Agent Identity Details
+---
+
 ## Overview
 
 An agent identity represents a non-human AI agent that runs on a hosting platform and acts on resources on its own. Selecting an agent object link from any Identity Observability interface (such as Observations or Controls) opens a detailed page about that agent.

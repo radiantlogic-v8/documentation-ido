@@ -1,3 +1,8 @@
+---
+title: Included Functions
+description: Functions available to graph pipelines as computed attributes
+---
+
 # Pipelines Functions
 
 The functions section defines the signatures of the functions that can be applied to the source objects as computed attributes. The signatures are used to validate the type of the attributes used as input fields to the function. When a type is specified in the source object, the graph pipeline engine will use it to cast the input attribute to the expected type.

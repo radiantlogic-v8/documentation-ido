@@ -1,3 +1,8 @@
+---
+title: Introduction to AI Agent Observability
+description: Overview of observability for Agentic AI in the Identity Data Platform
+---
+
 # Overview
 
 Radiant Logic's Identity Data Platform offers observability for Agentic AI which gives security and identity teams a continuously updated view of AI agents across the enterprise: what exists, who owns it, how it runs, what it can access, and where it creates risk.

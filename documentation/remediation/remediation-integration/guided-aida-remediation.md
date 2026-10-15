@@ -1,3 +1,8 @@
+---
+title: Guided Remediation with AIDA
+description: How to enable Guided Remediation in Slack with AIDA
+---
+
 ## Guided Remediation in Slack with AIDA
 
 This guide explains how to enable Guided Remediation in Slack with Radiant Logic’s AIDA, including the required configuration steps and integration details.

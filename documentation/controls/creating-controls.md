@@ -1,3 +1,8 @@
+---
+title: Creating Controls
+description: Overview of controls and steps to create and manage controls
+---
+
 ## Overview 
  
 Controls provide automated detection mechanisms to identify potential security risks and compliance violations within the identity infrastructure. Users can enable relevant controls for their specific context or create their own custom controls. 

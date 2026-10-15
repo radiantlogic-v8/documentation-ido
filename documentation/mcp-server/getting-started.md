@@ -1,3 +1,8 @@
+---
+title: Getting Started with the MCP Server
+description: Overview of the Identity Observability MCP Server
+---
+
 # Overview
 
 The MCP (Model Context Protocol) Server lets AI assistants such as Cursor or n8n query your Identity Observability catalog in plain English. Instead of writing code or building queries manually, you can ask direct questions about identities, accounts, access, and risk.

@@ -1,3 +1,8 @@
+---
+title: Pipeline Configuration
+description: Learn how to configure graph pipelines
+---
+
 # Graph Pipelines Configuration
 
 ## Overview

@@ -1,3 +1,8 @@
+---
+title: AI Agent Dashboards
+description: Monitor AI agents with the AI Agent dashboards in Identity Observability
+---
+
 # AI Agent Dashboards
 
 Use AI Agent dashboards to monitor identity-related events through current visual insights. The dashboards help you assess agent data and take timely, appropriate action to maintain effective oversight of user identities, agent identities, and access.

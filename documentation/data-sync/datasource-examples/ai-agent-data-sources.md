@@ -1,3 +1,8 @@
+---
+title: AI Agent Data Sources
+description: Guide that shows how to create a data source for AI agents
+---
+
 # Creating a Data Source for AI Agents
 
 To integrate AI agent data sources with RadiantOne, create an **agentic data source** which is a custom data source that uses an agentic connector, such as Amazon Bedrock.

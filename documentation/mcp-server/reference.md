@@ -1,3 +1,8 @@
+---
+title: MCP Server Reference Guide
+description: Reference for the tools and data exposed by the MCP Server
+---
+
 # MCP tools and data reference
 
 The Identity Observability MCP server exposes tools that can be invoked by language models. Each tool is uniquely identified by a name and includes metadata describing its schema.

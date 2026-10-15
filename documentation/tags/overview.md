@@ -1,3 +1,8 @@
+---
+title: Tags
+description: Overview of tags in Identity Observability
+---
+
 # Tags
 
 Tags are used to label and organize identity objects across the platform, including agents. Use tags to group objects by environment, owner, department, cost center, risk level, or another classification that matters to your organization.

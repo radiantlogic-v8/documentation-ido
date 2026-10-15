@@ -1,3 +1,8 @@
+---
+title: Key Concepts for AI Agents
+description: Terms and key concepts related to Observability for Agentic AI
+---
+
 # Key concepts for AI agents
 
 RadiantOne's Observability for Agentic AI enables teams to apply established identity governance practices such as ownership assignment, access analysis, lifecycle tracking, tagging, controls, and remediation to AI agents alongside human and other non-human identities.

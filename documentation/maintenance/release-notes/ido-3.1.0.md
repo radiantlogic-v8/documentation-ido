@@ -1,3 +1,8 @@
+---
+title: RadiantOne IDO Release Notes
+description: RadiantOne IDO Release Notes
+---
+
 # RadiantOne Identity Observability Release Notes
 
 **October 05, 2026**

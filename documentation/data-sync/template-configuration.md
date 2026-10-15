@@ -1,3 +1,8 @@
+---
+title: Template Configuration
+description: Learn how to use configuration templates for graph pipelines
+---
+
 # Configuration Templates
 
 The page [pipeline_configuration](./pipeline-configuration.md) lists the core configuration options available for defining graph pipelines. A template is a piece of reusable configuration that can be referenced by the main templated configuration.

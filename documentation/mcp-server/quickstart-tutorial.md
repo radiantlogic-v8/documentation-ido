@@ -1,3 +1,8 @@
+---
+title: MCP Server Quickstart Tutorial
+description: Connect the MCP Server to chat and automation tools such as Cursor and n8n
+---
+
 # Getting started with the MCP Server
 
 This tutorial shows how to connect the MCP Server to your tools so you can query Identity Observability from where you already work. Choose the path that matches your use case:
