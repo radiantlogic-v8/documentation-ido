@@ -11,7 +11,7 @@ This document provides a high-level overview of steps to configure, deploy, and 
 
 Identity Observability is a capability in the Identity Data Platform, which is offered as a SaaS service via Radiant Logic's Environment Operations Center. Refer to the [installation steps guide](../installation/installation-steps/) to learn how to install and access Identity Observability.
 
-You can access Identity Observability's services (main Identity Observability Portal, IDP console to manage users and roles and Data Config Sync to connect your data) by [logging into the application
+You can access Identity Observability's services (main Identity Observability Portal, IDP console to manage users and roles and Data Sync Config to connect your data) by [logging into the application
 endpoints](../installation/installation-steps/#log-in-to-identity-observability-endpoints) that appear on your application's overview page.
 
 ![Image of Data Sync Config URL](./Media/config-url.png "Image of Data Sync Config URL")

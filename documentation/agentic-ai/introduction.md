@@ -75,7 +75,7 @@ After the first synchronization, the platform begins applying the included agent
 
 Ensure that you are subscribed to the Agentic AI License to access this feature and review the following:
 
-1. In the **Environment Operations Center**, make sure the **Agentic AI** option is enabled for your Identity Observability application. You must have Identity Observability version 3 or higher to access this feature.
+1. In the **Environment Operations Center**, make sure the **Agentic AI** option is enabled for your Identity Data Platform application. You must have Identity Data Platform version 3 or higher to access this feature.
 2. Assign the **AI Agents** entitlement to the users and groups who need access.
 
 Activating the Agentic AI capability enables the agent data model, controls, dashboards, and interface components available. Agent-specific pages remain hidden until Radiant One connects with agent data. For example, the agent dashboard does not appear when no agents have been discovered. Similarly, a repository does not show an **Agents** tab until it contains at least one agent.

@@ -5,7 +5,7 @@ description: Key Concepts of Identity Observability
 
 # Key Concepts
 
-This document describes the key concepts related to **Identity Observability**.  
+Identity Observability is a capability in the Identity Data Platform, which is offered as a SaaS service via Radiant Logic's Environment Operations Center. This document describes the key concepts related to **Identity Observability**.  
 
 ## Data Model of Identity Observability    
 

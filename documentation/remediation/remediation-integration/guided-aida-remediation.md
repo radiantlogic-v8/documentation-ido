@@ -7,7 +7,7 @@ This guide explains how to enable Guided Remediation in Slack with Radiant Logic
 Before you begin, ensure that you have:
 
 * Your Identity Observability (IDO) portal URL
-* AIDA is activated in your Identity Observability instance in the Environment Operations Center.
+* AIDA is activated in your Identity Data Platform application in the Environment Operations Center.
 * Permission to create and install Slack apps
 
 If you don’t have app permissions in Slack, ask your admin to either enable app management for your account or install the app for you and share the credentials.
