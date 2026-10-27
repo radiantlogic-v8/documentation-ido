@@ -35,9 +35,36 @@ After logging into the config sync URL, navigate to Data Sources and click New t
 
 - **LDAP or Active Directory (AD):** Easiest options for getting started.
 
-- **Custom data sources:** Supported via **virtualization** and **periodic cache refresh** in Identity Data Management which acts as an intermediary layer.
+- **Custom data sources:** Supported via **virtualization** and **periodic cache refresh** in Data Sync Config, which acts as an intermediary layer. You can also read CSV files, LDIF files, or LDAP directories as scheduled snapshots with [Data-Dock](./data-dock.md).
+
+- **Flat files (CSV):** Supported through the Relique CSV JDBC driver. Refer to [How to set up the Relique CSV JDBC Driver](https://support.radiantlogic.com/hc/en-us/articles/7944431689364-How-to-setup-the-Relique-CSV-JDBC-Driver-in-IDDM-7-4) for details.
+
+> When you extract the schema of a CSV file, verify that all columns are present. If a column is empty and is not the last column in the file, the CSV reader stops at that column and all following columns are missing from the schema.
 
 Refer to the [Creating Entra ID Data Source](./datasource-examples/entra-id.md) and [Creating AD Data Source](./datasource-examples/active-directory.md) examples to learn how to create data sources. 
+
+#### Connect on-premises data sources
+
+If your data source is behind a firewall or hosted on premises, connect it through the **Secure Data Connector (SDC)**. The SDC is a lightweight agent installed in your network. It opens an outbound, encrypted tunnel to Data Sync Config, so no inbound firewall rules or VPN are required. Once the SDC is registered, it can be used as the transport for any supported data source type.
+
+#### Enable persistent cache
+
+Identity Observability detects identity changes (new accounts, modified attributes, deleted entries) from the Data Sync Config changelog. The changelog is only generated when a **persistent cache** is enabled on the identity view, so persistent cache is mandatory for every view that Identity Observability reads.
+
+Two cache refresh modes are available:
+
+- **Real-time refresh:** Uses a capture connector on the backend to propagate changes as soon as they occur. Use this mode whenever the data source supports it.
+- **Periodic refresh:** Polls the backend at a defined interval. Use this mode for backends that don't support real-time connectors, such as CSV files and some cloud APIs.
+
+> Do not set the periodic refresh interval too low. If the interval is shorter than the time needed to process a refresh, refreshes queue up and degrade performance. Start with an interval of 15 to 30 minutes and adjust it based on observed processing times.
+
+Refer to [Persistent Cache](https://developer.radiantlogic.com/idm/v8.1/tuning/persistent-cache/) for configuration steps.
+
+#### Create data sources for Identity Observability
+
+Pipelines should read from the cached local Data Sync Config namespace rather than from the backend directly. This way, pipelines consume data that is already normalized and filtered, and the load on the backend is reduced.
+
+For each application or repository, duplicate the default **VDS** data source and update its **base DN** to point to the matching naming context in the local namespace. Name each copy `eoc-<application_name>`, for example `eoc-activedirectory` or `eoc-workday`. Reference these data sources in the `datasource` setting of your pipeline source objects.
 
 ## 3. Configure Data Pipeline
 
@@ -75,6 +102,12 @@ Instead, use one of the following:
 - **UUID** or **EntryUUID** (for LDAP)
 
 - A **custom composite key** (as a last resort)
+
+#### Attribute naming
+
+Use lowercase letters and underscores only (for example, `repository_name`) for the meta-attributes and computed attributes you define. Uppercase characters in attribute names can prevent attributes from resolving or edge link conditions from matching.
+
+When an attribute is used in an edge link condition, normalize its value with the `normalizeValue` function so that both sides of the condition use the same casing. Refer to [Included functions](./functions.md) for examples.
 
 > Some attributes are mandatory and must be included in your data mapping. These attributes are listed in the tables below. 
 
@@ -148,17 +181,62 @@ Example: if the accounts and groups of a resource are mapped in an AD repository
 
 To leverage **MFA attributes** in accounts, the attribute mfa_enabled must be set on the repository containing the accounts.
 
+#### Attributes required by the portal
+
+The following attributes must be mapped for the Identity Observability Portal to work correctly (data visualization, Query Builder, and detail pages).
+
+| **Entity** | **Attributes** |
+|------------|----------------|
+| Identity | `displayname`, `active`, `internal` |
+| Account | `displayname`, `name`, `disabled` |
+| Group | `displayname` |
+| Permission | `displayname`, `type` |
+| Resource | `displayname`, `type` |
+| Repository | `name`, `displayname`, `is_mfa_capable`, `is_passwordless_capable`, `is_sspr_capable` |
+| Department | `name`, `displayname` |
+
+The repository capability flags `is_mfa_capable`, `is_passwordless_capable`, and `is_sspr_capable` default to No.
+
 ## 4. Deploy Configuration
 
 Configuration templates define **reusable components** for the orchestrator.
 
-Refer to the [graph pipeline template configuration](./configuration/template-configuration/) and the [pipeline configuration example](./pipeline-configuration/#configuration-example) for details on how to build and apply them effectively.
+Refer to the [graph pipeline template configuration](./template-configuration.md) and the [pipeline configuration example](./pipeline-configuration.md#configuration-example) for details on how to build and apply them effectively.
+
+The pipeline starts when you click **APPLY** in the Pipeline Configuration editor. If you apply a configuration to a pipeline that has already run, follow the steps in [Re-apply a configuration](./pipeline-configuration.md#re-apply-a-configuration).
 
 ## 5. Monitor Configuration
 
-After mapping your data to Identity Observability, login to your Identity Observability portal and enable controls and observations. Ensure that you upload data updates on a regular basis by using the Real Time Audit and Compliance page under Settings. From there, the "Load Data" option can be used to manually initiate data loading. You can define the schedule and frequency for data loading. You can also define settings for purging of the old data to optimize performance. 
+After you apply the pipeline, open **Connector Configuration** to check the state of each connector:
 
-Next, use the Query Builder or the Explore page to confirm that objects have been uploaded successfully. If the results appear empty, it indicates that the data upload has not been completed.
+| **State** | **Meaning** |
+|-----------|-------------|
+| `CONNECTOR_DEPLOYING` | The connector is starting. This is expected right after you apply the configuration. |
+| `UPLOADING` | The connector is loading data. Large data loads may take additional time. |
+| `RUNNING` | The connector is active and processing events. |
+| `ERROR` | The connector has encountered a problem and is not processing events. |
+
+If some connectors show an error state right after you apply the configuration, wait a moment and refresh the page.
+
+Also check the **number of rejected events** for each connector. Rejected events are entries that could not be loaded into Identity Observability. Common causes are computed attribute failures, incorrect date formats, and missing mandatory attributes.
+
+To follow processing progress, navigate to **Observation > Functional** in the Identity Observability portal. The graph shows processed events over time. When the curve flattens, all ingested data has been processed.
+
+Next, enable controls and observations, and use the Query Builder or the Explore page to confirm that objects have been uploaded successfully. If the results appear empty, it indicates that the data upload has not been completed.
+
+#### Load data into Audit & Compliance
+
+Ensure that you upload data updates on a regular basis by navigating to **Admin > Settings > Real Time to Audit & Compliance**. From there, click **Load Data** to manually initiate data loading.
+
+You can also define a schedule for data loading using a cron expression. For example, the following expression loads data every weekday at 4:00 AM:
+
+```
+0 4 * * 1-5
+```
+
+To optimize performance, define a purge schedule with a cron expression and a data retention value. Snapshots older than the retention period are deleted automatically.
+
+> In Audit & Compliance, an account login must be unique within a repository. The account `name` attribute is mapped to the login. If several accounts in the same repository share the same `name` in Identity Observability, the data load fails. Resolve the duplicates before loading data again.
 
 ## Things to know
 

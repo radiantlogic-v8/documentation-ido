@@ -10,5 +10,8 @@ description: Learn how to set up pipeline configuration
      - [Entra ID](datasource-examples/entra-id.md)
      - [AI Agents](datasource-examples/ai-agent-data-sources.md)
   - [Pipeline configuration](pipeline-configuration.md)
+  - [Pipeline configuration examples](configuration-examples.md)
   - [Template configuration](template-configuration.md)
   - [Included functions](functions.md)
+  - [JSON fan-out](json-fan-out.md)
+  - [Data-Dock](data-dock.md)
