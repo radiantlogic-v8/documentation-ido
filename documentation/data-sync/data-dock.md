@@ -3,9 +3,11 @@ title: Data-Dock
 description: Learn how to read source objects from snapshots with Data-Dock
 ---
 
-# Data-Dock Configuration
+# Flat File Source Configuration
 
 ## Overview
+-- This is for CSV and LDIF files.--- (to -edit)  (Produce it themselves).. (Add the steps for EOC.. ) --
+
 
 Add a `data-dock` block to a source object of your pipeline configuration to read it from a snapshot instead of the real-time Data Sync Config path. A snapshot can be a CSV or LDIF file in the object store, or an LDAP or Data Sync Config directory polled on a schedule. The rest of the configuration (vertices, edges, computed attributes, and reconciliation) is written as usual.
 
