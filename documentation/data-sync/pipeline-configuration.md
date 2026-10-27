@@ -1,17 +1,19 @@
 ---
 title: Pipeline Configuration
-description: Learn how to configure graph pipelines
+description: Learn how to configure data pipelines
 ---
 
-# Graph Pipelines Configuration
+# Datasource Pipelines Configuration
 
 ## Overview
 
-The graph pipelines configuration is a declarative YAML document that defines the whole data ingestion process, from the sources to the graph: which entries are read, how they are transformed, which vertices and edges they become, and how accounts are reconciled with their owners.
+-- Remove the word graph -- 
+
+Pipeline configuration is how the identity data gets ingested into the Observability data model. The pipelines configuration is a declarative YAML document that defines the whole data ingestion process, from the sources to the pipeline: which entries are read, how they are transformed, which vertices and edges they become, and how accounts are reconciled with their owners.
 
 ![Pipeline configuration process](./Media/pipeline-configuration-process.png)
 
-Entries are published by Data Sync Config connectors or, for source objects that use a `data-dock` block, read by Data-Dock. The orchestrator validates the configuration when it is assessed or applied, and the graph pipeline engine builds its execution plan from it.
+Entries are published by Data Sync Config connectors or, for source objects that use a `data-dock` block, read by Data-Dock. The orchestrator validates the configuration when it is assessed or applied, and the pipeline engine builds its execution plan from it.
 
 Do not build your configuration all in one YAML file. Instead, build it using templates, preferably one template per datasource. See the [graph pipeline configuration templates](./template-configuration.md) for more details, and [Pipeline configuration examples](./configuration-examples.md) for a complete configuration.
 
@@ -25,9 +27,9 @@ The configuration is expressed in YAML and consists of the following keys:
 |---------|-----------------|
 | `version` | The configuration version, `v1`. Required when the configuration uses templates. |
 | `templates` | The templates the configuration is built from. See [template configuration](./template-configuration.md). |
-| `source-objects` | The data sources and the attributes the graph needs. See [Source objects](#source-objects). |
+| `source-objects` | The data sources and the attributes the pipeline needs. See [Source objects](#source-objects). |
 | `derived-source-objects` | (Optional) Entities decomposed from nested JSON attributes. See [JSON fan-out](./json-fan-out.md). |
-| `vertices` | The nodes of the graph and how source objects map to them. See [Vertices](#vertices). |
+| `vertices` | The nodes and how source objects map to them. See [Vertices](#vertices). |
 | `edges` | The relationships between vertices. See [Edges](#edges). |
 | `functions` | The signatures of the functions that computed attributes call. See [Functions](#functions). |
 
@@ -35,7 +37,7 @@ Keys are written in lowercase kebab-case. The orchestrator rejects a configurati
 
 ### Source objects
 
-A source object is one object class or table of one datasource, with the attributes the graph needs. Its entries are published by Data Sync Config, unless the source object has a `data-dock` block, in which case Data-Dock reads them instead (see [Data-Dock](./data-dock.md)).
+A source object is one object class or table of one datasource, with the attributes the pipeline needs. Its entries are published by Data Sync Config, unless the source object has a `data-dock` block, in which case Data-Dock reads them instead (see [Data-Dock](./data-dock.md)).
 
 Each source object includes the following keys:
 
@@ -47,7 +49,7 @@ Each source object includes the following keys:
 | `backend-attributes` | The attributes read from the source. `type` (default `STRING`) is the type the value is cast to when a computed attribute function takes it. `cardinality` (default `HIGH`) is described in [Advanced behavioral settings](#advanced-behavioral-settings). |
 | `meta-attributes` | Constant attributes. `literal` is the value, `type` defaults to `STRING`, and `literal-list-separator` splits the literal into several values. A meta attribute always has `LOW` cardinality. |
 | `computed-attributes` | Attributes derived from the others, using a precanned function or a macro expression. See [Included functions](./functions.md). |
-| `filter`, `limits` | (Optional) Which entries Data Sync Config publishes to the graph. See [Source object filter and limits](#source-object-filter-and-limits). |
+| `filter`, `limits` | (Optional) Which entries Data Sync Config publishes to the pipeline. See [Source object filter and limits](#source-object-filter-and-limits). |
 | `stream-config` | (Optional) How the pipeline consumes the source object's events. See [Source object stream configuration](#source-object-stream-configuration). |
 | `data-dock` | (Optional) Reads the source object with Data-Dock instead of Data Sync Config. See [Data-Dock](./data-dock.md). |
 
@@ -153,9 +155,9 @@ The orchestrator rejects the configuration when:
 - The source object is a derived source object. It is filtered and limited through its parent.
 - Two source objects with the same `datasource` and `object-name` declare different `filter` or `limits` values.
 
-> Excluding an entry never removes what is already in the graph. An `UPDATE` that moves a published entry out of the filter, or over a limit, is not published: its vertex keeps its last published state until the entry is deleted at the source. Likewise, after you tighten the filter or lower a limit, the vertices of the newly excluded entries stay in the graph until those entries are deleted at the source.
+> Excluding an entry never removes what is already in the observability database. An `UPDATE` that moves a published entry out of the filter, or over a limit, is not published: its vertex keeps its last published state until the entry is deleted at the source. Likewise, after you tighten the filter or lower a limit, the vertices of the newly excluded entries stay in the database until those entries are deleted at the source.
 
-An entry excluded when it was created enters the graph at its first modification that passes the filter and the limits, or at the next re-upload of the source object. Entries admitted by a loosened filter or a raised limit are published by the re-upload that the change triggers.
+An entry excluded when it was created enters the observability database at its first modification that passes the filter and the limits, or at the next re-upload of the source object. Entries admitted by a loosened filter or a raised limit are published by the re-upload that the change triggers.
 
 **Sizing max-entry-bytes**
 
@@ -167,7 +169,7 @@ An entry excluded when it was created enters the graph at its first modification
 | Real-time `UPDATE` | Close to the upload event: the entry plus the changed attributes. |
 | Real-time `INSERT` from the changelog capture connector | About twice the upload event: every value appears twice. |
 
-Set the limit to about twice the size of the largest entry that must reach the graph. Otherwise, an entry between half the limit and the limit is published by an upload but excluded when it is created in real time.
+Set the limit to about twice the size of the largest entry that must be added to the observability database. Otherwise, an entry between half the limit and the limit is published by an upload but excluded when it is created in real time.
 
 > The limits apply to an entry as a whole, not to the size of one value. If an entry is rejected because a single text value (above about 2.7 KB) is mapped to an indexed property, stop mapping that attribute to an indexed property. Use the limits for entries that are large overall, such as a group with a very large member list.
 
@@ -219,7 +221,7 @@ The dependency source objects of a rule are the source objects linked to the ver
 
 ### Vertices
 
-Vertices define the nodes in the graph, named after the graph schema concept they represent, for example `rt_account` or `rt_identity`. The concepts, their tags, and the attributes of each tag are returned by the orchestrator endpoint `GET /identitygraph/schema`.
+Vertices define the nodes in the observability database, named after the schema concept they represent, for example `rt_account` or `rt_identity`. The concepts, their tags, and the attributes of each tag are returned by the orchestrator endpoint `GET /identitygraph/schema`.
 
 ```
 vertices:
@@ -270,11 +272,11 @@ The keys of an edge set its type:
 - **Key-based** (`rules`): The relationship comes from a reference between entries, for example the `member` attribute of a group pointing to its accounts. A rule links with a `link-condition` or, for JSON fan-out derived source objects, with a `direct-link` to vertices whose UIDs are known from the JSON data, optionally routed by edge filters. See [JSON fan-out](./json-fan-out.md).
 - **Reconciliation-based** (`recon-policy`): The `is_owned_by` edge between accounts and identities, maintained by the reconciliation engine. `is_owned_by` can also be key-based, linking each account to the identity that matches its key, such as an email, instead of using the reconciliation engine.
 
-An edge cannot have both `rules` and `recon-policy`. Its `name`, `source-vertex-name` and `target-vertex-name` must form an edge of the graph schema.
+An edge cannot have both `rules` and `recon-policy`. Its `name`, `source-vertex-name` and `target-vertex-name` must form an edge of the schema.
 
 #### Basic normalization edges
 
-One source object, directly or through a derived source object, must produce both vertices. The edge properties are mapped from that source object's attributes, and must be attributes of the edge in the graph schema.
+One source object, directly or through a derived source object, must produce both vertices. The edge properties are mapped from that source object's attributes, and must be attributes of the edge in the schema.
 
 ```
 source-objects:
@@ -338,7 +340,7 @@ Each rule:
 
 - Has a `link-condition` or a `direct-link`.
 - Lists its `event-types` when it has a `link-condition` (see [Advanced behavioral settings](#advanced-behavioral-settings)). A `direct-link` rule does not use them.
-- Maps its `properties` from attributes of its event sources, each an attribute of the edge in the graph schema.
+- Maps its `properties` from attributes of its event sources, each an attribute of the edge in the schema.
 - Has a `name` that is unique across the configuration.
 
 A key-based edge declares its properties on its rules only. Properties on the edge itself are only allowed on basic normalization edges.
@@ -526,13 +528,13 @@ See [Included functions](./functions.md) for the signatures and the behavior of 
 
 ### Advanced behavioral settings
 
-The behavioral settings are small indicators in the configuration that allow the pipeline engine to make the right decisions when maintaining the graph based on real-time events. They are critical to ensure the data is correctly propagated into the graph.
+The behavioral settings are small indicators in the configuration that allow the pipeline engine to make the right decisions when maintaining the based on real-time events. They are critical to ensure the data is correctly propagated into the graph.
 
 - **Attribute cardinality**: `HIGH` (default) or `LOW`, on backend and computed attributes. Declare `LOW` on an attribute that several entries share and that is used as a `vertex-uid`, such as the `department` of `hr_people`: the vertex is then shared by the entries. The pipeline counts the entries that reference a shared vertex and deletes the vertex when the last one is deleted. While several entries reference it, their updates do not change it. A meta attribute always has `LOW` cardinality.
 - **Computed attribute strategy, phase, and event types**: See [Behavioral settings](./functions.md#behavioral-settings) on the functions page.
 - **Edge rule event-types**: The event types of its event sources that a key-based or reconciliation rule processes, usually `INSERT` and `UPDATE`. A `link-condition` rule and a reconciliation rule must list at least one, or the configuration is rejected. On an `UPDATE`, removing a value of the linking attribute deletes the corresponding edge. Deleting a vertex deletes all its edges, so a rule does not need `DELETE` to remove the edges of a deleted entry. Reconciliation rules always process `DELETE` events, whatever their `event-types`.
 - **Identity deletion**: A `DELETE` of an entry of a source object linked to `rt_identity` is processed as an `UPDATE`: the identity is kept and deactivated, and the other vertices of the entry are kept.
-- **Vertex transient property**: A property flagged as `transient` is not checked against the graph schema and is not stored. It stays available on the vertex for edge resolution, typically when the key used in a predicate is computed but not meant to be stored in the graph database.
+- **Vertex transient property**: A property flagged as `transient` is not checked against the graph schema and is not stored. It stays available on the vertex for edge resolution, typically when the key used in a predicate is computed but not meant to be stored in the  database.
 - **Source object stream configuration**: Per source object tuning of event consumption. See [Source object stream configuration](#source-object-stream-configuration).
 
 ## Configuration example 
