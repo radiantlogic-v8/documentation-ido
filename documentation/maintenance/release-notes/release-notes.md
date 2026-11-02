@@ -14,7 +14,9 @@ description: RadiantOne Identity Observability Release Notes
 - [v2.2.0](../../maintenance/release-notes/ido-2.2.0)
 - [v2.3.0](../../maintenance/release-notes/ido-2.3.0)
 - [v3.0.0](../../maintenance/release-notes/ido-3.0.0)
+- [v3.1.0](../../maintenance/release-notes/ido-3.1.0)
 - [v3.1.0](../../maintenance/release-notes/ido-3.1.0) 
+
 
 
 
