@@ -1,30 +1,30 @@
 ---
 title: Included Functions
-description: Functions available to graph pipelines as computed attributes
+description: Learn how to configure computed attributes and use the functions available to graph pipelines.
 ---
 
-# Pipelines Functions
+# Pipeline Functions
 
-Computed attributes add values to a source object that are derived at ingestion time rather than read as-is from the source. They are declared per source object in the pipeline configuration and evaluated by the graph pipeline engine as each change event flows through the pipeline.
+**Computed attributes** add values to a source object by deriving them at ingestion time rather than reading them directly from the source. Define them for each source object in the pipeline configuration. The graph pipeline engine evaluates them as each change event passes through the pipeline.
 
-This page describes how computed attributes are configured, the behavioral settings that control how they are computed, and the functions available to them.
+This page explains how to configure computed attributes, control their evaluation, and use the available functions.
 
 ## Two computation engines
 
-A computed attribute is produced by one of 2 engines, selected by the function it references:
+Each computed attribute uses one of two engines, determined by the function it references:
 
-- **Precanned functions**: Specialized functions organized by namespace (`date`, `string`, `ldap`, `recon`), each declared by name in the functions template. See [Function catalog](#function-catalog).
-- **Macros engine**: The `evaluateExpression` function evaluates a JavaScript-like expression enclosed in curly braces `{}`.
+- Predefined functions: Specialized functions organized by namespace (`date`, `string`, `ldap`, and `recon`) and declared by name in the functions template. See [Function catalog](#function-catalog).
+- Macros engine: The `evaluateExpression` function evaluates a JavaScript-like expression enclosed in curly braces (`{}`).
 
 ```
 computed-attributes:
-  # precanned function
+  # Predefined function
   - name: disabled
     function: getUserAccountControlAttribute
     fields:
       - useraccountcontrol
       - uacDisabled
-  # macros engine
+  # Macros engine
   - name: active
     function: evaluateExpression
     fields:
@@ -33,78 +33,83 @@ computed-attributes:
 
 ## Configure a computed attribute
 
-Each entry under the `computed-attributes` section of a source object supports the following keys:
+Each entry in a source object's `computed-attributes` section supports the following keys:
 
-| **Key** | **Required** | **Default** | **Description** |
-|---------|--------------|-------------|-----------------|
-| `name` | Yes | | The name of the attribute produced. |
-| `function` | Yes | | The function to call: a function from the [function catalog](#function-catalog) or `evaluateExpression`. |
-| `fields` | When the function takes inputs | | The ordered inputs. See [Pass input fields](#pass-input-fields). The active fields must match the function's input types one by one. `evaluateExpression` takes exactly one active field: a quoted macro string, or the name of a meta attribute whose literal is the expression. |
-| `compute-strategy` | No | `OVERIDE` | How the computed value is reconciled with any existing value. See [Compute strategy](#compute-strategy). |
+| Key | Required | Default | Description |
+| --- | --- | --- | --- |
+| `name` | Yes | | Name of the attribute to produce. |
+| `function` | Yes | | Function to call: a function from the [function catalog](#function-catalog) or `evaluateExpression`. |
+| `fields` | When the function takes inputs | | Ordered function inputs. See [Pass input fields](#pass-input-fields). Each active field must match the function's input type at the corresponding position. `evaluateExpression` requires exactly one active field: a quoted macro string or the name of a meta attribute whose literal contains the expression. |
+| `compute-strategy` | No | `OVERIDE` | Controls how the computed value is reconciled with any existing value. See [Compute strategy](#compute-strategy). |
 | `compute-phase` | No | Both phases | Restricts computation to the `INIT` or `EVENT_DRIVEN` phase. See [Compute phase](#compute-phase). |
-| `event-types` | No | All | Restricts computation to specific event types (`INSERT`, `UPDATE`, `DELETE`). See [Event types](#event-types). |
+| `event-types` | No | All | Restricts computation to specific event types: `INSERT`, `UPDATE`, or `DELETE`. See [Event types](#event-types). |
 | `cardinality` | No | `HIGH` | Used when the computed attribute is a `vertex-uid`. See [Advanced behavioral settings](./pipeline-configuration.md#advanced-behavioral-settings). |
 
-> Computed attributes are evaluated in the order they are declared. A computed attribute can use the output of an attribute declared earlier in the list. Several entries can share the same `name`: each one computes the same attribute in turn, which is how `IF_EMPTY` fallbacks are built.
+> Computed attributes are evaluated in declaration order. An attribute can use the output of another computed attribute declared earlier in the list. Multiple entries can use the same `name`; each entry computes that attribute in turn. Use this pattern to define `IF_EMPTY` fallbacks.
 
 ### Pass input fields
 
-Each `fields` entry is one of the following:
+Each entry in `fields` can be one of the following:
 
-- **An attribute name**: A backend attribute, a meta attribute, or a computed attribute of the same source object.
-- **An inline literal**: A quoted string (`'"(00)"'`), an integer (`1`), a boolean (`true`, `false`), a match operator name (`NOT_EQUALS`), an Active Directory `userAccountControl` flag name (`ACCOUNTDISABLE`), or the name of a non-human account reconciliation rule.
-- **An object** with `attribute-name` and the following optional keys:
-  - `active` (default `true`): Set to `false` to use the attribute only as a dependency that triggers the computation. See [Dependency management](#dependency-management).
-  - `auxiliary-attribute-names`: Additional attributes whose values are appended to the values of `attribute-name`, so the field is passed as one list argument. All of them must have the same type as `attribute-name`, and the field then takes the list form of that type (`STRING` becomes `STRING_ARRAY`). This is how a list parameter, such as the one of `concat`, receives several attributes. To pass a single attribute to such a parameter, use an empty list: `auxiliary-attribute-names: []`.
+- An attribute name: A backend attribute, meta attribute, or computed attribute from the same source object.
+- An inline literal: A quoted string (`'"(00)"'`), integer (`1`), boolean (`true` or `false`), match operator name (`NOT_EQUALS`), Active Directory `userAccountControl` flag name (`ACCOUNTDISABLE`), or non-human account reconciliation rule name.
+- An object: An object containing `attribute-name` and either of the following optional keys:
+  - `active` (default: `true`): Set to `false` to use the attribute only as a dependency that triggers computation. See [Dependency management](#dependency-management).
+  - `auxiliary-attribute-names`: Additional attributes whose values are appended to the values of `attribute-name`, allowing the field to be passed as a single list argument. All listed attributes must have the same type as `attribute-name`. The resulting field uses the list form of that type; for example, `STRING` becomes `STRING_ARRAY`. Use this setting to pass several attributes to a list parameter, such as the input to `concat`. To pass a single attribute as a list argument, specify `auxiliary-attribute-names: []`.
 
 ```
 fields:
-  - name_separator # meta attribute
-  - attribute-name: FirstName # FirstName and LastName values …
-    auxiliary-attribute-names: [LastName] # … form one list argument
+  - name_separator # Meta attribute
+  - attribute-name: FirstName
+    auxiliary-attribute-names: [LastName] # FirstName and LastName form one list argument
 ```
 
-When a backend attribute is passed to a function that expects a type other than `STRING`, declare its `type` (for example, `LONG` or `INTEGER`) in the source object so that the engine can cast it.
+When passing a backend attribute to a function that expects a type other than `STRING`, declare the attribute's `type`, such as `LONG` or `INTEGER`, in the source object. The engine uses this type to cast the input value.
 
-The configuration is checked when it is applied. An unknown function, a field that names an unknown attribute, a wrong number of active fields, or an active field whose type does not match the function's input type at that position is rejected.
+The configuration is validated when it is applied. Validation rejects:
+
+- Unknown functions.
+- Fields that reference unknown attributes.
+- An incorrect number of active fields.
+- Active fields whose types do not match the function's input types at the corresponding positions.
 
 ### How computed attributes are evaluated
 
-For every change event, the engine first writes the meta attributes onto the event. Then, for each computed attribute in declaration order, it:
+For each change event, the engine first adds the meta attributes to the event. It then processes computed attributes in declaration order:
 
-1. Skips the attribute if the event's phase or type does not match.
-2. Skips the attribute if the compute strategy says so.
+1. Skips the attribute if the event's phase or type does not match the configured settings.
+2. Skips the attribute if required by the compute strategy.
 3. Calls the function with the attribute's active fields.
-4. Writes the result back according to the compute strategy.
+4. Writes the result according to the compute strategy.
 
-An `UPDATE` event carries both the changes made to the entry and the full entry. The engine computes against both, so the changes it forwards also include the computed attribute's new values. A missing input value for a parameter that is not a string makes the function return an empty result.
+An `UPDATE` event contains both the changes to the entry and the full entry. The engine evaluates computed attributes against both, so the forwarded changes also include the computed attributes' new values. If an input value is missing for a non-string parameter, the function returns an empty result.
 
-> If a function throws an error (for example, bad input, an unparseable date, or an invalid argument), the whole change event is rejected and the pipeline moves on to the next event. Attach a function only to inputs that are reliably populated and well formed. A macro that calls an unknown function, method, or property, passes the wrong number of arguments, or uses a constructor is rejected earlier, when the configuration is applied or when a template is saved.
+> If a function throws an error, such as an invalid argument, malformed input, or an unparseable date, the entire change event is rejected. The pipeline then continues with the next event. Use functions only with inputs that are reliably populated and well formed. A macro that references an unknown function, method, or property, passes an incorrect number of arguments, or uses a constructor is rejected earlier, when the configuration is applied or a template is saved.
 
 ## Behavioral settings
 
-The behavioral settings are small indicators in the configuration that control how the engine computes each computed attribute.
+Behavioral settings control when each computed attribute is evaluated and how its result is written.
 
 ### Dependency management
 
-Each `fields` entry declares an input that the computed attribute depends on. The `active` flag decides how that dependency is used:
+Each `fields` entry defines an attribute on which the computation depends. The `active` flag controls how the dependency is used:
 
-- `active: true` (default): The field is a real input, passed as an argument to the function.
-- `active: false`: The field is only a dependency. When an incoming change modifies that attribute, it triggers the computation, but its value is not passed to the function.
+- `active: true` (default): Passes the field's value to the function as an input argument.
+- `active: false`: Uses the field only as a dependency. A change to the attribute triggers computation, but its value is not passed to the function.
 
-The auxiliary attributes of a field are dependencies too, with the field's `active` flag. For `evaluateExpression`, the dependencies are the variables the macro reads, not its `fields`.
+A field's auxiliary attributes are also dependencies and use the same `active` setting as the field. For `evaluateExpression`, dependencies are determined by the variables the macro reads, not by its `fields` entries.
 
-Use `active: false` to record when something happened: the function takes no real input, and another attribute is used only to trigger it.
+Use `active: false` to record when a change occurs. In this pattern, the function takes no active inputs, and another attribute serves only as the trigger.
 
 ```
 computed-attributes:
   - name: last_insertion_date
-    function: getDateTimeNow # takes no real input
+    function: getDateTimeNow # Takes no active inputs
     compute-phase: EVENT_DRIVEN
     event-types: [INSERT]
     fields:
-      - attribute-name: member # a group membership change …
-        active: false # … only triggers the timestamp
+      - attribute-name: member # A membership change triggers computation
+        active: false # The member value is not passed to the function
   - name: last_deletion_date
     function: getDateTimeNow
     compute-phase: EVENT_DRIVEN
@@ -114,22 +119,24 @@ computed-attributes:
         active: false
 ```
 
-Here, `event-types` is matched against the type of change made to the trigger field: a value added to `member` is an `INSERT`, and a value removed is a `DELETE`.
+In this example, `event-types` matches the type of change to the trigger field. Adding a value to `member` is an `INSERT`; removing a value is a `DELETE`.
 
-**Dependency ordering**
+#### Dependency ordering
 
-When a computed attribute depends on another computed attribute, the engine evaluates the list from top to bottom, so a later entry uses the values produced by earlier entries. A dependency on a computed attribute is only resolved if that attribute is declared earlier in the list. A field that names a computed attribute declared later reads that attribute's value as the event carries it.
+The engine evaluates computed attributes from top to bottom. A computed attribute can therefore use values produced by earlier entries.
+
+A dependency on another computed attribute is resolved only if that attribute is declared earlier in the list. If a field references a computed attribute declared later, it reads the value already carried by the event.
 
 ```
 meta-attributes:
   - name: permission_separator
     literal: "-"
 computed-attributes:
-  - name: permissionId # produced first …
+  - name: permissionId # Computed first
     function: normalizeValue
     fields:
       - permissionName
-  - name: permissionId # … used here
+  - name: permissionId # Uses the previously computed value
     function: concatWithSeparator
     compute-strategy: IF_NOT_EMPTY
     fields:
@@ -140,57 +147,70 @@ computed-attributes:
 
 ### Compute strategy
 
-`compute-strategy` controls whether the attribute is computed, and how the result is reconciled with any existing value.
+`compute-strategy` determines whether an attribute is computed and how the result is reconciled with any existing value.
 
-| **Strategy** | **Computes when** | **Write behavior** | **Empty result** |
-|--------------|-------------------|--------------------|------------------|
+| Strategy | Computes when | Write behavior | Empty result |
+| --- | --- | --- | --- |
 | `OVERIDE` (default) | Always | Replaces the existing value with the function result. | Clears the attribute. |
-| `MERGE` | Always | Combines the computed values with the existing values, without duplicates. | Nothing is merged; the existing values stay. |
-| `IF_EMPTY` | The attribute is absent or empty | Writes only when the attribute is absent or empty. | Nothing is written; the attribute stays absent. |
-| `IF_NOT_EMPTY` | The attribute already has a value | Recomputes and overwrites only when a value already exists. | Clears the attribute. |
+| `MERGE` | Always | Combines computed and existing values without duplicates. | Leaves existing values unchanged. |
+| `IF_EMPTY` | The attribute is absent or empty | Writes the result only when the attribute is absent or empty. | Writes nothing; the attribute remains absent. |
+| `IF_NOT_EMPTY` | The attribute already has a value | Recomputes and replaces the value only when one already exists. | Clears the attribute. |
 
-An empty result is a function result that is null, an empty string, or a list holding only empty strings. Empty strings are never written as values, but a string that contains only whitespace is. Because a cleared attribute is absent, a later `IF_EMPTY` definition of the same attribute can fill it.
+A result is considered empty if it is null, an empty string, or a list containing only empty strings. Empty strings are never written as attribute values. Strings containing only whitespace are written.
+
+A cleared attribute is absent, so a later entry with the same name and `compute-strategy: IF_EMPTY` can populate it.
 
 ### Compute phase
 
-A graph pipeline runs in 2 stages: an init stage (bulk load of the current state) and an event-driven stage (real-time change events from the connectors). `compute-phase` restricts when a computed attribute is computed:
+A graph pipeline runs in two phases:
 
-| **compute-phase** | **Runs during** |
-|-------------------|-----------------|
-| (omitted) | Both phases |
-| `INIT` | Only the initial bulk load |
-| `EVENT_DRIVEN` | Only real-time events, after the initial load completes |
+- Initial phase: Bulk-loads the current state.
+- Event-driven phase: Processes real-time change events from connectors.
 
-`compute-phase` is often combined with `event-types`. For example, a `last_deletion_date` declared with `compute-phase: EVENT_DRIVEN` and `event-types: [DELETE]` stays empty during the bulk load and is only populated by real-time delete events.
+Use `compute-phase` to restrict computation to one phase.
+
+| `compute-phase` | Runs during |
+| --- | --- |
+| Omitted | Both phases |
+| `INIT` | Initial bulk load only |
+| `EVENT_DRIVEN` | Real-time event processing after the initial load completes |
+
+Combine `compute-phase` with `event-types` to further restrict computation. For example, a `last_deletion_date` attribute configured with `compute-phase: EVENT_DRIVEN` and `event-types: [DELETE]` remains empty during the bulk load and is populated only by real-time delete events.
 
 ### Event types
 
-`event-types` is matched against the event type determined by the pipeline, which can differ from the type the connector sent:
+`event-types` matches the event type determined by the pipeline, which may differ from the type sent by the connector:
 
-- A `MOVE` (rename) is an `UPDATE`.
-- An `UPDATE` of an entry that the pipeline has never seen is an `INSERT`.
-- A `DELETE` on a source object linked to the identity vertex is an `UPDATE`: the identity is deactivated rather than deleted, so `event-types: [DELETE]` never applies to such a source object.
+- A `MOVE` (rename) is treated as an `UPDATE`.
+- An `UPDATE` for an entry the pipeline has not previously seen is treated as an `INSERT`.
+- A `DELETE` for a source object linked to the identity vertex is treated as an `UPDATE`. The identity is deactivated rather than deleted, so `event-types: [DELETE]` never applies to that source object.
 
-When a change modifies a trigger field (`active: false`) or the computed attribute itself, `event-types` is matched against the type of change instead: an added value is an `INSERT`, a replaced value an `UPDATE`, and a removed value a `DELETE`. A change on an active field is matched as the event's own type, `UPDATE`. For `evaluateExpression`, every variable the macro reads is matched like a trigger field.
+When a change affects a trigger field (`active: false`) or the computed attribute itself, `event-types` instead matches the type of value change:
+
+- Added value: `INSERT`.
+- Replaced value: `UPDATE`.
+- Removed value: `DELETE`.
+
+A change to an active field matches the event's own type, `UPDATE`. For `evaluateExpression`, each variable read by the macro is matched in the same way as a trigger field.
 
 ## Function catalog
 
-The following tables summarize each function's behavior with an example. For the input and output types used to validate the configuration, see [Functions signatures](#functions-signatures), or fetch the current list from the orchestrator endpoint `GET /identitygraph/templates/functions_v1`.
+The following tables describe each function and provide an example. For the input and output types used during configuration validation, see [Function signatures](#function-signatures). You can also retrieve the current list from the orchestrator endpoint `GET /identitygraph/templates/functions_v1`.
 
-Functions operate on one record at a time. Most return null for a null or empty input rather than throwing an error. The exceptions are noted below. A function that throws an error causes the whole change event to be rejected.
+Functions process one record at a time. Most return null for null or empty input rather than throwing an error. Exceptions are noted below. If a function throws an error, the entire change event is rejected.
 
 ### Date functions
 
-Date functions return dates in the Identity Observability graph format: `yyyyMMddHHmmss` in UTC (14 digits, no fraction, no time zone).
+Date functions return values in the Identity Observability graph format: `yyyyMMddHHmmss` in UTC, with 14 digits, no fractional seconds, and no time zone.
 
-| **Function** | **Example (input → output)** | **Behavior** |
-|--------------|------------------------------|--------------|
-| `getDateTimeNow` | (no input) → `20260623203000` | Current UTC time. Takes no `fields`. |
-| `convertTimestamp` | `1659302400000` → `20220731212000` | Converts epoch milliseconds (a `LONG` input). Declare the backend attribute with `type: LONG`. |
-| `convertDate` | `"29/Mar/2023:15:30:00 +0200"`, `"dd/MMM/yyyy:HH:mm:ss Z"` → `20230329133000` | Parses the value with the pattern and converts it to UTC. A zone token (`X`, `x`, `Z`, `z`, `O`, `V`) applies the zone. A date-only pattern without a zone token returns `000000` for the time; a date-only pattern with a zone token throws an error. Returns null if the value or the pattern is null. An empty value, a value that doesn't match the pattern, or an invalid pattern throws an error. |
-| `convertLDAPGeneralizedDateTime` | `"20230329153000.500Z"` → `20230329153000` | Parses an LDAP generalized time, removes fractional seconds, and assumes UTC if no zone is given. Null returns null. An empty value or an unsupported layout throws an error. |
+| Function | Example (input → output) | Behavior |
+| --- | --- | --- |
+| `getDateTimeNow` | (no input) → `20260623203000` | Returns the current UTC time. Takes no `fields`. |
+| `convertTimestamp` | `1659302400000` → `20220731212000` | Converts epoch milliseconds from a `LONG` input. Declare the backend attribute with `type: LONG`. |
+| `convertDate` | `"29/Mar/2023:15:30:00 +0200"`, `"dd/MMM/yyyy:HH:mm:ss Z"` → `20230329133000` | Parses a value using the specified pattern and converts it to UTC. A zone token (`X`, `x`, `Z`, `z`, `O`, or `V`) applies the time zone. A date-only pattern without a zone token returns `000000` for the time. A date-only pattern with a zone token throws an error. Returns null if the value or pattern is null. Throws an error for an empty value, a value that does not match the pattern, or an invalid pattern. |
+| `convertLDAPGeneralizedDateTime` | `"20230329153000.500Z"` → `20230329153000` | Parses an LDAP generalized time and removes fractional seconds. Assumes UTC when no time zone is specified. Returns null for null input. Throws an error for an empty value or unsupported layout. |
 
-> **convertDate patterns:** Use a real offset token, not a quoted literal. For example, use `yyyy-MM-dd'T'HH:mm:ss[.SSSSSSSSS]X`, not `…'Z'`: a quoted `'Z'` reads every value as UTC and ignores its real offset. The number of `S` fraction digits is fixed, so variable-width fractions don't parse with a literal pattern. Only use `convertDate` on date attributes that are reliably populated: an empty value throws an error and the event is rejected.
+> For `convertDate` patterns, use an offset token rather than a quoted literal. For example, use `yyyy-MM-dd'T'HH:mm:ss[.SSSSSSSSS]X`, not `…'Z'`. A quoted `'Z'` treats every value as UTC and ignores its actual offset. The number of fractional-second digits represented by `S` is fixed, so variable-width fractions do not parse with a literal pattern. Use `convertDate` only with reliably populated date attributes: an empty value throws an error and causes the event to be rejected.
 
 ```
 backend-attributes:
@@ -221,29 +241,44 @@ computed-attributes:
 
 ### String functions
 
-| **Function** | **Example (input → output)** | **Behavior** |
-|--------------|------------------------------|--------------|
-| `isBlank` | `"   "` → `true` | `true` if the value is null, empty, or only whitespace. |
-| `normalizeValue` | `" Hello "` → `hello` | Trims and lowercases the value. Null returns null; `""` returns `""`. |
-| `normalizeValues` | `[" Hello ", "WORLD"]` → `[hello, world]` | Trims and lowercases each element. Null returns null; fails if any element is null. |
-| `filterValue` | `"test"`, `"test"`, `EQUALS` → `test` | Returns the value if it matches the operator, otherwise null. A null or empty value returns null. An unknown operator (names are case-sensitive), an invalid regular expression, or a null match string with a regular expression operator throws an error. |
-| `filterValues` | `["apple","banana","cherry-a"]`, `"banana"`, `EQUALS`, `false` → `[banana]` | Returns the matching subset, with optional removal of duplicates (last argument). A null or empty list, or an empty result, returns null. |
-| `filterDuplicates` | `["a","b","a"]` → `[a, b]` | Removes duplicates (case-sensitive). Null or empty returns null. |
-| `concatWithSeparator` | `"."`, `["john","doe"]` → `john.doe` | Joins the values with the separator. A null separator behaves as `""`. |
-| `concat` | `["john","doe"]` → `johndoe` | Concatenates the values with no separator, and skips a missing value. Use `concatWithSeparator` when 2 different combinations could produce the same text. |
-| `mergeRemovingDuplicates` | `["Apple","Banana"]`, `["Banana","Cherry","Apple"]` → `Apple`, `Banana`, `Cherry` | Merges 2 lists and removes duplicates (case-sensitive). The order is not guaranteed. |
-| `extractValueFromRegex` | `"BW-Main-SharePointHR-Picture"`, `"^BW-Main[^-]*-([^,]*?)-(.*)$"`, `1` → `SharePointHR` | Returns the trimmed value of the capture group at the given index, or null if there is no match. A group index beyond the regular expression's groups, or an invalid regular expression, throws an error. |
-| `extractValueWithEscapeChar` | `"part1\;escaped;part2;part3"`, `";"`, `1`, `\` → `part2` | Returns the part at the index, using a literal separator and an escape character. Out of range returns null. |
-| `extractValue` | `"part1;part2;part3"`, `";"`, `1` → `part2` | Same as above, but the separator is a regular expression: escape metacharacters such as `.`. Trailing empty parts are dropped. |
-| `extractValuesWithEscapeChar` | `"part1\;escaped;part2;part3"`, `";"`, `[0,2]`, `\` → `[part1;escaped, part3]` | Returns the parts at the indices. Stops at the first index out of range; an empty result returns null. |
-| `extractValues` | `"part1;part2;part3"`, `";"`, `[0,2]` → `[part1, part3]` | Same as above, with a regular expression separator. |
-| `jsonExtract` | `{"source": {"name":"Active Directory"}}`, `"source.name"` → `Active Directory` | Returns the value at the dot path. Values that are not text are converted to strings. Invalid JSON, a missing path, or a JSON null returns null. |
-| `ordinals` | `["b","a"]`, `["a","b","c"]` → `[1, 0]` | Returns the index of each value within the reference list. Not found returns `-1`. |
-| `mapValue` | `"key1"`, `["key1","val1","key2","val2"]` → `val1` | Returns the value paired with the first key equal to the input in a flat key/value list. Only keys are matched, case-sensitively. No match returns null. When every value of the list comes from meta attributes, the configuration is rejected if the list is empty or has an odd number of values. |
+| Function | Example (input → output) | Behavior |
+| --- | --- | --- |
+| `isBlank` | `"   "` → `true` | Returns `true` if the value is null, empty, or contains only whitespace. |
+| `normalizeValue` | `" Hello "` → `hello` | Trims the value and converts it to lowercase. Returns null for null input and `""` for `""`. |
+| `normalizeValues` | `[" Hello ", "WORLD"]` → `[hello, world]` | Trims each element and converts it to lowercase. Returns null for null input. Fails if any element is null. |
+| `filterValue` | `"test"`, `"test"`, `EQUALS` → `test` | Returns the value if it matches the operator; otherwise returns null. Returns null for a null or empty value. Throws an error for an unknown operator, an invalid regular expression, or a null match string used with a regular expression operator. Operator names are case-sensitive. |
+| `filterValues` | `["apple","banana","cherry-a"]`, `"banana"`, `EQUALS`, `false` → `[banana]` | Returns the matching values. The last argument controls whether duplicates are removed. Returns null for a null or empty list, or when no values match. |
+| `filterDuplicates` | `["a","b","a"]` → `[a, b]` | Removes duplicates using case-sensitive comparison. Returns null for null or empty input. |
+| `concatWithSeparator` | `"."`, `["john","doe"]` → `john.doe` | Joins values using the specified separator. Treats a null separator as `""`. |
+| `concat` | `["john","doe"]` → `johndoe` | Joins values without a separator and skips missing values. Use `concatWithSeparator` when different input combinations could produce the same text. |
+| `mergeRemovingDuplicates` | `["Apple","Banana"]`, `["Banana","Cherry","Apple"]` → `Apple`, `Banana`, `Cherry` | Merges two lists and removes duplicates using case-sensitive comparison. Output order is not guaranteed. |
+| `extractValueFromRegex` | `"BW-Main-SharePointHR-Picture"`, `"^BW-Main[^-]*-([^,]*?)-(.*)$"`, `1` → `SharePointHR` | Returns the trimmed value of the capture group at the specified index, or null if there is no match. Throws an error if the group index exceeds the available groups or the regular expression is invalid. |
+| `extractValueWithEscapeChar` | `"part1\;escaped;part2;part3"`, `";"`, `1`, `\` → `part2` | Returns the part at the specified index, using a literal separator and an escape character. Returns null if the index is out of range. |
+| `extractValue` | `"part1;part2;part3"`, `";"`, `1` → `part2` | Works like `extractValueWithEscapeChar`, but uses a regular expression separator. Escape metacharacters such as `.`. Trailing empty parts are dropped. |
+| `extractValuesWithEscapeChar` | `"part1\;escaped;part2;part3"`, `";"`, `[0,2]`, `\` → `[part1;escaped, part3]` | Returns the parts at the specified indices. Stops at the first out-of-range index. Returns null if the result is empty. |
+| `extractValues` | `"part1;part2;part3"`, `";"`, `[0,2]` → `[part1, part3]` | Works like `extractValuesWithEscapeChar`, but uses a regular expression separator. |
+| `jsonExtract` | `{"source": {"name":"Active Directory"}}`, `"source.name"` → `Active Directory` | Returns the value at the specified dot path. Converts non-text values to strings. Returns null for invalid JSON, a missing path, or a JSON null value. |
+| `ordinals` | `["b","a"]`, `["a","b","c"]` → `[1, 0]` | Returns the index of each value in the reference list. Returns `-1` for a value that is not found. |
+| `mapValue` | `"key1"`, `["key1","val1","key2","val2"]` → `val1` | Returns the value paired with the first matching key in a flat key/value list. Matches only keys, using case-sensitive comparison. Returns null if no key matches. When all list values come from meta attributes, configuration validation rejects an empty list or a list with an odd number of values. |
 
-The match operators of `filterValue` and `filterValues` are: `EQUALS`, `NOT_EQUALS`, `CONTAINS`, `NOT_CONTAINS`, `STARTS_WITH`, `NOT_STARTS_WITH`, `ENDS_WITH`, `NOT_ENDS_WITH`, `IS_BLANK`, `IS_NOT_BLANK`, `MATCHES_REGEX` (matches when the regular expression is found anywhere in the value) and `NOT_MATCHES_REGEX`.
+`filterValue` and `filterValues` support the following match operators:
 
-Use `normalizeValue` on any attribute used as a vertex UID or in an edge link condition, so that values are compared with consistent casing. Use `concat` with `compute-strategy: IF_EMPTY` to build a fallback value only when the attribute is empty:
+- `EQUALS`
+- `NOT_EQUALS`
+- `CONTAINS`
+- `NOT_CONTAINS`
+- `STARTS_WITH`
+- `NOT_STARTS_WITH`
+- `ENDS_WITH`
+- `NOT_ENDS_WITH`
+- `IS_BLANK`
+- `IS_NOT_BLANK`
+- `MATCHES_REGEX`: Matches when the regular expression is found anywhere in the value.
+- `NOT_MATCHES_REGEX`
+
+Use `normalizeValue` for attributes used as vertex UIDs or in edge link conditions to ensure consistent casing during comparison.
+
+To build a fallback value only when an attribute is empty, use `concat` with `compute-strategy: IF_EMPTY`:
 
 ```
 meta-attributes:
@@ -254,7 +289,7 @@ computed-attributes:
     function: normalizeValue
     fields:
       - mail
-  - name: mail # if mail is empty, build it from sAMAccountName and the email domain
+  - name: mail # Build from sAMAccountName and the domain only when mail is empty
     function: concat
     compute-strategy: IF_EMPTY
     fields:
@@ -262,7 +297,7 @@ computed-attributes:
         auxiliary-attribute-names: [emailDomain]
 ```
 
-Use `extractValueFromRegex` to extract part of a value. For a group named `APP-ActiveDirectory-Read`, the following example returns `ActiveDirectory` as the resource name and `Read` as the permission name:
+Use `extractValueFromRegex` to extract part of a value. For a group named `APP-ActiveDirectory-Read`, the following example produces `ActiveDirectory` as the resource name and `Read` as the permission name:
 
 ```
 meta-attributes:
@@ -293,22 +328,24 @@ computed-attributes:
 
 ### LDAP functions
 
-| **Function** | **Example (input → output)** | **Behavior** |
-|--------------|------------------------------|--------------|
-| `getUserAccountControlAttribute` | `528`, `"LOCKOUT"` → `true` | `true` if the named Active Directory `userAccountControl` flag is set. Flag names are case-insensitive; an unknown flag name throws an error. |
-| `getMsDsUserAccountControlComputedAttribute` | `8388608`, `"UF_PASSWORD_EXPIRED"` → `true` | `true` if the named `ms-DS-User-Account-Control-Computed` flag is set. Flag names are case-insensitive; an unknown flag name throws an error. |
-| `inferPrivilegedAccountFromUac` | `65536` → `true` | `true` if any of `PASSWD_NOTREQD`, `DONT_EXPIRE_PASSWORD` or `TRUSTED_FOR_DELEGATION` is set. |
-| `getUserAccountControlAttributes` | `528`, `false`, `["LOCKOUT"]` → `true` | Combines the named flags: AND when the boolean is `true`, OR when it is `false`. With no flag names, AND returns `true` and OR returns `false`. |
-| `convertBase64ObjectGuidToUuid` | `"{base64binary}AAECAwQFBgcICQoLDA0ODw=="` → `00010203-0405-0607-0809-0a0b0c0d0e0f` | Converts an Active Directory `objectGUID` to a UUID. Accepts a `{base64binary}`-marked value, a 32-character hexadecimal string, or a Base64 value. A null or empty value, invalid Base64, or a value that is not 16 bytes throws an error. |
-| `convertBase64GuidToHex` | `"{base64binary}AAECAwQFBgcICQoLDA0ODw=="` → `000102030405060708090a0b0c0d0e0f` | Converts a GUID to lowercase hexadecimal. Accepts a `{base64binary}`-marked value or a Base64 value, not a hexadecimal string. |
-| `normalizeDn` | `"cn=John Doe,ou=Users,dc=example,dc=com"` → `cn=john doe,ou=users,dc=example,dc=com` | Returns the canonical normalized DN. Null returns null; an invalid DN throws an error. |
-| `normalizeDns` | `["cn=John Doe,ou=Users,dc=example,dc=com"]` → `[cn=john doe,ou=users,dc=example,dc=com]` | Normalizes each DN. Null returns null; a null or invalid DN in the list throws an error. |
-| `filterDescendentOf` | `"cn=John Doe,ou=Users,dc=example,dc=com"`, `"ou=Users,dc=example,dc=com"` → `cn=john doe,ou=users,dc=example,dc=com` | Returns the normalized DN if it is a descendant of (or equal to) the base DN, otherwise null. |
+| Function | Example (input → output) | Behavior |
+| --- | --- | --- |
+| `getUserAccountControlAttribute` | `528`, `"LOCKOUT"` → `true` | Returns `true` if the specified Active Directory `userAccountControl` flag is set. Flag names are case-insensitive. Throws an error for an unknown flag name. |
+| `getMsDsUserAccountControlComputedAttribute` | `8388608`, `"UF_PASSWORD_EXPIRED"` → `true` | Returns `true` if the specified `ms-DS-User-Account-Control-Computed` flag is set. Flag names are case-insensitive. Throws an error for an unknown flag name. |
+| `inferPrivilegedAccountFromUac` | `65536` → `true` | Returns `true` if any of these flags is set: `PASSWD_NOTREQD`, `DONT_EXPIRE_PASSWORD`, or `TRUSTED_FOR_DELEGATION`. |
+| `getUserAccountControlAttributes` | `528`, `false`, `["LOCKOUT"]` → `true` | Combines the specified flags using AND when the boolean argument is `true`, or OR when it is `false`. With no flag names, AND returns `true` and OR returns `false`. |
+| `convertBase64ObjectGuidToUuid` | `"{base64binary}AAECAwQFBgcICQoLDA0ODw=="` → `00010203-0405-0607-0809-0a0b0c0d0e0f` | Converts an Active Directory `objectGUID` to a UUID. Accepts a value marked with `{base64binary}`, a 32-character hexadecimal string, or a Base64 value. Throws an error for a null or empty value, invalid Base64, or a value that is not 16 bytes. |
+| `convertBase64GuidToHex` | `"{base64binary}AAECAwQFBgcICQoLDA0ODw=="` → `000102030405060708090a0b0c0d0e0f` | Converts a GUID to lowercase hexadecimal. Accepts a value marked with `{base64binary}` or a Base64 value, but not a hexadecimal string. |
+| `normalizeDn` | `"cn=John Doe,ou=Users,dc=example,dc=com"` → `cn=john doe,ou=users,dc=example,dc=com` | Returns the canonical normalized DN. Returns null for null input. Throws an error for an invalid DN. |
+| `normalizeDns` | `["cn=John Doe,ou=Users,dc=example,dc=com"]` → `[cn=john doe,ou=users,dc=example,dc=com]` | Normalizes each DN. Returns null for null input. Throws an error if the list contains a null or invalid DN. |
+| `filterDescendentOf` | `"cn=John Doe,ou=Users,dc=example,dc=com"`, `"ou=Users,dc=example,dc=com"` → `cn=john doe,ou=users,dc=example,dc=com` | Returns the normalized DN if it is a descendant of, or equal to, the base DN. Otherwise returns null. |
 | `filterDescendentsOf` | `["cn=John Doe,ou=Users,…", "cn=Admin,ou=Admins,…"]`, `"ou=Users,dc=example,dc=com"` → `[cn=john doe,ou=users,…]` | Returns the normalized descendant DNs, or null if none match. |
-| `getParent` | `"cn=John Doe,ou=Users,dc=example,dc=com"` → `ou=Users,dc=example,dc=com` | Returns the parent DN as written in the input (not normalized), or null if there is none. |
-| `getRdnValue` | `"cn=John Doe,ou=Users,dc=example,dc=com"` → `John Doe` | Returns the first attribute value of the leftmost RDN. |
+| `getParent` | `"cn=John Doe,ou=Users,dc=example,dc=com"` → `ou=Users,dc=example,dc=com` | Returns the parent DN as written in the input, without normalization. Returns null if there is no parent. |
+| `getRdnValue` | `"cn=John Doe,ou=Users,dc=example,dc=com"` → `John Doe` | Returns the first attribute value in the leftmost RDN. |
 
-Use `normalizeDns` on multi-valued DN attributes, such as the `member` attribute of a group, when they are used in an edge link condition. Use `getUserAccountControlAttribute` with flag names passed as meta attributes, such as `ACCOUNTDISABLE`, `LOCKOUT`, `PASSWORD_EXPIRED`, `PASSWD_NOTREQD`, `PASSWD_CANT_CHANGE`, `DONT_EXPIRE_PASSWORD`, and `SMARTCARD_REQUIRED`.
+Use `normalizeDns` for multi-valued DN attributes, such as a group's `member` attribute, when they are used in an edge link condition.
+
+Pass flag names to `getUserAccountControlAttribute` through meta attributes. Examples include `ACCOUNTDISABLE`, `LOCKOUT`, `PASSWORD_EXPIRED`, `PASSWD_NOTREQD`, `PASSWD_CANT_CHANGE`, `DONT_EXPIRE_PASSWORD`, and `SMARTCARD_REQUIRED`.
 
 ```
 backend-attributes:
@@ -336,26 +373,28 @@ computed-attributes:
 
 ### Reconciliation functions
 
-| **Function** | **Example (input → output)** | **Behavior** |
-|--------------|------------------------------|--------------|
-| `tagNonHumanAccountWithRuleName` | `"svc-account-rule"`, `"CN=svc01"` → `svc-account-rule` | Returns the rule name if the second value is present (not null and not empty), otherwise null. Used by the reconciliation policy to tag non-human accounts. |
+| Function | Example (input → output) | Behavior |
+| --- | --- | --- |
+| `tagNonHumanAccountWithRuleName` | `"svc-account-rule"`, `"CN=svc01"` → `svc-account-rule` | Returns the rule name if the second value is neither null nor empty. Otherwise returns null. The reconciliation policy uses this function to tag non-human accounts. |
 
 ## Examples
 
-The following examples show the behavioral settings in action.
+The following examples demonstrate how behavioral settings affect computed attributes.
 
-**IF_EMPTY keeps an existing value, or fills it from a dependency**
+### Preserve an existing value or populate a fallback
+
+Use `IF_EMPTY` to preserve an existing `DisplayName` or populate it from a computed full name when it is absent.
 
 ```
 computed-attributes:
-  # build "First, Last"
+  # Build "First, Last"
   - name: js_fullname
     function: concatWithSeparator
     fields:
-      - name_separator # meta attribute literal ", "
+      - name_separator # Meta attribute literal ", "
       - attribute-name: FirstName
         auxiliary-attribute-names: [LastName]
-  # use the computed full name only when DisplayName is absent
+  # Use the computed full name only when DisplayName is absent
   - name: DisplayName
     function: concat
     compute-strategy: IF_EMPTY
@@ -364,12 +403,14 @@ computed-attributes:
         auxiliary-attribute-names: []
 ```
 
-| **Input attributes** | **js_fullname** | **DisplayName (output)** | **Why** |
-|----------------------|-----------------|--------------------------|---------|
-| `FirstName=Alice`, `LastName=Anderson`, `DisplayName=Alice M Anderson` | `Alice, Anderson` | `Alice M Anderson` | `IF_EMPTY` is skipped because `DisplayName` already has a value. |
-| `FirstName=Bob`, `LastName=Brown` (no `DisplayName`) | `Bob, Brown` | `Bob, Brown` | `DisplayName` was empty, so it takes the computed `js_fullname`. |
+| Input attributes | `js_fullname` | `DisplayName` output | Explanation |
+| --- | --- | --- | --- |
+| `FirstName=Alice`, `LastName=Anderson`, `DisplayName=Alice M Anderson` | `Alice, Anderson` | `Alice M Anderson` | Computation is skipped because `DisplayName` already has a value. |
+| `FirstName=Bob`, `LastName=Brown` (no `DisplayName`) | `Bob, Brown` | `Bob, Brown` | `DisplayName` is empty, so it is populated with `js_fullname`. |
 
-**filterValue removes a placeholder value**
+### Remove a placeholder value
+
+Use `filterValue` with `NOT_EQUALS` to exclude a placeholder email address.
 
 ```
 computed-attributes:
@@ -377,18 +418,18 @@ computed-attributes:
     function: filterValue
     fields:
       - normalized_mail
-      - noemail_sentinel # meta attribute literal "noemail@example.com"
+      - noemail_sentinel # Meta attribute literal "noemail@example.com"
       - NOT_EQUALS
 ```
 
-| **normalized_mail** | **clean_normalized_mail (output)** |
-|---------------------|------------------------------------|
+| `normalized_mail` | `clean_normalized_mail` output |
+| --- | --- |
 | `alice@example.com` | `alice@example.com` |
 | `noemail@example.com` | null (not emitted) |
 
-**Extract, map, and default**
+### Extract, map, and apply a default
 
-A regular expression extracts a marker, a mapping turns it into a flag, and an `IF_EMPTY` default covers the case where there is no match.
+Use a regular expression to extract a marker, map the marker to a flag, and apply an `IF_EMPTY` default when no match is found.
 
 ```
 computed-attributes:
@@ -402,23 +443,25 @@ computed-attributes:
     function: mapValue
     fields:
       - internal_match_pattern
-      - internal_map # meta attribute "00,true" split on "," into ["00","true"]
+      - internal_map # Meta attribute "00,true" split on "," into ["00","true"]
   - name: internal
     function: concat
     compute-strategy: IF_EMPTY
     fields:
-      - attribute-name: internal_default # meta attribute literal "false"
+      - attribute-name: internal_default # Meta attribute literal "false"
         auxiliary-attribute-names: []
 ```
 
-| **EmployeeType** | **internal_match_pattern** | **internal (output)** |
-|------------------|----------------------------|-----------------------|
+| `EmployeeType` | `internal_match_pattern` | `internal` output |
+| --- | --- | --- |
 | `100` | `00` | `true` |
 | `1` | null | `false` |
 
-## Functions signatures
+## Function signatures
 
-The functions signatures are listed in the `functions_v1` template for the version of the configuration used (v1). They are used to validate the type of the attributes passed to each function. When a type is specified in the source object, the graph pipeline engine uses it to cast the input attribute to the expected type.
+The `functions_v1` template lists the function signatures for configuration version `v1`. These signatures are used to validate the types of attributes passed to each function.
+
+When an attribute's type is specified in the source object, the graph pipeline engine uses it to cast the input attribute to the expected type.
 
 ```
 version: v1
