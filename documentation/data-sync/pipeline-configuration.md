@@ -3,11 +3,7 @@ title: Pipeline Configuration
 description: Learn how to configure data pipelines
 ---
 
-# Datasource Pipelines Configuration
-
 ## Overview
-
--- Remove the word graph -- 
 
 Pipeline configuration is how the identity data gets ingested into the Observability data model. The pipelines configuration is a declarative YAML document that defines the whole data ingestion process, from the sources to the pipeline: which entries are read, how they are transformed, which vertices and edges they become, and how accounts are reconciled with their owners.
 
@@ -15,7 +11,7 @@ Pipeline configuration is how the identity data gets ingested into the Observabi
 
 Entries are published by Data Sync Config connectors or, for source objects that use a `data-dock` block, read by Data-Dock. The orchestrator validates the configuration when it is assessed or applied, and the pipeline engine builds its execution plan from it.
 
-Do not build your configuration all in one YAML file. Instead, build it using templates, preferably one template per datasource. See the [graph pipeline configuration templates](./template-configuration.md) for more details, and [Pipeline configuration examples](./configuration-examples.md) for a complete configuration.
+Do not build your configuration all in one YAML file. Instead, build it using templates, preferably one template per datasource. See the [pipeline configuration templates](./template-configuration.md) for more details, and [Pipeline configuration examples](./configuration-examples.md) for a complete configuration.
 
 The examples on this page build one configuration from 3 source objects (`ad_users`, `ad_groups` and `hr_people`), each example focusing on one component.
 
@@ -104,12 +100,12 @@ source-objects:
 
 #### Source object filter and limits
 
-A source object can restrict which of its entries Data Sync Config publishes to the graph, with 2 optional keys:
+A source object can restrict which of its entries Data Sync Config publishes to the database, with 2 optional keys:
 
 - `filter`: An RFC 4515 LDAP filter that an entry must match to be published. Write exclusions with `!`.
 - `limits`: Size thresholds that an entry must not exceed to be published.
 
-Typical uses are keeping test or service entries out of the graph, and keeping a few very large groups (hundreds of thousands of member values) from flooding the pipeline.
+Typical uses are keeping test or service entries out of the database, and keeping a few very large groups (hundreds of thousands of member values) from flooding the pipeline.
 
 ```
 source-objects:
@@ -136,7 +132,7 @@ source-objects:
 
 The rules apply as follows:
 
-- Data Sync Config enforces the rules when it publishes, both on the catalog upload and on real-time events, so the graph pipeline never receives an excluded entry. The catalog upload also uses `filter` as its LDAP search filter, so excluded entries are not read from the backend.
+- Data Sync Config enforces the rules when it publishes, both on the catalog upload and on real-time events, so the pipeline never receives an excluded entry. The catalog upload also uses `filter` as its LDAP search filter, so excluded entries are not read from the backend.
 - Limits are inclusive: an entry exactly at a limit is published.
 - A `DELETE` is always published, so deleting an entry at the source always removes its vertex.
 - Entities derived from the source object through JSON fan-out follow their entry: an excluded entry produces none.
