@@ -105,4 +105,4 @@ For connector-specific requirements, setup instructions, and least-privilege per
 
 ## Next step
 
-Learn how to complete your first observability review using the [AI Agent Dashboard](./ai-agent-dashboard.md). 
+Learn how to complete your first observability review using the [AI Agent Dashboard](./ai-agent-dashboards.md). 
